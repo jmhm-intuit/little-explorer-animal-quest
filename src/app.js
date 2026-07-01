@@ -1,6 +1,7 @@
 const DB_NAME = 'little-explorer-animal-quest-db';
 const DB_VERSION = 1;
-const DATA_URL = '/data/animals.json';
+const BASE_PATH = new URL('../', import.meta.url).pathname;
+const DATA_URL = BASE_PATH + 'data/animals.json';
 
 const CATEGORIES = [
   { id: 'Pets', label: 'Pets', slug: 'pets', note: 'Animals that can live with families.' },
@@ -248,7 +249,7 @@ function render(content, active = state.screen) {
     <div class="app-shell">
       <header class="app-header">
         <div class="brand">
-          <div class="brand-mark"><img src="/icons/icon-192.svg" alt="Animal Quest"></div>
+          <div class="brand-mark"><img src="${BASE_PATH}icons/icon-192.svg" alt="Animal Quest"></div>
           <div>
             <h1>Little Explorer: Animal Quest</h1>
             <p>Discover real animals. Unlock your animal journal.</p>
@@ -1354,7 +1355,7 @@ async function init() {
     db = await openDb();
     await loadState();
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
+      navigator.serviceWorker.register(BASE_PATH + 'sw.js', { scope: BASE_PATH }).catch(() => {});
     }
     renderHome();
   } catch (error) {
