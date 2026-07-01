@@ -1,7 +1,8 @@
 const DB_NAME = 'little-explorer-animal-quest-db';
 const DB_VERSION = 1;
-const BASE_PATH = new URL('../', import.meta.url).pathname;
-const DATA_URL = BASE_PATH + 'data/animals.json';
+const DATA_URL = 'data/animals.json';
+const APP_VERSION = 'v1.02';
+const EMBEDDED_ANIMALS = [{"id": "dog", "name": "Dog", "category": "Pets", "image": "assets/animals/Animals-pets/dog.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Canine", "explorerSkill": "Ground Explorer", "eats": ["Meat", "Plants"], "livesIn": ["Homes"], "funFact": "Dogs have amazing noses and can smell things people cannot.", "isBaseline": true}, {"id": "cat", "name": "Cat", "category": "Pets", "image": "assets/animals/Animals-pets/cat.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Feline", "explorerSkill": "Ground Explorer", "eats": ["Meat"], "livesIn": ["Homes"], "funFact": "Cats can jump many times higher than their own body.", "isBaseline": true}, {"id": "rabbit", "name": "Rabbit", "category": "Pets", "image": "assets/animals/Animals-pets/rabbit.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Lagomorph", "explorerSkill": "Jumping Explorer", "eats": ["Plants"], "livesIn": ["Homes", "Gardens"], "funFact": "Rabbits use their big ears to listen for tiny sounds.", "isBaseline": true}, {"id": "hamster", "name": "Hamster", "category": "Pets", "image": "assets/animals/Animals-pets/hamster.webp", "size": "Tiny", "animalClass": "Mammal", "familyGroup": "Rodent", "explorerSkill": "Tiny Crawler", "eats": ["Seeds", "Plants"], "livesIn": ["Homes"], "funFact": "Hamsters can store food in cheek pouches.", "isBaseline": true}, {"id": "guinea-pig", "name": "Guinea Pig", "category": "Pets", "image": "assets/animals/Animals-pets/guinea-pig.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Rodent", "explorerSkill": "Ground Explorer", "eats": ["Plants", "Hay"], "livesIn": ["Homes"], "funFact": "Guinea pigs make happy squeaks when they are excited.", "isBaseline": true}, {"id": "goldfish", "name": "Goldfish", "category": "Pets", "image": "assets/animals/Animals-pets/goldfish.webp", "size": "Tiny", "animalClass": "Fish", "familyGroup": "Fish", "explorerSkill": "Water Explorer", "eats": ["Fish food", "Plants"], "livesIn": ["Water"], "funFact": "Goldfish use fins to steer through the water.", "isBaseline": true}, {"id": "turtle", "name": "Turtle", "category": "Pets", "image": "assets/animals/Animals-pets/turtle.webp", "size": "Small", "animalClass": "Reptile", "familyGroup": "Turtle", "explorerSkill": "Water and Ground Explorer", "eats": ["Plants", "Insects"], "livesIn": ["Water", "Land"], "funFact": "A turtle carries its shell wherever it goes.", "isBaseline": true}, {"id": "parakeet", "name": "Parakeet", "category": "Pets", "image": "assets/animals/Animals-pets/parakeet.webp", "size": "Tiny", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Sky Explorer", "eats": ["Seeds", "Fruit"], "livesIn": ["Homes", "Trees"], "funFact": "Parakeets are small birds that can make cheerful chirps.", "isBaseline": true}, {"id": "cow", "name": "Cow", "category": "Farm", "image": "assets/animals/Animals-farm/cow.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Bovine", "explorerSkill": "Ground Explorer", "eats": ["Grass"], "livesIn": ["Farms", "Fields"], "funFact": "Cows spend lots of time chewing grass.", "isBaseline": true}, {"id": "horse", "name": "Horse", "category": "Farm", "image": "assets/animals/Animals-farm/horse.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Equine", "explorerSkill": "Ground Explorer", "eats": ["Grass", "Hay"], "livesIn": ["Farms", "Fields"], "funFact": "Horses can sleep standing up.", "isBaseline": true}, {"id": "pig", "name": "Pig", "category": "Farm", "image": "assets/animals/Animals-farm/pig.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Porcine", "explorerSkill": "Ground Explorer", "eats": ["Plants", "Grains"], "livesIn": ["Farms"], "funFact": "Pigs use their snouts to sniff and dig.", "isBaseline": true}, {"id": "sheep", "name": "Sheep", "category": "Farm", "image": "assets/animals/Animals-farm/sheep.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Ovine", "explorerSkill": "Ground Explorer", "eats": ["Grass"], "livesIn": ["Farms", "Fields"], "funFact": "Sheep grow soft wool coats.", "isBaseline": true}, {"id": "goat", "name": "Goat", "category": "Farm", "image": "assets/animals/Animals-farm/goat.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Caprine", "explorerSkill": "Climbing Explorer", "eats": ["Grass", "Leaves"], "livesIn": ["Farms", "Hills"], "funFact": "Goats are great climbers and like to explore.", "isBaseline": true}, {"id": "chicken", "name": "Chicken", "category": "Farm", "image": "assets/animals/Animals-farm/chicken.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Ground and Short Sky Explorer", "eats": ["Seeds", "Insects"], "livesIn": ["Farms"], "funFact": "Chickens scratch the ground to look for food.", "isBaseline": true}, {"id": "duck", "name": "Duck", "category": "Farm", "image": "assets/animals/Animals-farm/duck.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Water Bird", "explorerSkill": "Water and Sky Explorer", "eats": ["Plants", "Insects"], "livesIn": ["Farms", "Ponds"], "funFact": "Ducks have webbed feet that help them swim.", "isBaseline": true}, {"id": "donkey", "name": "Donkey", "category": "Farm", "image": "assets/animals/Animals-farm/donkey.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Equine", "explorerSkill": "Ground Explorer", "eats": ["Grass", "Hay"], "livesIn": ["Farms"], "funFact": "Donkeys have long ears that help them hear far away sounds.", "isBaseline": true}, {"id": "ant", "name": "Ant", "category": "Bugs", "image": "assets/animals/Animals-bugs/ant.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Tiny Crawler", "eats": ["Tiny food", "Plants"], "livesIn": ["Soil", "Sidewalks"], "funFact": "Ants work together in big teams.", "isBaseline": true}, {"id": "bee", "name": "Bee", "category": "Bugs", "image": "assets/animals/Animals-bugs/bee.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Sky Explorer", "eats": ["Nectar"], "livesIn": ["Gardens", "Flowers"], "funFact": "Bees help flowers grow by moving pollen.", "isBaseline": true}, {"id": "butterfly", "name": "Butterfly", "category": "Bugs", "image": "assets/animals/Animals-bugs/butterfly.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Sky Explorer", "eats": ["Nectar"], "livesIn": ["Gardens", "Parks"], "funFact": "Butterflies taste with their feet.", "isBaseline": true}, {"id": "ladybug", "name": "Ladybug", "category": "Bugs", "image": "assets/animals/Animals-bugs/ladybug.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Sky and Tiny Crawler", "eats": ["Tiny insects"], "livesIn": ["Gardens", "Leaves"], "funFact": "Ladybugs can help gardens by eating tiny pests.", "isBaseline": true}, {"id": "worm", "name": "Worm", "category": "Bugs", "image": "assets/animals/Animals-bugs/worm.webp", "size": "Tiny", "animalClass": "Invertebrate", "familyGroup": "Worm", "explorerSkill": "Soil Digger", "eats": ["Leaves", "Soil matter"], "livesIn": ["Soil"], "funFact": "Worms help make soil healthy for plants.", "isBaseline": true}, {"id": "spider", "name": "Spider", "category": "Bugs", "image": "assets/animals/Animals-bugs/spider.webp", "size": "Tiny", "animalClass": "Arachnid", "familyGroup": "Arachnid", "explorerSkill": "Tiny Crawler", "eats": ["Insects"], "livesIn": ["Gardens", "Corners"], "funFact": "Spiders have eight legs.", "isBaseline": true}, {"id": "snail", "name": "Snail", "category": "Bugs", "image": "assets/animals/Animals-bugs/snail.webp", "size": "Tiny", "animalClass": "Invertebrate", "familyGroup": "Mollusk", "explorerSkill": "Slow Explorer", "eats": ["Plants"], "livesIn": ["Gardens", "Damp places"], "funFact": "Snails carry their homes on their backs.", "isBaseline": true}, {"id": "cricket", "name": "Cricket", "category": "Bugs", "image": "assets/animals/Animals-bugs/cricket.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Jumping Explorer", "eats": ["Plants", "Tiny insects"], "livesIn": ["Grass", "Gardens"], "funFact": "Crickets can make chirping sounds with their wings.", "isBaseline": true}, {"id": "pill-bug", "name": "Pill Bug", "category": "Bugs", "image": "assets/animals/Animals-bugs/pill-bug.webp", "size": "Tiny", "animalClass": "Crustacean", "familyGroup": "Isopod", "explorerSkill": "Tiny Crawler", "eats": ["Leaves", "Plant matter"], "livesIn": ["Soil", "Under rocks"], "funFact": "Pill bugs can roll into a tiny ball.", "isBaseline": true}, {"id": "squirrel", "name": "Squirrel", "category": "City", "image": "assets/animals/Animals-city/squirrel.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Rodent", "explorerSkill": "Tree Climber", "eats": ["Nuts", "Seeds"], "livesIn": ["Parks", "Trees"], "funFact": "Squirrels hide food to eat later.", "isBaseline": true}, {"id": "pigeon", "name": "Pigeon", "category": "City", "image": "assets/animals/Animals-city/pigeon.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Sky and Ground Explorer", "eats": ["Seeds", "Grains"], "livesIn": ["Cities", "Parks"], "funFact": "Pigeons can find their way home from far away.", "isBaseline": true}, {"id": "hummingbird", "name": "Hummingbird", "category": "City", "image": "assets/animals/Animals-city/hummingbird.webp", "size": "Tiny", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Sky Explorer", "eats": ["Nectar"], "livesIn": ["Gardens", "Flowers"], "funFact": "Hummingbirds flap their wings very fast.", "isBaseline": true}, {"id": "small-lizard", "name": "Small Lizard", "category": "City", "image": "assets/animals/Animals-city/small-lizard.webp", "size": "Tiny", "animalClass": "Reptile", "familyGroup": "Lizard", "explorerSkill": "Ground Explorer", "eats": ["Insects"], "livesIn": ["Walls", "Rocks", "Gardens"], "funFact": "Many lizards use their tails for balance.", "isBaseline": true}, {"id": "frog", "name": "Frog", "category": "City", "image": "assets/animals/Animals-city/frog.webp", "size": "Tiny", "animalClass": "Amphibian", "familyGroup": "Frog", "explorerSkill": "Jumping and Water Explorer", "eats": ["Insects"], "livesIn": ["Ponds", "Wet places"], "funFact": "Frogs can jump using their strong back legs.", "isBaseline": true}, {"id": "wild-rabbit", "name": "Wild Rabbit", "category": "City", "image": "assets/animals/Animals-city/wild-rabbit.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Lagomorph", "explorerSkill": "Jumping Explorer", "eats": ["Grass", "Plants"], "livesIn": ["Parks", "Fields"], "funFact": "Wild rabbits stay alert and listen with their long ears.", "isBaseline": true}, {"id": "crow", "name": "Crow", "category": "City", "image": "assets/animals/Animals-city/crow.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Sky and Ground Explorer", "eats": ["Seeds", "Fruit", "Tiny animals"], "livesIn": ["Cities", "Trees"], "funFact": "Crows are clever birds that can remember faces.", "isBaseline": true}, {"id": "deer", "name": "Deer", "category": "Wild", "image": "assets/animals/Animals-wild/deer.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Cervid", "explorerSkill": "Ground Explorer", "eats": ["Grass", "Leaves"], "livesIn": ["Forests", "Fields"], "funFact": "Deer can run fast and move quietly.", "isBaseline": true}, {"id": "raccoon", "name": "Raccoon", "category": "Wild", "image": "assets/animals/Animals-wild/raccoon.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Procyonid", "explorerSkill": "Ground and Climbing Explorer", "eats": ["Plants", "Fruit", "Tiny animals"], "livesIn": ["Forests", "Neighborhoods"], "funFact": "Raccoons use their paws to feel and explore objects.", "isBaseline": true}, {"id": "capybara", "name": "Capybara", "category": "Wild", "image": "assets/animals/Animals-wild/capybara.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Rodent", "explorerSkill": "Water and Ground Explorer", "eats": ["Grass", "Plants"], "livesIn": ["Wetlands", "Rivers"], "funFact": "Capybaras are the largest rodents in the world.", "isBaseline": true}, {"id": "coyote", "name": "Coyote", "category": "Wild", "image": "assets/animals/Animals-wild/coyote.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Canine", "explorerSkill": "Ground Explorer", "eats": ["Meat", "Fruit"], "livesIn": ["Fields", "Forests"], "funFact": "Coyotes are canines, just like dogs and wolves.", "isBaseline": true}, {"id": "lion", "name": "Lion", "category": "Zoo", "image": "assets/animals/Animals-zoo/lion.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Feline", "explorerSkill": "Ground Explorer", "eats": ["Meat"], "livesIn": ["Grasslands", "Zoos"], "funFact": "Lions are big cats with powerful roars.", "isBaseline": true}, {"id": "elephant", "name": "Elephant", "category": "Zoo", "image": "assets/animals/Animals-zoo/elephant.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Elephant", "explorerSkill": "Ground Explorer", "eats": ["Plants", "Leaves"], "livesIn": ["Grasslands", "Zoos"], "funFact": "Elephants use their trunks like a nose and a hand.", "isBaseline": true}, {"id": "giraffe", "name": "Giraffe", "category": "Zoo", "image": "assets/animals/Animals-zoo/giraffe.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Giraffe", "explorerSkill": "Tall Explorer", "eats": ["Leaves"], "livesIn": ["Grasslands", "Zoos"], "funFact": "Giraffes use long necks to reach tall leaves.", "isBaseline": true}, {"id": "penguin", "name": "Penguin", "category": "Zoo", "image": "assets/animals/Animals-zoo/penguin.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Water and Ground Explorer", "eats": ["Fish"], "livesIn": ["Cold coasts", "Zoos"], "funFact": "Penguins are birds that swim instead of fly.", "isBaseline": true}, {"id": "monkey", "name": "Monkey", "category": "Zoo", "image": "assets/animals/Animals-zoo/monkey.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Primate", "explorerSkill": "Tree Climber", "eats": ["Fruit", "Plants"], "livesIn": ["Forests", "Zoos"], "funFact": "Monkeys use their hands to climb and explore.", "isBaseline": true}, {"id": "polar-bear", "name": "Polar Bear", "category": "Zoo", "image": "assets/animals/Animals-zoo/polar-bear.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Bear", "explorerSkill": "Ice and Water Explorer", "eats": ["Meat", "Fish"], "livesIn": ["Arctic", "Zoos"], "funFact": "Polar bears have thick fur that helps keep them warm.", "isBaseline": true}, {"id": "tiger", "name": "Tiger", "category": "Zoo", "image": "assets/animals/Animals-zoo/tiger.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Feline", "explorerSkill": "Ground Explorer", "eats": ["Meat"], "livesIn": ["Forests", "Zoos"], "funFact": "Every tiger has a unique stripe pattern.", "isBaseline": true}, {"id": "panda-bear", "name": "Panda Bear", "category": "Zoo", "image": "assets/animals/Animals-zoo/panda-bear.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Bear", "explorerSkill": "Ground and Climbing Explorer", "eats": ["Bamboo", "Plants"], "livesIn": ["Forests", "Zoos"], "funFact": "Pandas eat lots and lots of bamboo.", "isBaseline": true}, {"id": "zebra", "name": "Zebra", "category": "Zoo", "image": "assets/animals/Animals-zoo/zebra.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Equine", "explorerSkill": "Ground Explorer", "eats": ["Grass"], "livesIn": ["Grasslands", "Zoos"], "funFact": "Zebras have black and white stripes.", "isBaseline": true}, {"id": "crocodile", "name": "Crocodile", "category": "Zoo", "image": "assets/animals/Animals-zoo/crocodile.webp", "size": "Large", "animalClass": "Reptile", "familyGroup": "Crocodilian", "explorerSkill": "Water and Ground Explorer", "eats": ["Meat", "Fish"], "livesIn": ["Rivers", "Wetlands", "Zoos"], "funFact": "Crocodiles are reptiles with strong tails for swimming.", "isBaseline": true}];
 
 const CATEGORIES = [
   { id: 'Pets', label: 'Pets', slug: 'pets', note: 'Animals that can live with families.' },
@@ -35,6 +36,8 @@ let state = {
   readyReveals: [],
   parentUnlocked: false,
   parentChallenge: null,
+  deferredInstallPrompt: null,
+  appInstalled: false,
   pendingPhoto: null,
   pickerMode: 'discover',
   sourceMysteryId: null,
@@ -143,8 +146,16 @@ async function kvSet(key, value) {
 }
 
 async function loadState() {
-  const response = await fetch(DATA_URL);
-  state.animals = await response.json();
+  try {
+    const response = await fetch(DATA_URL);
+    if (!response.ok) throw new Error(`Could not load ${DATA_URL}`);
+    state.animals = await response.json();
+  } catch (error) {
+    // File:// launches cannot fetch local JSON in some browsers.
+    // Keep a built-in copy so the demo still opens instead of showing a blank page.
+    state.animals = EMBEDDED_ANIMALS;
+    console.warn('Using embedded animal data fallback.', error);
+  }
   state.customAnimals = await getAll('customAnimals');
   state.discoveries = await getAll('discoveries');
   state.mysteries = await getAll('mysteries');
@@ -193,6 +204,78 @@ function categoryCounts() {
       found: list.filter(animal => isUnlocked(animal.id)).length
     };
   });
+}
+
+function isAppStandalone() {
+  return window.matchMedia?.('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+function installCardMarkup(context = 'home') {
+  if (isAppStandalone() || state.appInstalled || state.settings.hideInstallCard) return '';
+  const title = state.deferredInstallPrompt ? 'Install Animal Quest' : 'Add to your device';
+  const helper = state.deferredInstallPrompt
+    ? 'Install this as an app so it opens from the device home screen after deployment.'
+    : 'After deployment, add this app to the home screen from the browser. Localhost can test the experience; HTTPS is required for the deployed app.';
+  return `
+    <section class="panel compact install-card">
+      <div class="install-row">
+        <div>
+          <p class="eyebrow">Device app</p>
+          <h3>${title}</h3>
+          <p class="helper">${helper}</p>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="installAppButton" data-action="installApp">Install App</button>
+          ${context === 'home' ? '<button class="btn ghost" id="hideInstallCard">Later</button>' : ''}
+        </div>
+      </div>
+    </section>`;
+}
+
+async function installApp() {
+  if (state.deferredInstallPrompt) {
+    const promptEvent = state.deferredInstallPrompt;
+    state.deferredInstallPrompt = null;
+    promptEvent.prompt();
+    try {
+      const choice = await promptEvent.userChoice;
+      if (choice?.outcome === 'accepted') {
+        state.appInstalled = true;
+        showToast('App install started.');
+      } else {
+        showToast('Install skipped for now.');
+      }
+    } catch (error) {
+      console.warn(error);
+      showToast('Install prompt closed.');
+    }
+    return go(state.screen || 'home', state.params || {});
+  }
+  return renderInstallHelp();
+}
+
+function renderInstallHelp() {
+  render(`
+    <section class="panel hero">
+      <div>
+        <p class="eyebrow">Install guide</p>
+        <h2>Add Animal Quest to a device</h2>
+        <p class="helper">Once deployed, open the app link on the device and add it to the home screen. The app is built as a PWA, so it can feel like a regular app while keeping local data on the device.</p>
+        <div class="install-steps">
+          <div><strong>Android / Chrome</strong><p>Open the deployed app link, then tap <b>Install</b> when prompted. If no prompt appears, use the browser menu and choose <b>Install app</b> or <b>Add to Home screen</b>.</p></div>
+          <div><strong>iPhone / iPad Safari</strong><p>Open the deployed app link, tap the <b>Share</b> button, then choose <b>Add to Home Screen</b>.</p></div>
+          <div><strong>Local testing</strong><p>Use <code>http://localhost:5173</code>. Directly opening <code>index.html</code> can preview the app, but install/offline behavior needs localhost or HTTPS.</p></div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="backHomeFromInstall">Back Home</button>
+          <button class="btn yellow" id="openParentSettingsFromInstall">Parent Settings</button>
+        </div>
+      </div>
+      <div class="hero-art"><div class="install-icon">📱</div></div>
+    </section>
+  `, 'home');
+  document.getElementById('backHomeFromInstall')?.addEventListener('click', () => go('home'));
+  document.getElementById('openParentSettingsFromInstall')?.addEventListener('click', () => state.parentUnlocked ? go('parentArea', { tab: 'settings' }) : go('parent'));
 }
 
 function showToast(message) {
@@ -249,7 +332,7 @@ function render(content, active = state.screen) {
     <div class="app-shell">
       <header class="app-header">
         <div class="brand">
-          <div class="brand-mark"><img src="${BASE_PATH}icons/icon-192.svg" alt="Animal Quest"></div>
+          <div class="brand-mark"><img src="icons/icon-192.svg" alt="Animal Quest"></div>
           <div>
             <h1>Little Explorer: Animal Quest</h1>
             <p>Discover real animals. Unlock your animal journal.</p>
@@ -296,6 +379,7 @@ async function go(screen, params = {}) {
     case 'unlock': return renderUnlock(params.animalId, params.wasAlreadyFound);
     case 'quiz': return renderQuiz();
     case 'profile': return renderProfile();
+    case 'install': return renderInstallHelp();
     case 'parent': return renderParentGate();
     case 'parentArea': return renderParentArea(params.tab || 'overview');
     case 'handmade': return renderHandmadeForm(params);
@@ -330,6 +414,8 @@ function renderHome() {
       <div class="hero-art">${featured ? animalImage(featured, 'animal-img') : ''}</div>
     </section>
 
+    ${installCardMarkup('home')}
+
     <section class="grid two">
       ${progressMarkup(c)}
       <div class="progress-card">
@@ -354,6 +440,8 @@ function renderHome() {
   document.getElementById('openJournal')?.addEventListener('click', () => go('journal'));
   document.getElementById('editProfile')?.addEventListener('click', () => go('profile'));
   document.getElementById('openReveal')?.addEventListener('click', () => go('reveal', { id: state.readyReveals[0].id }));
+  document.getElementById('installAppButton')?.addEventListener('click', installApp);
+  document.getElementById('hideInstallCard')?.addEventListener('click', async () => { state.settings.hideInstallCard = true; await kvSet('settings', state.settings); renderHome(); });
   bindAnimalDetailLinks();
 }
 
@@ -1015,6 +1103,10 @@ function parentSettingsContent() {
   return `
     <div class="grid two">
       <div class="progress-card">
+        <strong>Version</strong>
+        <p class="helper">Little Explorer: Animal Quest ${APP_VERSION}. Version naming will use v1.01, v1.02, v1.03, etc.</p>
+      </div>
+      <div class="progress-card">
         <strong>Camera</strong>
         <p class="helper">When disabled, the app uses photo upload/manual flow only.</p>
         <button class="btn ${state.settings.cameraEnabled ? 'primary' : 'ghost'}" data-action="toggleCamera">Camera ${state.settings.cameraEnabled ? 'On' : 'Off'}</button>
@@ -1023,6 +1115,11 @@ function parentSettingsContent() {
         <strong>Manual unlock</strong>
         <p class="helper">Available only after the parent gate.</p>
         <button class="btn ${state.settings.manualUnlockEnabled ? 'primary' : 'ghost'}" data-action="toggleManualUnlock">Manual Unlock ${state.settings.manualUnlockEnabled ? 'On' : 'Off'}</button>
+      </div>
+      <div class="progress-card">
+        <strong>Install on device</strong>
+        <p class="helper">Shows the browser install prompt when available, or install instructions for the deployed PWA.</p>
+        <button class="btn primary" data-action="installApp">Install / Help</button>
       </div>
       <div class="progress-card">
         <strong>Export backup</strong>
@@ -1063,7 +1160,7 @@ function parentDataContent() {
           <tbody>${allAnimals().map(animal => `<tr><td>${escapeHtml(animal.name)}</td><td>${escapeHtml(animal.category)}</td><td>${escapeHtml(animal.image || 'local-upload')}</td></tr>`).join('')}</tbody>
         </table>
       </div>
-      <div class="progress-card"><strong>Local records</strong><p class="helper">Baseline animals: ${state.animals.length}<br>Published/custom animals: ${state.customAnimals.filter(a => a.published).length}/${state.customAnimals.length}<br>Discoveries: ${state.discoveries.length}<br>Mysteries: ${state.mysteries.length}<br>Ready reveals: ${state.readyReveals.length}</p></div>
+      <div class="progress-card"><strong>Local records</strong><p class="helper">App version: ${APP_VERSION}<br>Baseline animals: ${state.animals.length}<br>Published/custom animals: ${state.customAnimals.filter(a => a.published).length}/${state.customAnimals.length}<br>Discoveries: ${state.discoveries.length}<br>Mysteries: ${state.mysteries.length}<br>Ready reveals: ${state.readyReveals.length}</p></div>
     </div>`;
 }
 
@@ -1086,6 +1183,7 @@ function bindParentActions(tab) {
       if (action === 'deleteHandmade') return deleteHandmade(id);
       if (action === 'toggleCamera') return updateSetting('cameraEnabled', !state.settings.cameraEnabled);
       if (action === 'toggleManualUnlock') return updateSetting('manualUnlockEnabled', !state.settings.manualUnlockEnabled);
+      if (action === 'installApp') return installApp();
       if (action === 'exportData') return exportMetadata();
       if (action === 'deletePhotos') return deleteStoredPhotos();
       if (action === 'resetDiscoveries') return resetDiscoveries();
@@ -1350,12 +1448,24 @@ async function factoryReset() {
   go('home');
 }
 
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  state.deferredInstallPrompt = event;
+  if (state.screen === 'home') renderHome();
+});
+
+window.addEventListener('appinstalled', () => {
+  state.appInstalled = true;
+  state.deferredInstallPrompt = null;
+  showToast('Animal Quest was installed.');
+});
+
 async function init() {
   try {
     db = await openDb();
     await loadState();
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register(BASE_PATH + 'sw.js', { scope: BASE_PATH }).catch(() => {});
+      if (location.protocol !== 'file:') { navigator.serviceWorker.register('sw.js').catch(() => {}); }
     }
     renderHome();
   } catch (error) {
