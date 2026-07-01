@@ -1,0 +1,900 @@
+[
+  {
+    "id": "dog",
+    "name": "Dog",
+    "category": "Pets",
+    "image": "/assets/animals/Animals-pets/dog.webp",
+    "size": "Medium",
+    "animalClass": "Mammal",
+    "familyGroup": "Canine",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Meat",
+      "Plants"
+    ],
+    "livesIn": [
+      "Homes"
+    ],
+    "funFact": "Dogs have amazing noses and can smell things people cannot.",
+    "isBaseline": true
+  },
+  {
+    "id": "cat",
+    "name": "Cat",
+    "category": "Pets",
+    "image": "/assets/animals/Animals-pets/cat.webp",
+    "size": "Small",
+    "animalClass": "Mammal",
+    "familyGroup": "Feline",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Meat"
+    ],
+    "livesIn": [
+      "Homes"
+    ],
+    "funFact": "Cats can jump many times higher than their own body.",
+    "isBaseline": true
+  },
+  {
+    "id": "rabbit",
+    "name": "Rabbit",
+    "category": "Pets",
+    "image": "/assets/animals/Animals-pets/rabbit.webp",
+    "size": "Small",
+    "animalClass": "Mammal",
+    "familyGroup": "Lagomorph",
+    "explorerSkill": "Jumping Explorer",
+    "eats": [
+      "Plants"
+    ],
+    "livesIn": [
+      "Homes",
+      "Gardens"
+    ],
+    "funFact": "Rabbits use their big ears to listen for tiny sounds.",
+    "isBaseline": true
+  },
+  {
+    "id": "hamster",
+    "name": "Hamster",
+    "category": "Pets",
+    "image": "/assets/animals/Animals-pets/hamster.webp",
+    "size": "Tiny",
+    "animalClass": "Mammal",
+    "familyGroup": "Rodent",
+    "explorerSkill": "Tiny Crawler",
+    "eats": [
+      "Seeds",
+      "Plants"
+    ],
+    "livesIn": [
+      "Homes"
+    ],
+    "funFact": "Hamsters can store food in cheek pouches.",
+    "isBaseline": true
+  },
+  {
+    "id": "guinea-pig",
+    "name": "Guinea Pig",
+    "category": "Pets",
+    "image": "/assets/animals/Animals-pets/guinea-pig.webp",
+    "size": "Small",
+    "animalClass": "Mammal",
+    "familyGroup": "Rodent",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Plants",
+      "Hay"
+    ],
+    "livesIn": [
+      "Homes"
+    ],
+    "funFact": "Guinea pigs make happy squeaks when they are excited.",
+    "isBaseline": true
+  },
+  {
+    "id": "goldfish",
+    "name": "Goldfish",
+    "category": "Pets",
+    "image": "/assets/animals/Animals-pets/goldfish.webp",
+    "size": "Tiny",
+    "animalClass": "Fish",
+    "familyGroup": "Fish",
+    "explorerSkill": "Water Explorer",
+    "eats": [
+      "Fish food",
+      "Plants"
+    ],
+    "livesIn": [
+      "Water"
+    ],
+    "funFact": "Goldfish use fins to steer through the water.",
+    "isBaseline": true
+  },
+  {
+    "id": "turtle",
+    "name": "Turtle",
+    "category": "Pets",
+    "image": "/assets/animals/Animals-pets/turtle.webp",
+    "size": "Small",
+    "animalClass": "Reptile",
+    "familyGroup": "Turtle",
+    "explorerSkill": "Water and Ground Explorer",
+    "eats": [
+      "Plants",
+      "Insects"
+    ],
+    "livesIn": [
+      "Water",
+      "Land"
+    ],
+    "funFact": "A turtle carries its shell wherever it goes.",
+    "isBaseline": true
+  },
+  {
+    "id": "parakeet",
+    "name": "Parakeet",
+    "category": "Pets",
+    "image": "/assets/animals/Animals-pets/parakeet.webp",
+    "size": "Tiny",
+    "animalClass": "Bird",
+    "familyGroup": "Bird",
+    "explorerSkill": "Sky Explorer",
+    "eats": [
+      "Seeds",
+      "Fruit"
+    ],
+    "livesIn": [
+      "Homes",
+      "Trees"
+    ],
+    "funFact": "Parakeets are small birds that can make cheerful chirps.",
+    "isBaseline": true
+  },
+  {
+    "id": "cow",
+    "name": "Cow",
+    "category": "Farm",
+    "image": "/assets/animals/Animals-farm/cow.webp",
+    "size": "Huge",
+    "animalClass": "Mammal",
+    "familyGroup": "Bovine",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Grass"
+    ],
+    "livesIn": [
+      "Farms",
+      "Fields"
+    ],
+    "funFact": "Cows spend lots of time chewing grass.",
+    "isBaseline": true
+  },
+  {
+    "id": "horse",
+    "name": "Horse",
+    "category": "Farm",
+    "image": "/assets/animals/Animals-farm/horse.webp",
+    "size": "Huge",
+    "animalClass": "Mammal",
+    "familyGroup": "Equine",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Grass",
+      "Hay"
+    ],
+    "livesIn": [
+      "Farms",
+      "Fields"
+    ],
+    "funFact": "Horses can sleep standing up.",
+    "isBaseline": true
+  },
+  {
+    "id": "pig",
+    "name": "Pig",
+    "category": "Farm",
+    "image": "/assets/animals/Animals-farm/pig.webp",
+    "size": "Medium",
+    "animalClass": "Mammal",
+    "familyGroup": "Porcine",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Plants",
+      "Grains"
+    ],
+    "livesIn": [
+      "Farms"
+    ],
+    "funFact": "Pigs use their snouts to sniff and dig.",
+    "isBaseline": true
+  },
+  {
+    "id": "sheep",
+    "name": "Sheep",
+    "category": "Farm",
+    "image": "/assets/animals/Animals-farm/sheep.webp",
+    "size": "Medium",
+    "animalClass": "Mammal",
+    "familyGroup": "Ovine",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Grass"
+    ],
+    "livesIn": [
+      "Farms",
+      "Fields"
+    ],
+    "funFact": "Sheep grow soft wool coats.",
+    "isBaseline": true
+  },
+  {
+    "id": "goat",
+    "name": "Goat",
+    "category": "Farm",
+    "image": "/assets/animals/Animals-farm/goat.webp",
+    "size": "Medium",
+    "animalClass": "Mammal",
+    "familyGroup": "Caprine",
+    "explorerSkill": "Climbing Explorer",
+    "eats": [
+      "Grass",
+      "Leaves"
+    ],
+    "livesIn": [
+      "Farms",
+      "Hills"
+    ],
+    "funFact": "Goats are great climbers and like to explore.",
+    "isBaseline": true
+  },
+  {
+    "id": "chicken",
+    "name": "Chicken",
+    "category": "Farm",
+    "image": "/assets/animals/Animals-farm/chicken.webp",
+    "size": "Small",
+    "animalClass": "Bird",
+    "familyGroup": "Bird",
+    "explorerSkill": "Ground and Short Sky Explorer",
+    "eats": [
+      "Seeds",
+      "Insects"
+    ],
+    "livesIn": [
+      "Farms"
+    ],
+    "funFact": "Chickens scratch the ground to look for food.",
+    "isBaseline": true
+  },
+  {
+    "id": "duck",
+    "name": "Duck",
+    "category": "Farm",
+    "image": "/assets/animals/Animals-farm/duck.webp",
+    "size": "Small",
+    "animalClass": "Bird",
+    "familyGroup": "Water Bird",
+    "explorerSkill": "Water and Sky Explorer",
+    "eats": [
+      "Plants",
+      "Insects"
+    ],
+    "livesIn": [
+      "Farms",
+      "Ponds"
+    ],
+    "funFact": "Ducks have webbed feet that help them swim.",
+    "isBaseline": true
+  },
+  {
+    "id": "donkey",
+    "name": "Donkey",
+    "category": "Farm",
+    "image": "/assets/animals/Animals-farm/donkey.webp",
+    "size": "Large",
+    "animalClass": "Mammal",
+    "familyGroup": "Equine",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Grass",
+      "Hay"
+    ],
+    "livesIn": [
+      "Farms"
+    ],
+    "funFact": "Donkeys have long ears that help them hear far away sounds.",
+    "isBaseline": true
+  },
+  {
+    "id": "ant",
+    "name": "Ant",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/ant.webp",
+    "size": "Tiny",
+    "animalClass": "Insect",
+    "familyGroup": "Insect",
+    "explorerSkill": "Tiny Crawler",
+    "eats": [
+      "Tiny food",
+      "Plants"
+    ],
+    "livesIn": [
+      "Soil",
+      "Sidewalks"
+    ],
+    "funFact": "Ants work together in big teams.",
+    "isBaseline": true
+  },
+  {
+    "id": "bee",
+    "name": "Bee",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/bee.webp",
+    "size": "Tiny",
+    "animalClass": "Insect",
+    "familyGroup": "Insect",
+    "explorerSkill": "Sky Explorer",
+    "eats": [
+      "Nectar"
+    ],
+    "livesIn": [
+      "Gardens",
+      "Flowers"
+    ],
+    "funFact": "Bees help flowers grow by moving pollen.",
+    "isBaseline": true
+  },
+  {
+    "id": "butterfly",
+    "name": "Butterfly",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/butterfly.webp",
+    "size": "Tiny",
+    "animalClass": "Insect",
+    "familyGroup": "Insect",
+    "explorerSkill": "Sky Explorer",
+    "eats": [
+      "Nectar"
+    ],
+    "livesIn": [
+      "Gardens",
+      "Parks"
+    ],
+    "funFact": "Butterflies taste with their feet.",
+    "isBaseline": true
+  },
+  {
+    "id": "ladybug",
+    "name": "Ladybug",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/ladybug.webp",
+    "size": "Tiny",
+    "animalClass": "Insect",
+    "familyGroup": "Insect",
+    "explorerSkill": "Sky and Tiny Crawler",
+    "eats": [
+      "Tiny insects"
+    ],
+    "livesIn": [
+      "Gardens",
+      "Leaves"
+    ],
+    "funFact": "Ladybugs can help gardens by eating tiny pests.",
+    "isBaseline": true
+  },
+  {
+    "id": "worm",
+    "name": "Worm",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/worm.webp",
+    "size": "Tiny",
+    "animalClass": "Invertebrate",
+    "familyGroup": "Worm",
+    "explorerSkill": "Soil Digger",
+    "eats": [
+      "Leaves",
+      "Soil matter"
+    ],
+    "livesIn": [
+      "Soil"
+    ],
+    "funFact": "Worms help make soil healthy for plants.",
+    "isBaseline": true
+  },
+  {
+    "id": "spider",
+    "name": "Spider",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/spider.webp",
+    "size": "Tiny",
+    "animalClass": "Arachnid",
+    "familyGroup": "Arachnid",
+    "explorerSkill": "Tiny Crawler",
+    "eats": [
+      "Insects"
+    ],
+    "livesIn": [
+      "Gardens",
+      "Corners"
+    ],
+    "funFact": "Spiders have eight legs.",
+    "isBaseline": true
+  },
+  {
+    "id": "snail",
+    "name": "Snail",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/snail.webp",
+    "size": "Tiny",
+    "animalClass": "Invertebrate",
+    "familyGroup": "Mollusk",
+    "explorerSkill": "Slow Explorer",
+    "eats": [
+      "Plants"
+    ],
+    "livesIn": [
+      "Gardens",
+      "Damp places"
+    ],
+    "funFact": "Snails carry their homes on their backs.",
+    "isBaseline": true
+  },
+  {
+    "id": "cricket",
+    "name": "Cricket",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/cricket.webp",
+    "size": "Tiny",
+    "animalClass": "Insect",
+    "familyGroup": "Insect",
+    "explorerSkill": "Jumping Explorer",
+    "eats": [
+      "Plants",
+      "Tiny insects"
+    ],
+    "livesIn": [
+      "Grass",
+      "Gardens"
+    ],
+    "funFact": "Crickets can make chirping sounds with their wings.",
+    "isBaseline": true
+  },
+  {
+    "id": "pill-bug",
+    "name": "Pill Bug",
+    "category": "Bugs",
+    "image": "/assets/animals/Animals-bugs/pill-bug.webp",
+    "size": "Tiny",
+    "animalClass": "Crustacean",
+    "familyGroup": "Isopod",
+    "explorerSkill": "Tiny Crawler",
+    "eats": [
+      "Leaves",
+      "Plant matter"
+    ],
+    "livesIn": [
+      "Soil",
+      "Under rocks"
+    ],
+    "funFact": "Pill bugs can roll into a tiny ball.",
+    "isBaseline": true
+  },
+  {
+    "id": "squirrel",
+    "name": "Squirrel",
+    "category": "City",
+    "image": "/assets/animals/Animals-city/squirrel.webp",
+    "size": "Small",
+    "animalClass": "Mammal",
+    "familyGroup": "Rodent",
+    "explorerSkill": "Tree Climber",
+    "eats": [
+      "Nuts",
+      "Seeds"
+    ],
+    "livesIn": [
+      "Parks",
+      "Trees"
+    ],
+    "funFact": "Squirrels hide food to eat later.",
+    "isBaseline": true
+  },
+  {
+    "id": "pigeon",
+    "name": "Pigeon",
+    "category": "City",
+    "image": "/assets/animals/Animals-city/pigeon.webp",
+    "size": "Small",
+    "animalClass": "Bird",
+    "familyGroup": "Bird",
+    "explorerSkill": "Sky and Ground Explorer",
+    "eats": [
+      "Seeds",
+      "Grains"
+    ],
+    "livesIn": [
+      "Cities",
+      "Parks"
+    ],
+    "funFact": "Pigeons can find their way home from far away.",
+    "isBaseline": true
+  },
+  {
+    "id": "hummingbird",
+    "name": "Hummingbird",
+    "category": "City",
+    "image": "/assets/animals/Animals-city/hummingbird.webp",
+    "size": "Tiny",
+    "animalClass": "Bird",
+    "familyGroup": "Bird",
+    "explorerSkill": "Sky Explorer",
+    "eats": [
+      "Nectar"
+    ],
+    "livesIn": [
+      "Gardens",
+      "Flowers"
+    ],
+    "funFact": "Hummingbirds flap their wings very fast.",
+    "isBaseline": true
+  },
+  {
+    "id": "small-lizard",
+    "name": "Small Lizard",
+    "category": "City",
+    "image": "/assets/animals/Animals-city/small-lizard.webp",
+    "size": "Tiny",
+    "animalClass": "Reptile",
+    "familyGroup": "Lizard",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Insects"
+    ],
+    "livesIn": [
+      "Walls",
+      "Rocks",
+      "Gardens"
+    ],
+    "funFact": "Many lizards use their tails for balance.",
+    "isBaseline": true
+  },
+  {
+    "id": "frog",
+    "name": "Frog",
+    "category": "City",
+    "image": "/assets/animals/Animals-city/frog.webp",
+    "size": "Tiny",
+    "animalClass": "Amphibian",
+    "familyGroup": "Frog",
+    "explorerSkill": "Jumping and Water Explorer",
+    "eats": [
+      "Insects"
+    ],
+    "livesIn": [
+      "Ponds",
+      "Wet places"
+    ],
+    "funFact": "Frogs can jump using their strong back legs.",
+    "isBaseline": true
+  },
+  {
+    "id": "wild-rabbit",
+    "name": "Wild Rabbit",
+    "category": "City",
+    "image": "/assets/animals/Animals-city/wild-rabbit.webp",
+    "size": "Small",
+    "animalClass": "Mammal",
+    "familyGroup": "Lagomorph",
+    "explorerSkill": "Jumping Explorer",
+    "eats": [
+      "Grass",
+      "Plants"
+    ],
+    "livesIn": [
+      "Parks",
+      "Fields"
+    ],
+    "funFact": "Wild rabbits stay alert and listen with their long ears.",
+    "isBaseline": true
+  },
+  {
+    "id": "crow",
+    "name": "Crow",
+    "category": "City",
+    "image": "/assets/animals/Animals-city/crow.webp",
+    "size": "Small",
+    "animalClass": "Bird",
+    "familyGroup": "Bird",
+    "explorerSkill": "Sky and Ground Explorer",
+    "eats": [
+      "Seeds",
+      "Fruit",
+      "Tiny animals"
+    ],
+    "livesIn": [
+      "Cities",
+      "Trees"
+    ],
+    "funFact": "Crows are clever birds that can remember faces.",
+    "isBaseline": true
+  },
+  {
+    "id": "deer",
+    "name": "Deer",
+    "category": "Wild",
+    "image": "/assets/animals/Animals-wild/deer.webp",
+    "size": "Large",
+    "animalClass": "Mammal",
+    "familyGroup": "Cervid",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Grass",
+      "Leaves"
+    ],
+    "livesIn": [
+      "Forests",
+      "Fields"
+    ],
+    "funFact": "Deer can run fast and move quietly.",
+    "isBaseline": true
+  },
+  {
+    "id": "raccoon",
+    "name": "Raccoon",
+    "category": "Wild",
+    "image": "/assets/animals/Animals-wild/raccoon.webp",
+    "size": "Medium",
+    "animalClass": "Mammal",
+    "familyGroup": "Procyonid",
+    "explorerSkill": "Ground and Climbing Explorer",
+    "eats": [
+      "Plants",
+      "Fruit",
+      "Tiny animals"
+    ],
+    "livesIn": [
+      "Forests",
+      "Neighborhoods"
+    ],
+    "funFact": "Raccoons use their paws to feel and explore objects.",
+    "isBaseline": true
+  },
+  {
+    "id": "capybara",
+    "name": "Capybara",
+    "category": "Wild",
+    "image": "/assets/animals/Animals-wild/capybara.webp",
+    "size": "Large",
+    "animalClass": "Mammal",
+    "familyGroup": "Rodent",
+    "explorerSkill": "Water and Ground Explorer",
+    "eats": [
+      "Grass",
+      "Plants"
+    ],
+    "livesIn": [
+      "Wetlands",
+      "Rivers"
+    ],
+    "funFact": "Capybaras are the largest rodents in the world.",
+    "isBaseline": true
+  },
+  {
+    "id": "coyote",
+    "name": "Coyote",
+    "category": "Wild",
+    "image": "/assets/animals/Animals-wild/coyote.webp",
+    "size": "Medium",
+    "animalClass": "Mammal",
+    "familyGroup": "Canine",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Meat",
+      "Fruit"
+    ],
+    "livesIn": [
+      "Fields",
+      "Forests"
+    ],
+    "funFact": "Coyotes are canines, just like dogs and wolves.",
+    "isBaseline": true
+  },
+  {
+    "id": "lion",
+    "name": "Lion",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/lion.webp",
+    "size": "Large",
+    "animalClass": "Mammal",
+    "familyGroup": "Feline",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Meat"
+    ],
+    "livesIn": [
+      "Grasslands",
+      "Zoos"
+    ],
+    "funFact": "Lions are big cats with powerful roars.",
+    "isBaseline": true
+  },
+  {
+    "id": "elephant",
+    "name": "Elephant",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/elephant.webp",
+    "size": "Huge",
+    "animalClass": "Mammal",
+    "familyGroup": "Elephant",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Plants",
+      "Leaves"
+    ],
+    "livesIn": [
+      "Grasslands",
+      "Zoos"
+    ],
+    "funFact": "Elephants use their trunks like a nose and a hand.",
+    "isBaseline": true
+  },
+  {
+    "id": "giraffe",
+    "name": "Giraffe",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/giraffe.webp",
+    "size": "Huge",
+    "animalClass": "Mammal",
+    "familyGroup": "Giraffe",
+    "explorerSkill": "Tall Explorer",
+    "eats": [
+      "Leaves"
+    ],
+    "livesIn": [
+      "Grasslands",
+      "Zoos"
+    ],
+    "funFact": "Giraffes use long necks to reach tall leaves.",
+    "isBaseline": true
+  },
+  {
+    "id": "penguin",
+    "name": "Penguin",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/penguin.webp",
+    "size": "Small",
+    "animalClass": "Bird",
+    "familyGroup": "Bird",
+    "explorerSkill": "Water and Ground Explorer",
+    "eats": [
+      "Fish"
+    ],
+    "livesIn": [
+      "Cold coasts",
+      "Zoos"
+    ],
+    "funFact": "Penguins are birds that swim instead of fly.",
+    "isBaseline": true
+  },
+  {
+    "id": "monkey",
+    "name": "Monkey",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/monkey.webp",
+    "size": "Small",
+    "animalClass": "Mammal",
+    "familyGroup": "Primate",
+    "explorerSkill": "Tree Climber",
+    "eats": [
+      "Fruit",
+      "Plants"
+    ],
+    "livesIn": [
+      "Forests",
+      "Zoos"
+    ],
+    "funFact": "Monkeys use their hands to climb and explore.",
+    "isBaseline": true
+  },
+  {
+    "id": "polar-bear",
+    "name": "Polar Bear",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/polar-bear.webp",
+    "size": "Huge",
+    "animalClass": "Mammal",
+    "familyGroup": "Bear",
+    "explorerSkill": "Ice and Water Explorer",
+    "eats": [
+      "Meat",
+      "Fish"
+    ],
+    "livesIn": [
+      "Arctic",
+      "Zoos"
+    ],
+    "funFact": "Polar bears have thick fur that helps keep them warm.",
+    "isBaseline": true
+  },
+  {
+    "id": "tiger",
+    "name": "Tiger",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/tiger.webp",
+    "size": "Large",
+    "animalClass": "Mammal",
+    "familyGroup": "Feline",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Meat"
+    ],
+    "livesIn": [
+      "Forests",
+      "Zoos"
+    ],
+    "funFact": "Every tiger has a unique stripe pattern.",
+    "isBaseline": true
+  },
+  {
+    "id": "panda-bear",
+    "name": "Panda Bear",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/panda-bear.webp",
+    "size": "Large",
+    "animalClass": "Mammal",
+    "familyGroup": "Bear",
+    "explorerSkill": "Ground and Climbing Explorer",
+    "eats": [
+      "Bamboo",
+      "Plants"
+    ],
+    "livesIn": [
+      "Forests",
+      "Zoos"
+    ],
+    "funFact": "Pandas eat lots and lots of bamboo.",
+    "isBaseline": true
+  },
+  {
+    "id": "zebra",
+    "name": "Zebra",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/zebra.webp",
+    "size": "Large",
+    "animalClass": "Mammal",
+    "familyGroup": "Equine",
+    "explorerSkill": "Ground Explorer",
+    "eats": [
+      "Grass"
+    ],
+    "livesIn": [
+      "Grasslands",
+      "Zoos"
+    ],
+    "funFact": "Zebras have black and white stripes.",
+    "isBaseline": true
+  },
+  {
+    "id": "crocodile",
+    "name": "Crocodile",
+    "category": "Zoo",
+    "image": "/assets/animals/Animals-zoo/crocodile.webp",
+    "size": "Large",
+    "animalClass": "Reptile",
+    "familyGroup": "Crocodilian",
+    "explorerSkill": "Water and Ground Explorer",
+    "eats": [
+      "Meat",
+      "Fish"
+    ],
+    "livesIn": [
+      "Rivers",
+      "Wetlands",
+      "Zoos"
+    ],
+    "funFact": "Crocodiles are reptiles with strong tails for swimming.",
+    "isBaseline": true
+  }
+]
