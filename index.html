@@ -6,21 +6,22 @@
   <meta name="theme-color" content="#98c970" />
   <meta name="description" content="Discover real animals. Unlock your animal journal." />
   <title>Little Explorer: Animal Quest</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="src/styles.css">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/app-icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/app-icon-192.png">
+  <link rel="stylesheet" href="./src/styles.css">
 </head>
 <body>
   <div id="app">
-    <main class="app-shell">
-      <section class="hero-card">
-        <p class="eyebrow">Loading Animal Quest...</p>
+    <div class="app-shell">
+      <section class="panel">
+        <div class="eyebrow">Starting app</div>
         <h1>Little Explorer: Animal Quest</h1>
-        <p>Discover real animals. Unlock your animal journal.</p>
+        <p class="helper">If this message stays on screen, start the app with <strong>START-HERE-MAC.command</strong> or run the local server.</p>
       </section>
-    </main>
+    </div>
   </div>
-  <noscript>This app needs JavaScript enabled.</noscript>
-  <script src="src/app.js" defer></script>
+  <script defer src="./src/animals-data.js"></script>
+  <script defer src="./src/app.js"></script>
 </body>
 </html>

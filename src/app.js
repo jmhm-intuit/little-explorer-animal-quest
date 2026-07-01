@@ -1,17 +1,19 @@
+const APP_VERSION = 'v1.05';
 const DB_NAME = 'little-explorer-animal-quest-db';
-const DB_VERSION = 1;
-const DATA_URL = 'data/animals.json';
-const APP_VERSION = 'v1.02';
-const EMBEDDED_ANIMALS = [{"id": "dog", "name": "Dog", "category": "Pets", "image": "assets/animals/Animals-pets/dog.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Canine", "explorerSkill": "Ground Explorer", "eats": ["Meat", "Plants"], "livesIn": ["Homes"], "funFact": "Dogs have amazing noses and can smell things people cannot.", "isBaseline": true}, {"id": "cat", "name": "Cat", "category": "Pets", "image": "assets/animals/Animals-pets/cat.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Feline", "explorerSkill": "Ground Explorer", "eats": ["Meat"], "livesIn": ["Homes"], "funFact": "Cats can jump many times higher than their own body.", "isBaseline": true}, {"id": "rabbit", "name": "Rabbit", "category": "Pets", "image": "assets/animals/Animals-pets/rabbit.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Lagomorph", "explorerSkill": "Jumping Explorer", "eats": ["Plants"], "livesIn": ["Homes", "Gardens"], "funFact": "Rabbits use their big ears to listen for tiny sounds.", "isBaseline": true}, {"id": "hamster", "name": "Hamster", "category": "Pets", "image": "assets/animals/Animals-pets/hamster.webp", "size": "Tiny", "animalClass": "Mammal", "familyGroup": "Rodent", "explorerSkill": "Tiny Crawler", "eats": ["Seeds", "Plants"], "livesIn": ["Homes"], "funFact": "Hamsters can store food in cheek pouches.", "isBaseline": true}, {"id": "guinea-pig", "name": "Guinea Pig", "category": "Pets", "image": "assets/animals/Animals-pets/guinea-pig.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Rodent", "explorerSkill": "Ground Explorer", "eats": ["Plants", "Hay"], "livesIn": ["Homes"], "funFact": "Guinea pigs make happy squeaks when they are excited.", "isBaseline": true}, {"id": "goldfish", "name": "Goldfish", "category": "Pets", "image": "assets/animals/Animals-pets/goldfish.webp", "size": "Tiny", "animalClass": "Fish", "familyGroup": "Fish", "explorerSkill": "Water Explorer", "eats": ["Fish food", "Plants"], "livesIn": ["Water"], "funFact": "Goldfish use fins to steer through the water.", "isBaseline": true}, {"id": "turtle", "name": "Turtle", "category": "Pets", "image": "assets/animals/Animals-pets/turtle.webp", "size": "Small", "animalClass": "Reptile", "familyGroup": "Turtle", "explorerSkill": "Water and Ground Explorer", "eats": ["Plants", "Insects"], "livesIn": ["Water", "Land"], "funFact": "A turtle carries its shell wherever it goes.", "isBaseline": true}, {"id": "parakeet", "name": "Parakeet", "category": "Pets", "image": "assets/animals/Animals-pets/parakeet.webp", "size": "Tiny", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Sky Explorer", "eats": ["Seeds", "Fruit"], "livesIn": ["Homes", "Trees"], "funFact": "Parakeets are small birds that can make cheerful chirps.", "isBaseline": true}, {"id": "cow", "name": "Cow", "category": "Farm", "image": "assets/animals/Animals-farm/cow.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Bovine", "explorerSkill": "Ground Explorer", "eats": ["Grass"], "livesIn": ["Farms", "Fields"], "funFact": "Cows spend lots of time chewing grass.", "isBaseline": true}, {"id": "horse", "name": "Horse", "category": "Farm", "image": "assets/animals/Animals-farm/horse.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Equine", "explorerSkill": "Ground Explorer", "eats": ["Grass", "Hay"], "livesIn": ["Farms", "Fields"], "funFact": "Horses can sleep standing up.", "isBaseline": true}, {"id": "pig", "name": "Pig", "category": "Farm", "image": "assets/animals/Animals-farm/pig.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Porcine", "explorerSkill": "Ground Explorer", "eats": ["Plants", "Grains"], "livesIn": ["Farms"], "funFact": "Pigs use their snouts to sniff and dig.", "isBaseline": true}, {"id": "sheep", "name": "Sheep", "category": "Farm", "image": "assets/animals/Animals-farm/sheep.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Ovine", "explorerSkill": "Ground Explorer", "eats": ["Grass"], "livesIn": ["Farms", "Fields"], "funFact": "Sheep grow soft wool coats.", "isBaseline": true}, {"id": "goat", "name": "Goat", "category": "Farm", "image": "assets/animals/Animals-farm/goat.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Caprine", "explorerSkill": "Climbing Explorer", "eats": ["Grass", "Leaves"], "livesIn": ["Farms", "Hills"], "funFact": "Goats are great climbers and like to explore.", "isBaseline": true}, {"id": "chicken", "name": "Chicken", "category": "Farm", "image": "assets/animals/Animals-farm/chicken.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Ground and Short Sky Explorer", "eats": ["Seeds", "Insects"], "livesIn": ["Farms"], "funFact": "Chickens scratch the ground to look for food.", "isBaseline": true}, {"id": "duck", "name": "Duck", "category": "Farm", "image": "assets/animals/Animals-farm/duck.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Water Bird", "explorerSkill": "Water and Sky Explorer", "eats": ["Plants", "Insects"], "livesIn": ["Farms", "Ponds"], "funFact": "Ducks have webbed feet that help them swim.", "isBaseline": true}, {"id": "donkey", "name": "Donkey", "category": "Farm", "image": "assets/animals/Animals-farm/donkey.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Equine", "explorerSkill": "Ground Explorer", "eats": ["Grass", "Hay"], "livesIn": ["Farms"], "funFact": "Donkeys have long ears that help them hear far away sounds.", "isBaseline": true}, {"id": "ant", "name": "Ant", "category": "Bugs", "image": "assets/animals/Animals-bugs/ant.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Tiny Crawler", "eats": ["Tiny food", "Plants"], "livesIn": ["Soil", "Sidewalks"], "funFact": "Ants work together in big teams.", "isBaseline": true}, {"id": "bee", "name": "Bee", "category": "Bugs", "image": "assets/animals/Animals-bugs/bee.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Sky Explorer", "eats": ["Nectar"], "livesIn": ["Gardens", "Flowers"], "funFact": "Bees help flowers grow by moving pollen.", "isBaseline": true}, {"id": "butterfly", "name": "Butterfly", "category": "Bugs", "image": "assets/animals/Animals-bugs/butterfly.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Sky Explorer", "eats": ["Nectar"], "livesIn": ["Gardens", "Parks"], "funFact": "Butterflies taste with their feet.", "isBaseline": true}, {"id": "ladybug", "name": "Ladybug", "category": "Bugs", "image": "assets/animals/Animals-bugs/ladybug.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Sky and Tiny Crawler", "eats": ["Tiny insects"], "livesIn": ["Gardens", "Leaves"], "funFact": "Ladybugs can help gardens by eating tiny pests.", "isBaseline": true}, {"id": "worm", "name": "Worm", "category": "Bugs", "image": "assets/animals/Animals-bugs/worm.webp", "size": "Tiny", "animalClass": "Invertebrate", "familyGroup": "Worm", "explorerSkill": "Soil Digger", "eats": ["Leaves", "Soil matter"], "livesIn": ["Soil"], "funFact": "Worms help make soil healthy for plants.", "isBaseline": true}, {"id": "spider", "name": "Spider", "category": "Bugs", "image": "assets/animals/Animals-bugs/spider.webp", "size": "Tiny", "animalClass": "Arachnid", "familyGroup": "Arachnid", "explorerSkill": "Tiny Crawler", "eats": ["Insects"], "livesIn": ["Gardens", "Corners"], "funFact": "Spiders have eight legs.", "isBaseline": true}, {"id": "snail", "name": "Snail", "category": "Bugs", "image": "assets/animals/Animals-bugs/snail.webp", "size": "Tiny", "animalClass": "Invertebrate", "familyGroup": "Mollusk", "explorerSkill": "Slow Explorer", "eats": ["Plants"], "livesIn": ["Gardens", "Damp places"], "funFact": "Snails carry their homes on their backs.", "isBaseline": true}, {"id": "cricket", "name": "Cricket", "category": "Bugs", "image": "assets/animals/Animals-bugs/cricket.webp", "size": "Tiny", "animalClass": "Insect", "familyGroup": "Insect", "explorerSkill": "Jumping Explorer", "eats": ["Plants", "Tiny insects"], "livesIn": ["Grass", "Gardens"], "funFact": "Crickets can make chirping sounds with their wings.", "isBaseline": true}, {"id": "pill-bug", "name": "Pill Bug", "category": "Bugs", "image": "assets/animals/Animals-bugs/pill-bug.webp", "size": "Tiny", "animalClass": "Crustacean", "familyGroup": "Isopod", "explorerSkill": "Tiny Crawler", "eats": ["Leaves", "Plant matter"], "livesIn": ["Soil", "Under rocks"], "funFact": "Pill bugs can roll into a tiny ball.", "isBaseline": true}, {"id": "squirrel", "name": "Squirrel", "category": "City", "image": "assets/animals/Animals-city/squirrel.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Rodent", "explorerSkill": "Tree Climber", "eats": ["Nuts", "Seeds"], "livesIn": ["Parks", "Trees"], "funFact": "Squirrels hide food to eat later.", "isBaseline": true}, {"id": "pigeon", "name": "Pigeon", "category": "City", "image": "assets/animals/Animals-city/pigeon.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Sky and Ground Explorer", "eats": ["Seeds", "Grains"], "livesIn": ["Cities", "Parks"], "funFact": "Pigeons can find their way home from far away.", "isBaseline": true}, {"id": "hummingbird", "name": "Hummingbird", "category": "City", "image": "assets/animals/Animals-city/hummingbird.webp", "size": "Tiny", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Sky Explorer", "eats": ["Nectar"], "livesIn": ["Gardens", "Flowers"], "funFact": "Hummingbirds flap their wings very fast.", "isBaseline": true}, {"id": "small-lizard", "name": "Small Lizard", "category": "City", "image": "assets/animals/Animals-city/small-lizard.webp", "size": "Tiny", "animalClass": "Reptile", "familyGroup": "Lizard", "explorerSkill": "Ground Explorer", "eats": ["Insects"], "livesIn": ["Walls", "Rocks", "Gardens"], "funFact": "Many lizards use their tails for balance.", "isBaseline": true}, {"id": "frog", "name": "Frog", "category": "City", "image": "assets/animals/Animals-city/frog.webp", "size": "Tiny", "animalClass": "Amphibian", "familyGroup": "Frog", "explorerSkill": "Jumping and Water Explorer", "eats": ["Insects"], "livesIn": ["Ponds", "Wet places"], "funFact": "Frogs can jump using their strong back legs.", "isBaseline": true}, {"id": "wild-rabbit", "name": "Wild Rabbit", "category": "City", "image": "assets/animals/Animals-city/wild-rabbit.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Lagomorph", "explorerSkill": "Jumping Explorer", "eats": ["Grass", "Plants"], "livesIn": ["Parks", "Fields"], "funFact": "Wild rabbits stay alert and listen with their long ears.", "isBaseline": true}, {"id": "crow", "name": "Crow", "category": "City", "image": "assets/animals/Animals-city/crow.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Sky and Ground Explorer", "eats": ["Seeds", "Fruit", "Tiny animals"], "livesIn": ["Cities", "Trees"], "funFact": "Crows are clever birds that can remember faces.", "isBaseline": true}, {"id": "deer", "name": "Deer", "category": "Wild", "image": "assets/animals/Animals-wild/deer.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Cervid", "explorerSkill": "Ground Explorer", "eats": ["Grass", "Leaves"], "livesIn": ["Forests", "Fields"], "funFact": "Deer can run fast and move quietly.", "isBaseline": true}, {"id": "raccoon", "name": "Raccoon", "category": "Wild", "image": "assets/animals/Animals-wild/raccoon.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Procyonid", "explorerSkill": "Ground and Climbing Explorer", "eats": ["Plants", "Fruit", "Tiny animals"], "livesIn": ["Forests", "Neighborhoods"], "funFact": "Raccoons use their paws to feel and explore objects.", "isBaseline": true}, {"id": "capybara", "name": "Capybara", "category": "Wild", "image": "assets/animals/Animals-wild/capybara.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Rodent", "explorerSkill": "Water and Ground Explorer", "eats": ["Grass", "Plants"], "livesIn": ["Wetlands", "Rivers"], "funFact": "Capybaras are the largest rodents in the world.", "isBaseline": true}, {"id": "coyote", "name": "Coyote", "category": "Wild", "image": "assets/animals/Animals-wild/coyote.webp", "size": "Medium", "animalClass": "Mammal", "familyGroup": "Canine", "explorerSkill": "Ground Explorer", "eats": ["Meat", "Fruit"], "livesIn": ["Fields", "Forests"], "funFact": "Coyotes are canines, just like dogs and wolves.", "isBaseline": true}, {"id": "lion", "name": "Lion", "category": "Zoo", "image": "assets/animals/Animals-zoo/lion.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Feline", "explorerSkill": "Ground Explorer", "eats": ["Meat"], "livesIn": ["Grasslands", "Zoos"], "funFact": "Lions are big cats with powerful roars.", "isBaseline": true}, {"id": "elephant", "name": "Elephant", "category": "Zoo", "image": "assets/animals/Animals-zoo/elephant.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Elephant", "explorerSkill": "Ground Explorer", "eats": ["Plants", "Leaves"], "livesIn": ["Grasslands", "Zoos"], "funFact": "Elephants use their trunks like a nose and a hand.", "isBaseline": true}, {"id": "giraffe", "name": "Giraffe", "category": "Zoo", "image": "assets/animals/Animals-zoo/giraffe.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Giraffe", "explorerSkill": "Tall Explorer", "eats": ["Leaves"], "livesIn": ["Grasslands", "Zoos"], "funFact": "Giraffes use long necks to reach tall leaves.", "isBaseline": true}, {"id": "penguin", "name": "Penguin", "category": "Zoo", "image": "assets/animals/Animals-zoo/penguin.webp", "size": "Small", "animalClass": "Bird", "familyGroup": "Bird", "explorerSkill": "Water and Ground Explorer", "eats": ["Fish"], "livesIn": ["Cold coasts", "Zoos"], "funFact": "Penguins are birds that swim instead of fly.", "isBaseline": true}, {"id": "monkey", "name": "Monkey", "category": "Zoo", "image": "assets/animals/Animals-zoo/monkey.webp", "size": "Small", "animalClass": "Mammal", "familyGroup": "Primate", "explorerSkill": "Tree Climber", "eats": ["Fruit", "Plants"], "livesIn": ["Forests", "Zoos"], "funFact": "Monkeys use their hands to climb and explore.", "isBaseline": true}, {"id": "polar-bear", "name": "Polar Bear", "category": "Zoo", "image": "assets/animals/Animals-zoo/polar-bear.webp", "size": "Huge", "animalClass": "Mammal", "familyGroup": "Bear", "explorerSkill": "Ice and Water Explorer", "eats": ["Meat", "Fish"], "livesIn": ["Arctic", "Zoos"], "funFact": "Polar bears have thick fur that helps keep them warm.", "isBaseline": true}, {"id": "tiger", "name": "Tiger", "category": "Zoo", "image": "assets/animals/Animals-zoo/tiger.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Feline", "explorerSkill": "Ground Explorer", "eats": ["Meat"], "livesIn": ["Forests", "Zoos"], "funFact": "Every tiger has a unique stripe pattern.", "isBaseline": true}, {"id": "panda-bear", "name": "Panda Bear", "category": "Zoo", "image": "assets/animals/Animals-zoo/panda-bear.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Bear", "explorerSkill": "Ground and Climbing Explorer", "eats": ["Bamboo", "Plants"], "livesIn": ["Forests", "Zoos"], "funFact": "Pandas eat lots and lots of bamboo.", "isBaseline": true}, {"id": "zebra", "name": "Zebra", "category": "Zoo", "image": "assets/animals/Animals-zoo/zebra.webp", "size": "Large", "animalClass": "Mammal", "familyGroup": "Equine", "explorerSkill": "Ground Explorer", "eats": ["Grass"], "livesIn": ["Grasslands", "Zoos"], "funFact": "Zebras have black and white stripes.", "isBaseline": true}, {"id": "crocodile", "name": "Crocodile", "category": "Zoo", "image": "assets/animals/Animals-zoo/crocodile.webp", "size": "Large", "animalClass": "Reptile", "familyGroup": "Crocodilian", "explorerSkill": "Water and Ground Explorer", "eats": ["Meat", "Fish"], "livesIn": ["Rivers", "Wetlands", "Zoos"], "funFact": "Crocodiles are reptiles with strong tails for swimming.", "isBaseline": true}];
+const DATA_URL = './data/animals.json';
+const STORE_NAME = 'kv';
+const STATE_KEY = 'animalQuestState';
+const DEFAULT_EXPLORER_IMAGE = './assets/default-explorer.webp';
+const DEFAULT_EXPLORER_AVATAR = './assets/default-explorer-avatar.webp';
 
 const CATEGORIES = [
-  { id: 'Pets', label: 'Pets', slug: 'pets', note: 'Animals that can live with families.' },
-  { id: 'Farm', label: 'Farm', slug: 'farm', note: 'Animals found on farms and fields.' },
-  { id: 'Bugs', label: 'Bugs', slug: 'bugs', note: 'Tiny animals and little creatures.' },
-  { id: 'City', label: 'City', slug: 'city', note: 'Animals seen in parks, yards, and neighborhoods.' },
-  { id: 'Wild', label: 'Wild', slug: 'wild', note: 'Animals that live more freely in nature.' },
-  { id: 'Zoo', label: 'Zoo', slug: 'zoo', note: 'Big world animals often seen at zoos.' },
-  { id: 'Other', label: 'Other', slug: 'other', note: 'Special handmade discoveries.' }
+  { id: 'Pets', label: 'Pets', icon: '🏡', note: 'Animal friends near home.', color: 'pets' },
+  { id: 'Farm', label: 'Farm', icon: '🌿', note: 'Animals from farms and fields.', color: 'farm' },
+  { id: 'Bugs', label: 'Bugs', icon: '🔎', note: 'Tiny explorers and little creatures.', color: 'bugs' },
+  { id: 'City', label: 'City', icon: '🏙️', note: 'Animals in parks, yards, and neighborhoods.', color: 'city' },
+  { id: 'Wild', label: 'Wild', icon: '🌲', note: 'Animals from the wilder world.', color: 'wild' },
+  { id: 'Zoo', label: 'Zoo', icon: '🧭', note: 'Big world animals often seen at zoos.', color: 'zoo' },
+  { id: 'Other', label: 'Special', icon: '✨', note: 'Handmade discoveries.', color: 'other' }
 ];
 
 const DEFAULT_SETTINGS = {
@@ -21,595 +23,954 @@ const DEFAULT_SETTINGS = {
 };
 
 const app = document.getElementById('app');
-
-let db;
-let cameraStream = null;
-let state = {
-  screen: 'home',
-  params: {},
-  animals: [],
-  customAnimals: [],
-  discoveries: [],
-  mysteries: [],
+let db = null;
+let deferredInstallPrompt = null;
+let currentRoute = 'home';
+let routeParams = {};
+let pendingPhoto = null;
+let handmadeImageDraft = null;
+let quizDraft = null;
+let parentUnlocked = false;
+let parentChallenge = null;
+let animals = [];
+let appState = {
   profile: null,
-  settings: { ...DEFAULT_SETTINGS },
+  discoveries: {},
+  customAnimals: [],
+  mysteries: [],
   readyReveals: [],
-  parentUnlocked: false,
-  parentChallenge: null,
-  deferredInstallPrompt: null,
-  appInstalled: false,
-  pendingPhoto: null,
-  pickerMode: 'discover',
-  sourceMysteryId: null,
-  pickerCategory: 'All',
-  pickerSearch: '',
-  journalCategory: 'All',
-  toastTimer: null,
-  quiz: null,
-  handmadeImageData: null
+  settings: { ...DEFAULT_SETTINGS }
 };
 
-const escapeHtml = (value = '') => String(value)
-  .replaceAll('&', '&amp;')
-  .replaceAll('<', '&lt;')
-  .replaceAll('>', '&gt;')
-  .replaceAll('"', '&quot;')
-  .replaceAll("'", '&#39;');
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  renderRoute();
+});
 
-const slugify = (value = '') => String(value)
-  .toLowerCase()
-  .trim()
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-+|-+$/g, '') || `animal-${Date.now()}`;
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  toast('Installed on this device.');
+  renderRoute();
+});
 
-const uid = (prefix = 'id') => `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
-const nowIso = () => new Date().toISOString();
-const byName = (a, b) => a.name.localeCompare(b.name);
-const categorySlug = (category) => (CATEGORIES.find(c => c.id === category)?.slug || 'other');
-const categoryClass = (category) => `category-${categorySlug(category)}`;
-const categoryLabel = (category) => CATEGORIES.find(c => c.id === category)?.label || category || 'Other';
-const asList = (value) => Array.isArray(value) ? value.filter(Boolean) : String(value || '').split(',').map(v => v.trim()).filter(Boolean);
+function escapeHtml(value = '') {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
 
-function stopCamera() {
-  if (cameraStream) {
-    cameraStream.getTracks().forEach(track => track.stop());
-    cameraStream = null;
-  }
+function uid(prefix = 'id') {
+  return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function slugify(value = '') {
+  return String(value).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'animal';
+}
+
+function asList(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  return String(value || '').split(',').map(v => v.trim()).filter(Boolean);
+}
+
+function categoryInfo(category) {
+  return CATEGORIES.find(c => c.id === category) || CATEGORIES[CATEGORIES.length - 1];
+}
+
+function categoryClass(category) {
+  return `theme-${categoryInfo(category).color}`;
+}
+
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 }
 
 function openDb() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
+  return new Promise(resolve => {
+    if (!('indexedDB' in window)) return resolve(null);
+    const request = indexedDB.open(DB_NAME, 1);
     request.onupgradeneeded = () => {
       const database = request.result;
-      if (!database.objectStoreNames.contains('kv')) database.createObjectStore('kv', { keyPath: 'key' });
-      if (!database.objectStoreNames.contains('discoveries')) database.createObjectStore('discoveries', { keyPath: 'animalId' });
-      if (!database.objectStoreNames.contains('customAnimals')) database.createObjectStore('customAnimals', { keyPath: 'id' });
-      if (!database.objectStoreNames.contains('mysteries')) database.createObjectStore('mysteries', { keyPath: 'id' });
+      if (!database.objectStoreNames.contains(STORE_NAME)) database.createObjectStore(STORE_NAME, { keyPath: 'key' });
     };
     request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
+    request.onerror = () => resolve(null);
   });
 }
 
-function txStore(storeName, mode = 'readonly') {
-  return db.transaction(storeName, mode).objectStore(storeName);
-}
-
-function getAll(storeName) {
-  return new Promise((resolve, reject) => {
-    const request = txStore(storeName).getAll();
-    request.onsuccess = () => resolve(request.result || []);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-function getItem(storeName, key) {
-  return new Promise((resolve, reject) => {
-    const request = txStore(storeName).get(key);
-    request.onsuccess = () => resolve(request.result || null);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-function putItem(storeName, value) {
-  return new Promise((resolve, reject) => {
-    const request = txStore(storeName, 'readwrite').put(value);
-    request.onsuccess = () => resolve(value);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-function deleteItem(storeName, key) {
-  return new Promise((resolve, reject) => {
-    const request = txStore(storeName, 'readwrite').delete(key);
-    request.onsuccess = () => resolve();
-    request.onerror = () => reject(request.error);
-  });
-}
-
-function clearStore(storeName) {
-  return new Promise((resolve, reject) => {
-    const request = txStore(storeName, 'readwrite').clear();
-    request.onsuccess = () => resolve();
-    request.onerror = () => reject(request.error);
-  });
-}
-
-async function kvGet(key, fallback = null) {
-  const record = await getItem('kv', key);
-  return record ? record.value : fallback;
-}
-
-async function kvSet(key, value) {
-  return putItem('kv', { key, value });
-}
-
-async function loadState() {
-  try {
-    const response = await fetch(DATA_URL);
-    if (!response.ok) throw new Error(`Could not load ${DATA_URL}`);
-    state.animals = await response.json();
-  } catch (error) {
-    // File:// launches cannot fetch local JSON in some browsers.
-    // Keep a built-in copy so the demo still opens instead of showing a blank page.
-    state.animals = EMBEDDED_ANIMALS;
-    console.warn('Using embedded animal data fallback.', error);
+function dbGet(key) {
+  if (!db) {
+    try { return Promise.resolve(JSON.parse(localStorage.getItem(key) || 'null')); } catch (_) { return Promise.resolve(null); }
   }
-  state.customAnimals = await getAll('customAnimals');
-  state.discoveries = await getAll('discoveries');
-  state.mysteries = await getAll('mysteries');
-  state.profile = await kvGet('profile', null);
-  state.settings = { ...DEFAULT_SETTINGS, ...(await kvGet('settings', {})) };
-  state.readyReveals = await kvGet('readyReveals', []);
+  return new Promise(resolve => {
+    const request = db.transaction(STORE_NAME).objectStore(STORE_NAME).get(key);
+    request.onsuccess = () => resolve(request.result ? request.result.value : null);
+    request.onerror = () => resolve(null);
+  });
+}
+
+function dbSet(key, value) {
+  if (!db) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) {}
+    return Promise.resolve();
+  }
+  return new Promise(resolve => {
+    const request = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME).put({ key, value });
+    request.onsuccess = () => resolve();
+    request.onerror = () => resolve();
+  });
+}
+
+async function loadAnimals() {
+  if (window.location.protocol !== 'file:') {
+    try {
+      const response = await fetch(DATA_URL, { cache: 'no-store' });
+      if (response.ok) return await response.json();
+    } catch (error) {
+      console.warn('Could not fetch animals.json. Using embedded animal data if available.', error);
+    }
+  }
+  if (Array.isArray(window.ANIMALS_DATA)) return window.ANIMALS_DATA;
+  throw new Error('Animal data could not be loaded. Use the local server or deploy the public folder.');
+}
+
+function normalizeLoadedState(raw) {
+  const clean = raw && typeof raw === 'object' ? raw : {};
+  return {
+    profile: clean.profile || null,
+    discoveries: clean.discoveries && typeof clean.discoveries === 'object' ? clean.discoveries : {},
+    customAnimals: Array.isArray(clean.customAnimals) ? clean.customAnimals : [],
+    mysteries: Array.isArray(clean.mysteries) ? clean.mysteries : [],
+    readyReveals: Array.isArray(clean.readyReveals) ? clean.readyReveals : [],
+    settings: { ...DEFAULT_SETTINGS, ...(clean.settings || {}) }
+  };
+}
+
+async function saveState() {
+  appState.updatedAt = new Date().toISOString();
+  appState.appVersion = APP_VERSION;
+  await dbSet(STATE_KEY, appState);
 }
 
 function allAnimals() {
   return [
-    ...state.animals,
-    ...state.customAnimals.filter(animal => animal.published)
+    ...animals,
+    ...appState.customAnimals.filter(a => a.published)
   ].sort((a, b) => {
-    const ca = CATEGORIES.findIndex(c => c.id === a.category);
-    const cb = CATEGORIES.findIndex(c => c.id === b.category);
-    return ca === cb ? a.name.localeCompare(b.name) : ca - cb;
+    const ai = CATEGORIES.findIndex(c => c.id === a.category);
+    const bi = CATEGORIES.findIndex(c => c.id === b.category);
+    if (ai !== bi) return ai - bi;
+    return a.name.localeCompare(b.name);
   });
 }
 
-function getAnimal(animalId) {
-  return allAnimals().find(animal => animal.id === animalId) || state.customAnimals.find(animal => animal.id === animalId) || state.animals.find(animal => animal.id === animalId);
+function getAnimal(id) {
+  return allAnimals().find(a => a.id === id) || appState.customAnimals.find(a => a.id === id) || animals.find(a => a.id === id) || null;
 }
 
-function discoveryFor(animalId) {
-  return state.discoveries.find(discovery => discovery.animalId === animalId) || null;
+function discoveryFor(id) {
+  return appState.discoveries[id] || null;
 }
 
-function isUnlocked(animalId) {
-  return Boolean(discoveryFor(animalId));
+function isUnlocked(id) {
+  return Boolean(discoveryFor(id));
 }
 
 function completion() {
-  const animals = allAnimals();
-  const found = animals.filter(animal => isUnlocked(animal.id)).length;
-  const total = animals.length;
-  return { found, total, pct: total ? Math.round((found / total) * 100) : 0 };
+  const total = allAnimals().length;
+  const found = allAnimals().filter(a => isUnlocked(a.id)).length;
+  return { total, found, pct: total ? Math.round(found / total * 100) : 0 };
 }
 
 function categoryCounts() {
-  const animals = allAnimals();
-  return CATEGORIES.filter(cat => animals.some(animal => animal.category === cat.id)).map(cat => {
-    const list = animals.filter(animal => animal.category === cat.id);
-    return {
-      ...cat,
-      total: list.length,
-      found: list.filter(animal => isUnlocked(animal.id)).length
-    };
+  const list = allAnimals();
+  return CATEGORIES.filter(c => list.some(a => a.category === c.id)).map(c => {
+    const animalsInCategory = list.filter(a => a.category === c.id);
+    const found = animalsInCategory.filter(a => isUnlocked(a.id)).length;
+    return { ...c, total: animalsInCategory.length, found, animals: animalsInCategory };
   });
 }
 
-function isAppStandalone() {
-  return window.matchMedia?.('(display-mode: standalone)').matches || window.navigator.standalone === true;
+function firstAnimalsFor(category, count = 3) {
+  const list = allAnimals().filter(a => a.category === category);
+  const foundFirst = [...list].sort((a, b) => Number(isUnlocked(b.id)) - Number(isUnlocked(a.id)) || a.name.localeCompare(b.name));
+  return foundFirst.slice(0, count);
 }
 
-function installCardMarkup(context = 'home') {
-  if (isAppStandalone() || state.appInstalled || state.settings.hideInstallCard) return '';
-  const title = state.deferredInstallPrompt ? 'Install Animal Quest' : 'Add to your device';
-  const helper = state.deferredInstallPrompt
-    ? 'Install this as an app so it opens from the device home screen after deployment.'
-    : 'After deployment, add this app to the home screen from the browser. Localhost can test the experience; HTTPS is required for the deployed app.';
-  return `
-    <section class="panel compact install-card">
-      <div class="install-row">
-        <div>
-          <p class="eyebrow">Device app</p>
-          <h3>${title}</h3>
-          <p class="helper">${helper}</p>
-        </div>
-        <div class="actions">
-          <button class="btn primary" id="installAppButton" data-action="installApp">Install App</button>
-          ${context === 'home' ? '<button class="btn ghost" id="hideInstallCard">Later</button>' : ''}
-        </div>
-      </div>
-    </section>`;
-}
-
-async function installApp() {
-  if (state.deferredInstallPrompt) {
-    const promptEvent = state.deferredInstallPrompt;
-    state.deferredInstallPrompt = null;
-    promptEvent.prompt();
-    try {
-      const choice = await promptEvent.userChoice;
-      if (choice?.outcome === 'accepted') {
-        state.appInstalled = true;
-        showToast('App install started.');
-      } else {
-        showToast('Install skipped for now.');
-      }
-    } catch (error) {
-      console.warn(error);
-      showToast('Install prompt closed.');
-    }
-    return go(state.screen || 'home', state.params || {});
-  }
-  return renderInstallHelp();
-}
-
-function renderInstallHelp() {
-  render(`
-    <section class="panel hero">
-      <div>
-        <p class="eyebrow">Install guide</p>
-        <h2>Add Animal Quest to a device</h2>
-        <p class="helper">Once deployed, open the app link on the device and add it to the home screen. The app is built as a PWA, so it can feel like a regular app while keeping local data on the device.</p>
-        <div class="install-steps">
-          <div><strong>Android / Chrome</strong><p>Open the deployed app link, then tap <b>Install</b> when prompted. If no prompt appears, use the browser menu and choose <b>Install app</b> or <b>Add to Home screen</b>.</p></div>
-          <div><strong>iPhone / iPad Safari</strong><p>Open the deployed app link, tap the <b>Share</b> button, then choose <b>Add to Home Screen</b>.</p></div>
-          <div><strong>Local testing</strong><p>Use <code>http://localhost:5173</code>. Directly opening <code>index.html</code> can preview the app, but install/offline behavior needs localhost or HTTPS.</p></div>
-        </div>
-        <div class="actions">
-          <button class="btn primary" id="backHomeFromInstall">Back Home</button>
-          <button class="btn yellow" id="openParentSettingsFromInstall">Parent Settings</button>
-        </div>
-      </div>
-      <div class="hero-art"><div class="install-icon">📱</div></div>
-    </section>
-  `, 'home');
-  document.getElementById('backHomeFromInstall')?.addEventListener('click', () => go('home'));
-  document.getElementById('openParentSettingsFromInstall')?.addEventListener('click', () => state.parentUnlocked ? go('parentArea', { tab: 'settings' }) : go('parent'));
-}
-
-function showToast(message) {
-  window.clearTimeout(state.toastTimer);
-  const old = document.querySelector('.toast');
-  if (old) old.remove();
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  state.toastTimer = window.setTimeout(() => toast.remove(), 2400);
-}
-
-function progressMarkup({ found, total, pct }) {
-  return `
-    <div class="progress-card">
-      <div class="progress-label"><span>Animal Journal</span><span>${found} / ${total}</span></div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <p class="helper small">Published handmade animals join the journal when they are ready.</p>
-    </div>`;
-}
-
-function animalImage(animal, className = 'animal-img') {
-  const src = animal.imageData || animal.image;
-  if (!src) {
-    return `<div class="${className} placeholder-img" aria-label="No image yet">?</div>`;
-  }
+function imgMarkup(animal, className = 'animal-img') {
+  if (!animal) return '';
+  const src = animal.image || animal.imageData || '';
+  if (!src) return `<div class="image-placeholder">?</div>`;
   return `<img class="${className}" src="${escapeHtml(src)}" alt="${escapeHtml(animal.name)}" loading="lazy">`;
 }
 
-function animalCard(animal, options = {}) {
-  const unlocked = isUnlocked(animal.id);
-  const selectable = options.selectable !== false;
-  const extraClass = options.extraClass || '';
-  const customBadge = animal.isCustom ? '<span class="badge custom">Handmade</span>' : '';
-  const foundBadge = unlocked ? `<span class="badge filled">Found ${discoveryFor(animal.id)?.timesFound || 1}x</span>` : '<span class="badge">Locked</span>';
-  const tag = selectable ? 'button' : 'div';
-  const action = selectable ? `data-animal-id="${escapeHtml(animal.id)}"` : '';
-  return `
-    <${tag} class="animal-card ${categoryClass(animal.category)} ${unlocked ? 'unlocked' : 'locked'} ${extraClass}" ${action}>
-      <div class="lock-mark">?</div>
-      <div class="animal-img-wrap">${animalImage(animal)}</div>
-      <div class="card-title">
-        <strong>${escapeHtml(animal.name)}</strong>
-        <span>${escapeHtml(categoryLabel(animal.category))} - ${escapeHtml(animal.size || 'Unknown')}</span>
-        <div class="badges">${customBadge}${options.showFound === false ? '' : foundBadge}</div>
-      </div>
-    </${tag}>`;
+function activeNavRoute() {
+  if (['parentArea', 'handmade'].includes(currentRoute)) return 'parent';
+  if (['picker', 'unlock', 'mysterySubmitted', 'reveal'].includes(currentRoute)) return 'discover';
+  if (currentRoute === 'detail') return 'journal';
+  return currentRoute;
 }
 
-function render(content, active = state.screen) {
+function navButton(route, label, icon) {
+  const active = activeNavRoute() === route;
+  return `<button type="button" class="nav-btn ${active ? 'active' : ''}" data-route="${route}"><span>${icon}</span><strong>${label}</strong></button>`;
+}
+
+function shell(content) {
   const c = completion();
+  const avatarSrc = appState.profile?.avatar || DEFAULT_EXPLORER_AVATAR;
+  const avatar = `<img src="${escapeHtml(avatarSrc)}" alt="Explorer avatar">`;
   app.innerHTML = `
     <div class="app-shell">
-      <header class="app-header">
-        <div class="brand">
-          <div class="brand-mark"><img src="icons/icon-192.svg" alt="Animal Quest"></div>
-          <div>
-            <h1>Little Explorer: Animal Quest</h1>
-            <p>Discover real animals. Unlock your animal journal.</p>
-          </div>
+      <header class="topbar">
+        <button type="button" class="brand" data-route="home" aria-label="Go home">
+          <span class="brand-icon"><img src="./icons/app-icon-192.png" alt=""></span>
+          <span><strong>Little Explorer: Animal Quest</strong><small>Discover real animals. Unlock your animal journal.</small></span>
+        </button>
+        <div class="top-actions">
+          <div class="progress-pill"><span>${c.found}/${c.total}</span><small>${c.pct}% found</small></div>
+          <button type="button" class="avatar-button" data-route="profile" aria-label="Explorer profile">${avatar}</button>
         </div>
-        <div class="status-pill">${c.found} / ${c.total} found</div>
       </header>
-      <main class="screen">${content}</main>
-      <nav class="navbar" aria-label="Main navigation">
-        ${navButton('home', 'Home', active)}
-        ${navButton('discover', 'Discover', active)}
-        ${navButton('journal', 'Journal', active)}
-        ${navButton('quiz', 'Quiz', active)}
-        ${navButton('parent', 'Parent', active)}
+      <main class="view">${content}</main>
+      <nav class="bottom-nav" aria-label="Main navigation">
+        ${navButton('home', 'Home', '🏕️')}
+        ${navButton('discover', 'Discover', '📷')}
+        ${navButton('journal', 'Journal', '📖')}
+        ${navButton('quiz', 'Quiz', '⭐')}
+        ${navButton('parent', 'Grown-up', '🔒')}
       </nav>
     </div>`;
-  bindNav();
 }
 
-function navButton(screen, label, active) {
-  return `<button class="nav-btn ${active === screen ? 'active' : ''}" data-nav="${screen}">${label}</button>`;
+function setRoute(route, params = {}) {
+  currentRoute = route;
+  routeParams = params;
+  if (route !== 'picker') handmadeImageDraft = handmadeImageDraft;
+  renderRoute();
 }
 
-function bindNav() {
-  document.querySelectorAll('[data-nav]').forEach(button => {
-    button.addEventListener('click', () => go(button.dataset.nav));
-  });
-}
-
-async function go(screen, params = {}) {
-  stopCamera();
-  state.screen = screen;
-  state.params = params;
-  if (screen !== 'animalPicker') {
-    state.pickerMode = 'discover';
-    state.sourceMysteryId = null;
-  }
-  switch (screen) {
+function renderRoute() {
+  switch (currentRoute) {
     case 'home': return renderHome();
     case 'discover': return renderDiscover();
-    case 'animalPicker': return renderAnimalPicker(params);
-    case 'journal': return renderJournal(params.category || state.journalCategory || 'All');
-    case 'detail': return renderAnimalDetail(params.id);
-    case 'unlock': return renderUnlock(params.animalId, params.wasAlreadyFound);
+    case 'picker': return renderPicker(routeParams);
+    case 'unlock': return renderUnlock(routeParams);
+    case 'journal': return renderJournal(routeParams.category || 'All');
+    case 'detail': return renderDetail(routeParams.id);
     case 'quiz': return renderQuiz();
     case 'profile': return renderProfile();
-    case 'install': return renderInstallHelp();
     case 'parent': return renderParentGate();
-    case 'parentArea': return renderParentArea(params.tab || 'overview');
-    case 'handmade': return renderHandmadeForm(params);
+    case 'parentArea': return renderParentArea(routeParams.tab || 'overview');
+    case 'handmade': return renderHandmade(routeParams);
     case 'mysterySubmitted': return renderMysterySubmitted();
-    case 'reveal': return renderReadyReveal(params.id);
+    case 'reveal': return renderReveal(routeParams.id);
     default: return renderHome();
   }
+}
+
+function progressBar(c = completion()) {
+  return `<div class="progress-block">
+    <div class="progress-label"><strong>${c.found} / ${c.total} animals discovered</strong><span>${c.pct}%</span></div>
+    <div class="progress-track"><i style="width:${c.pct}%"></i></div>
+  </div>`;
+}
+
+function installBlock() {
+  if (isStandalone()) return '';
+  return `<section class="install-strip">
+    <div><strong>Install Animal Quest</strong><span>Deploy it once, then save it to a phone, tablet, or desktop and use it offline after it loads.</span></div>
+    <button type="button" class="btn compact blue" data-action="install">${deferredInstallPrompt ? 'Install App' : 'How to Install'}</button>
+  </section>`;
 }
 
 function renderHome() {
   const c = completion();
   const featured = getAnimal('squirrel') || allAnimals()[0];
-  const latest = [...state.discoveries].sort((a, b) => String(b.lastDiscoveredAt).localeCompare(String(a.lastDiscoveredAt))).slice(0, 4);
-  const badges = computeBadges();
-  const revealAlert = state.readyReveals.length ? `
-    <div class="alert">
-      <span>New animal discovery ready. A grown-up studied your mystery animal.</span>
-      <button class="btn yellow" id="openReveal">Reveal</button>
-    </div>` : '';
-
-  render(`
-    ${revealAlert}
-    <section class="panel hero">
-      <div>
-        <h2>Go outside. Find animals. Unlock your journal.</h2>
-        <p>Take a photo of a real animal, choose what you found, and add it to your animal journal. This app is built to help kids explore the real world.</p>
-        <div class="actions">
-          <button class="btn primary" id="startDiscover">Discover Animal</button>
-          <button class="btn yellow" id="openJournal">Open Journal</button>
+  const latest = Object.values(appState.discoveries).sort((a, b) => String(b.lastDiscoveredAt).localeCompare(String(a.lastDiscoveredAt))).slice(0, 4);
+  const ready = appState.readyReveals[0];
+  const readyAnimal = ready ? getAnimal(ready.animalId) : null;
+  shell(`
+    ${ready ? `<section class="reveal-banner"><div><strong>New animal discovery ready!</strong><span>A grown-up studied your mystery animal${readyAnimal ? `: ${escapeHtml(readyAnimal.name)}` : ''}.</span></div><button type="button" class="btn yellow" data-route="reveal" data-id="${ready.id}">Reveal Card</button></section>` : ''}
+    <section class="hero-card">
+      <div class="hero-copy">
+        <p class="eyebrow">Real-world animal adventure</p>
+        <h1>Go outside. Find animals. Unlock your journal.</h1>
+        <p>Take a photo, choose what you found, and turn each discovery into a friendly animal card.</p>
+        ${progressBar(c)}
+        <div class="hero-actions">
+          <button type="button" class="quest-button primary" data-route="discover"><span>📷</span><strong>Discover Animal</strong><small>Take or choose a photo</small></button>
+          <button type="button" class="quest-button journal" data-route="journal"><span>📖</span><strong>Animal Journal</strong><small>See unlocked and missing cards</small></button>
         </div>
       </div>
-      <div class="hero-art">${featured ? animalImage(featured, 'animal-img') : ''}</div>
-    </section>
-
-    ${installCardMarkup('home')}
-
-    <section class="grid two">
-      ${progressMarkup(c)}
-      <div class="progress-card">
-        <div class="progress-label"><span>Explorer</span><span>${state.profile ? escapeHtml(state.profile.name) : 'Set up'}</span></div>
-        <p class="helper">Create a local explorer card for the child or shared family explorers.</p>
-        <button class="btn purple" id="editProfile">${state.profile ? 'Edit Profile' : 'Create Profile'}</button>
+      <div class="hero-scene">
+        <img src="${DEFAULT_EXPLORER_IMAGE}" alt="Little explorers discovering an animal temple">
+        <div class="hero-bubble">Explorer base camp</div>
       </div>
     </section>
 
-    <section class="panel compact">
-      <h3>Badges</h3>
-      <div class="badges">${badges.map(badge => `<span class="badge ${badge.earned ? 'filled' : ''}">${escapeHtml(badge.name)}</span>`).join('')}</div>
+    ${installBlock()}
+
+    <section class="section-head"><h2>Explorer map</h2><span>${c.found}/${c.total} found</span></section>
+    <div class="category-grid">
+      ${categoryCounts().map(categoryTile).join('')}
+    </div>
+
+    <section class="panel">
+      <div class="section-head compact"><h2>Badges</h2><span>${earnedBadges().filter(b => b.earned).length}/${earnedBadges().length}</span></div>
+      <div class="badge-strip">${earnedBadges().map(b => `<span class="badge ${b.earned ? 'earned' : ''}">${b.icon} ${escapeHtml(b.name)}</span>`).join('')}</div>
     </section>
 
-    <section class="panel compact">
-      <h3>Recent discoveries</h3>
-      ${latest.length ? `<div class="animal-grid">${latest.map(discovery => animalCard(getAnimal(discovery.animalId), { selectable: true })).join('')}</div>` : '<div class="empty-state"><strong>No discoveries yet.</strong><p class="helper">Start with an animal nearby, like a pet, bug, or bird.</p></div>'}
+    <section class="panel">
+      <div class="section-head compact"><h2>Recent discoveries</h2><button type="button" class="link-btn" data-route="journal">Open journal</button></div>
+      ${latest.length ? `<div class="animal-grid small-grid">${latest.map(d => animalCard(getAnimal(d.animalId), { compact: true })).join('')}</div>` : `<div class="empty-state"><strong>No discoveries yet.</strong><p>Start with a pet, bug, bird, or animal nearby.</p><button type="button" class="btn green" data-route="discover">Start discovering</button></div>`}
     </section>
-  `, 'home');
-
-  document.getElementById('startDiscover')?.addEventListener('click', () => go('discover'));
-  document.getElementById('openJournal')?.addEventListener('click', () => go('journal'));
-  document.getElementById('editProfile')?.addEventListener('click', () => go('profile'));
-  document.getElementById('openReveal')?.addEventListener('click', () => go('reveal', { id: state.readyReveals[0].id }));
-  document.getElementById('installAppButton')?.addEventListener('click', installApp);
-  document.getElementById('hideInstallCard')?.addEventListener('click', async () => { state.settings.hideInstallCard = true; await kvSet('settings', state.settings); renderHome(); });
-  bindAnimalDetailLinks();
+  `);
 }
 
-function computeBadges() {
-  const c = completion();
-  const counts = Object.fromEntries(categoryCounts().map(cat => [cat.id, cat.found]));
-  const repeat = state.discoveries.some(d => d.timesFound >= 3);
-  const handmade = state.customAnimals.some(a => a.published);
+function categoryTile(cat) {
+  const pct = cat.total ? Math.round(cat.found / cat.total * 100) : 0;
+  const halfTarget = Math.max(1, Math.ceil(cat.total / 2));
+  const mapRevealed = cat.found >= halfTarget;
+  const thumbs = firstAnimalsFor(cat.id, 3);
+  return `<button type="button" class="category-tile ${categoryClass(cat.id)} ${mapRevealed ? 'map-revealed' : 'map-mystery'}" data-route="journal" data-category="${cat.id}">
+    <div class="tile-top"><span class="cat-icon">${cat.icon}</span><strong>${cat.label}</strong><em>${cat.found}/${cat.total}</em></div>
+    <div class="thumb-stack">${thumbs.map((a, i) => `<span style="--i:${i}">${imgMarkup(a)}</span>`).join('')}<b class="map-question">?</b></div>
+    <div class="mini-progress"><i style="width:${pct}%"></i></div>
+    <small>${mapRevealed ? escapeHtml(cat.note) : `Find ${halfTarget} ${cat.label.toLowerCase()} animals to reveal this map clue.`}</small>
+  </button>`;
+}
+
+function earnedBadges() {
+  const counts = Object.fromEntries(categoryCounts().map(c => [c.id, c.found]));
+  const found = completion().found;
+  const repeat = Object.values(appState.discoveries).some(d => d.timesFound >= 3);
+  const handmade = appState.customAnimals.some(a => a.published);
   return [
-    { name: 'First Discovery', earned: c.found >= 1 },
-    { name: 'Three Finds', earned: c.found >= 3 },
-    { name: 'Ten Finds', earned: c.found >= 10 },
-    { name: 'Pet Pal', earned: (counts.Pets || 0) >= 3 },
-    { name: 'Farm Friend', earned: (counts.Farm || 0) >= 3 },
-    { name: 'Bug Buddy', earned: (counts.Bugs || 0) >= 3 },
-    { name: 'City Explorer', earned: (counts.City || 0) >= 3 },
-    { name: 'Wild Tracker', earned: (counts.Wild || 0) >= 2 },
-    { name: 'Zoo Scout', earned: (counts.Zoo || 0) >= 3 },
-    { name: 'Found Again', earned: repeat },
-    { name: 'Handmade Helper', earned: handmade }
+    { name: 'First Discovery', icon: '🌟', earned: found >= 1 },
+    { name: 'Three Finds', icon: '🧭', earned: found >= 3 },
+    { name: 'Ten Finds', icon: '🏆', earned: found >= 10 },
+    { name: 'Pet Pal', icon: '🏡', earned: (counts.Pets || 0) >= 3 },
+    { name: 'Farm Friend', icon: '🌿', earned: (counts.Farm || 0) >= 3 },
+    { name: 'Bug Buddy', icon: '🔎', earned: (counts.Bugs || 0) >= 3 },
+    { name: 'City Explorer', icon: '🏙️', earned: (counts.City || 0) >= 3 },
+    { name: 'Wild Tracker', icon: '🌲', earned: (counts.Wild || 0) >= 2 },
+    { name: 'Zoo Scout', icon: '🧭', earned: (counts.Zoo || 0) >= 3 },
+    { name: 'Found Again', icon: '🔁', earned: repeat },
+    { name: 'Handmade Helper', icon: '🎨', earned: handmade }
   ];
 }
 
-async function renderProfile() {
-  const profile = state.profile || {};
-  render(`
-    <section class="panel">
-      <h2>Explorer Profile</h2>
-      <p class="helper">This profile stays on this device. It can be one child or shared explorers like Simon and Olivia.</p>
-      <form id="profileForm" class="form">
-        <div class="field">
-          <label for="profileName">Explorer name</label>
-          <input class="input" id="profileName" value="${escapeHtml(profile.name || '')}" placeholder="Example: Simon and Olivia" required>
-        </div>
-        <div class="field">
-          <label for="favoriteAnimal">Favorite animal</label>
-          <input class="input" id="favoriteAnimal" value="${escapeHtml(profile.favoriteAnimal || '')}" placeholder="Example: Turtle">
-        </div>
-        <div class="field">
-          <label for="avatarInput">Avatar image</label>
-          <input class="input" id="avatarInput" type="file" accept="image/*">
-          <p class="helper small">Optional. A small local copy will be saved in the app.</p>
-        </div>
-        ${profile.avatarData ? `<img class="preview-photo" style="max-width:220px" src="${profile.avatarData}" alt="Avatar preview">` : ''}
-        <div class="actions">
-          <button class="btn primary" type="submit">Save Profile</button>
-          <button class="btn ghost" type="button" id="backHome">Back Home</button>
-        </div>
+function renderProfile() {
+  const profile = appState.profile || {};
+  shell(`
+    <section class="panel profile-panel">
+      <div>
+        <p class="eyebrow">Local explorer card</p>
+        <h1>Explorer Profile</h1>
+        <p class="helper">This stays only on this device. It can be one child or shared explorers like “Simon and Olivia.”</p>
+      </div>
+      <form class="form-card" data-submit="profile">
+        <div class="avatar-preview"><img src="${escapeHtml(profile.avatar || DEFAULT_EXPLORER_AVATAR)}" alt="Explorer avatar"></div>
+        <p class="helper full">The app uses the explorer scene as the default picture. Upload your own photo to personalize the local profile.</p>
+        <label>Explorer name<input name="name" required value="${escapeHtml(profile.name || '')}" placeholder="Simon and Olivia"></label>
+        <label>Favorite animal<input name="favoriteAnimal" value="${escapeHtml(profile.favoriteAnimal || '')}" placeholder="Rabbit, lion, butterfly..."></label>
+        <label>Avatar image<input id="profileAvatarInput" type="file" accept="image/*"></label>
+        <div class="actions"><button type="submit" class="btn green">Save Profile</button><button type="button" class="btn ghost" data-route="home">Back Home</button></div>
       </form>
     </section>
-  `, 'home');
-
-  let newAvatar = profile.avatarData || null;
-  document.getElementById('avatarInput').addEventListener('change', async event => {
-    const file = event.target.files?.[0];
-    if (file) {
-      newAvatar = await compressImage(file, 256, 0.72);
-      showToast('Avatar ready to save.');
-    }
-  });
-  document.getElementById('profileForm').addEventListener('submit', async event => {
-    event.preventDefault();
-    state.profile = {
-      name: document.getElementById('profileName').value.trim() || 'Little Explorer',
-      favoriteAnimal: document.getElementById('favoriteAnimal').value.trim(),
-      avatarData: newAvatar,
-      updatedAt: nowIso()
-    };
-    await kvSet('profile', state.profile);
-    showToast('Profile saved.');
-    go('home');
-  });
-  document.getElementById('backHome').addEventListener('click', () => go('home'));
+  `);
 }
 
 function renderDiscover() {
-  const canSkip = state.parentUnlocked && state.settings.manualUnlockEnabled;
-  render(`
-    <section class="panel">
-      <h2>Discover Animal</h2>
-      <p class="helper">Take a photo first. Then choose the animal you found. The app does not try to guess the animal for you.</p>
-      <div class="grid two">
-        <div class="progress-card">
-          <h3>Photo first</h3>
-          <p class="helper">Use the phone camera or pick a photo. The app stores one small local copy for the animal card.</p>
-          <input id="photoInput" class="hidden" type="file" accept="image/*" capture="environment">
-          <div class="actions">
-            <button class="btn primary" id="photoButton">Take or Choose Photo</button>
-            ${state.settings.cameraEnabled ? '<button class="btn blue" id="liveCameraButton">Open Live Camera</button>' : ''}
-          </div>
-        </div>
-        <div class="progress-card">
-          <h3>Mystery discoveries</h3>
-          <p class="helper">If the animal is not in the list, save it as a mystery. A grown-up can study it later.</p>
-          ${canSkip ? '<button class="btn ghost" id="manualUnlockButton">Parent manual unlock</button>' : '<p class="helper small">Parent manual unlock is available only in Parent settings.</p>'}
+  shell(`
+    <section class="panel discover-panel">
+      <div class="discover-copy">
+        <p class="eyebrow">Discover animal</p>
+        <h1>What animal did you find?</h1>
+        <p class="helper">Take or choose a photo. Then pick the animal from the journal list. The app keeps one small local photo for the card.</p>
+      </div>
+      <div class="camera-card">
+        <label class="photo-drop">
+          <input id="discoverPhotoInput" type="file" accept="image/*" capture="environment">
+          ${pendingPhoto ? `<img src="${pendingPhoto}" alt="Selected discovery photo">` : `<span class="camera-icon">📷</span><strong>Take or choose photo</strong><small>Works best on a phone. Desktop can choose an image.</small>`}
+        </label>
+        <div class="actions center">
+          <button type="button" class="btn green" data-action="chooseAnimal" ${pendingPhoto ? '' : 'disabled'}>Choose Animal</button>
+          <button type="button" class="btn yellow" data-action="mystery" ${pendingPhoto ? '' : 'disabled'}>Mystery Animal</button>
+          ${pendingPhoto ? '<button type="button" class="btn ghost" data-action="clearPhoto">Retake / Choose Again</button>' : ''}
         </div>
       </div>
-      <div id="cameraMount" class="camera-box"></div>
     </section>
-  `, 'discover');
-
-  document.getElementById('photoButton').addEventListener('click', () => document.getElementById('photoInput').click());
-  document.getElementById('photoInput').addEventListener('change', async event => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    state.pendingPhoto = await compressImage(file, 640, 0.68);
-    state.pickerMode = 'discover';
-    go('animalPicker');
-  });
-  document.getElementById('liveCameraButton')?.addEventListener('click', startLiveCamera);
-  document.getElementById('manualUnlockButton')?.addEventListener('click', () => {
-    state.pendingPhoto = null;
-    state.pickerMode = 'manualUnlock';
-    go('animalPicker');
-  });
+  `);
 }
 
-async function startLiveCamera() {
-  const mount = document.getElementById('cameraMount');
-  try {
-    cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false });
-    mount.innerHTML = `
-      <video id="cameraVideo" class="camera-video" autoplay playsinline></video>
-      <div class="actions">
-        <button class="btn primary" id="captureButton">Capture Photo</button>
-        <button class="btn ghost" id="cancelCameraButton">Cancel</button>
-      </div>`;
-    const video = document.getElementById('cameraVideo');
-    video.srcObject = cameraStream;
-    document.getElementById('captureButton').addEventListener('click', async () => {
-      state.pendingPhoto = await captureVideoFrame(video, 640, 0.68);
-      stopCamera();
-      state.pickerMode = 'discover';
-      go('animalPicker');
-    });
-    document.getElementById('cancelCameraButton').addEventListener('click', () => {
-      stopCamera();
-      mount.innerHTML = '';
-    });
-  } catch (error) {
-    showToast('Live camera could not open. Use Take or Choose Photo instead.');
+function renderPicker(params = {}) {
+  const mode = params.mode || 'discover';
+  const selectedCategory = params.category || 'All';
+  const search = params.search || '';
+  const sourceMystery = mode === 'linkMystery' ? appState.mysteries.find(m => m.id === params.mysteryId) : null;
+  const list = allAnimals().filter(animal => {
+    const matchCategory = selectedCategory === 'All' || animal.category === selectedCategory;
+    const q = search.trim().toLowerCase();
+    const matchSearch = !q || animal.name.toLowerCase().includes(q) || animal.category.toLowerCase().includes(q) || String(animal.familyGroup || '').toLowerCase().includes(q);
+    return matchCategory && matchSearch;
+  });
+  shell(`
+    <section class="panel">
+      <div class="section-head"><div><p class="eyebrow">Animal picker</p><h1>${mode === 'linkMystery' ? 'Link mystery to an animal' : 'Choose what you found'}</h1></div><button type="button" class="btn ghost" data-route="${mode === 'linkMystery' ? 'parentArea' : 'discover'}" data-tab="mysteries">Back</button></div>
+      ${sourceMystery ? `<div class="mystery-preview"><img src="${sourceMystery.photo}" alt="Mystery photo"><div><strong>Mystery photo</strong><p class="helper">Pick an existing animal to unlock later for the child.</p></div></div>` : ''}
+      <div class="picker-tools">
+        <input id="animalSearch" class="search-input" placeholder="Search animal, category, or family..." value="${escapeHtml(search)}">
+        <select id="animalCategorySelect">
+          <option value="All">All categories</option>
+          ${categoryCounts().map(c => `<option value="${c.id}" ${selectedCategory === c.id ? 'selected' : ''}>${c.label}</option>`).join('')}
+        </select>
+      </div>
+      <div class="animal-grid picker-grid">${list.map(animal => animalCard(animal, { action: 'selectAnimal', compact: true })).join('')}</div>
+      ${mode === 'discover' ? '<div class="actions center"><button type="button" class="btn yellow" data-action="mystery">I can’t find it</button></div>' : ''}
+    </section>
+  `);
+  document.getElementById('animalSearch')?.addEventListener('input', event => setRoute('picker', { ...params, search: event.target.value }));
+  document.getElementById('animalCategorySelect')?.addEventListener('change', event => setRoute('picker', { ...params, category: event.target.value }));
+}
+
+function animalCard(animal, options = {}) {
+  if (!animal) return '';
+  const unlocked = isUnlocked(animal.id);
+  const discovery = discoveryFor(animal.id);
+  const action = options.action || 'detail';
+  const compact = options.compact ? 'compact' : '';
+  const revealLockedImage = Boolean(options.revealLockedImage) || action === 'selectAnimal';
+  const cardState = unlocked ? 'unlocked' : (revealLockedImage ? 'locked picker-visible' : 'locked mystery-locked');
+  const metaLine = (unlocked || revealLockedImage) ? `${escapeHtml(animal.category)} • ${escapeHtml(animal.size || 'Unknown')}` : 'Mystery shape';
+  const stateLine = unlocked ? `Found ${discovery.timesFound || 1}x` : (revealLockedImage ? 'Tap to choose' : 'Find to reveal');
+  return `<button type="button" class="animal-card ${categoryClass(animal.category)} ${cardState} ${compact}" data-action="${action}" data-id="${animal.id}">
+    <div class="card-art">${imgMarkup(animal)}<span class="lock-mark">?</span></div>
+    <div class="card-meta">
+      <strong>${escapeHtml(animal.name)}</strong>
+      <span>${metaLine}</span>
+      <em>${stateLine}</em>
+    </div>
+  </button>`;
+}
+
+function renderJournal(category = 'All') {
+  const c = completion();
+  const cats = categoryCounts();
+  const filtered = allAnimals().filter(animal => category === 'All' || animal.category === category);
+  shell(`
+    <section class="journal-hero panel">
+      <div><p class="eyebrow">Animal journal</p><h1>Color cards are found. Grey cards are waiting.</h1><p class="helper">Names stay visible so kids know what to look for next.</p></div>
+      ${progressBar(c)}
+    </section>
+    <div class="journal-categories">
+      <button type="button" class="journal-cat ${category === 'All' ? 'active' : ''}" data-route="journal" data-category="All"><span>📖</span><strong>All</strong><em>${c.found}/${c.total}</em></button>
+      ${cats.map(cat => `<button type="button" class="journal-cat ${category === cat.id ? 'active' : ''} ${categoryClass(cat.id)}" data-route="journal" data-category="${cat.id}">
+        <span class="cat-imgs">${firstAnimalsFor(cat.id, 2).map(a => imgMarkup(a)).join('')}</span><strong>${cat.label}</strong><em>${cat.found}/${cat.total}</em>
+      </button>`).join('')}
+    </div>
+    <section class="panel">
+      <div class="section-head compact"><h2>${category === 'All' ? 'All Animals' : categoryInfo(category).label}</h2><span>${filtered.filter(a => isUnlocked(a.id)).length}/${filtered.length}</span></div>
+      <div class="animal-grid">${filtered.map(animal => animalCard(animal)).join('')}</div>
+    </section>
+  `);
+}
+
+function renderDetail(id) {
+  const animal = getAnimal(id);
+  if (!animal) return setRoute('journal');
+  const unlocked = isUnlocked(animal.id);
+  const discovery = discoveryFor(animal.id);
+  shell(`
+    <section class="detail-card ${categoryClass(animal.category)} ${unlocked ? 'unlocked' : 'locked-detail'}">
+      <button type="button" class="back-btn" data-route="journal">← Back to Journal</button>
+      <div class="detail-layout">
+        <div class="detail-art">${imgMarkup(animal)}</div>
+        <div class="detail-info">
+          <div class="badge-row"><span class="badge earned">${escapeHtml(animal.category)}</span>${animal.isCustom ? '<span class="badge earned">🎨 Handmade</span>' : ''}${!unlocked ? '<span class="badge">Locked</span>' : ''}</div>
+          <h1>${escapeHtml(animal.name)}</h1>
+          <p class="helper">${unlocked ? escapeHtml(animal.funFact || 'A new animal friend for your journal.') : 'Discover this animal to unlock the full learning card.'}</p>
+          <div class="fact-grid ${unlocked ? '' : 'soft-locked'}">
+            <div class="fact"><span>Size</span><strong>${escapeHtml(animal.size || 'Unknown')}</strong></div>
+            <div class="fact"><span>Explorer skill</span><strong>${escapeHtml(animal.explorerSkill || 'Explorer')}</strong></div>
+            <div class="fact"><span>Eats</span><strong>${escapeHtml(asList(animal.eats).join(', ') || 'Unknown')}</strong></div>
+            <div class="fact"><span>Lives in</span><strong>${escapeHtml(asList(animal.livesIn).join(', ') || 'Unknown')}</strong></div>
+            <div class="fact"><span>Animal type</span><strong>${escapeHtml(animal.animalClass || 'Animal')}</strong></div>
+            <div class="fact"><span>Family</span><strong>${escapeHtml(animal.familyGroup || animal.animalClass || 'Animal')}</strong></div>
+          </div>
+          ${unlocked ? `<div class="discovery-box"><div>${discovery.latestPhoto ? `<img src="${discovery.latestPhoto}" alt="Latest discovery photo">` : '<span>No photo saved.</span>'}</div><p><strong>Found ${discovery.timesFound || 1} time${(discovery.timesFound || 1) === 1 ? '' : 's'}.</strong><br>First found: ${formatDate(discovery.firstDiscoveredAt)}<br>Last found: ${formatDate(discovery.lastDiscoveredAt)}</p></div>` : ''}
+          <div class="actions"><button type="button" class="btn green" data-route="discover">${unlocked ? 'Find Again' : 'Discover This Animal'}</button></div>
+        </div>
+      </div>
+    </section>
+  `);
+}
+
+function formatDate(value) {
+  if (!value) return 'Today';
+  try { return new Date(value).toLocaleDateString(); } catch (_) { return String(value); }
+}
+
+async function unlockAnimal(animalId, photo = pendingPhoto, source = 'photo') {
+  const animal = getAnimal(animalId);
+  if (!animal) return;
+  const now = new Date().toISOString();
+  const existing = appState.discoveries[animalId];
+  appState.discoveries[animalId] = {
+    animalId,
+    timesFound: existing ? (existing.timesFound || 1) + 1 : 1,
+    firstDiscoveredAt: existing?.firstDiscoveredAt || now,
+    lastDiscoveredAt: now,
+    latestPhoto: photo || existing?.latestPhoto || null,
+    source
+  };
+  pendingPhoto = null;
+  await saveState();
+  setRoute('unlock', { id: animalId, already: Boolean(existing) });
+}
+
+function renderUnlock(params) {
+  const animal = getAnimal(params.id);
+  if (!animal) return setRoute('journal');
+  shell(`
+    <section class="unlock-card ${categoryClass(animal.category)}">
+      <div class="sparkles">✦ ✨ ✦</div>
+      <p class="eyebrow">${params.already ? 'Found again' : 'New card unlocked'}</p>
+      <h1>${params.already ? `You found ${escapeHtml(animal.name)} again!` : `You discovered ${escapeHtml(animal.name)}!`}</h1>
+      <div class="unlock-art">${imgMarkup(animal)}</div>
+      <p class="helper">${escapeHtml(animal.funFact || 'A new animal friend joined your journal.')}</p>
+      <div class="actions center"><button type="button" class="btn green" data-route="detail" data-id="${animal.id}">Open Card</button><button type="button" class="btn yellow" data-route="journal">Go to Journal</button></div>
+    </section>
+  `);
+}
+
+async function saveMystery() {
+  if (!pendingPhoto) return toast('Take or choose a photo first.');
+  const mystery = { id: uid('mystery'), photo: pendingPhoto, createdAt: new Date().toISOString(), status: 'pending' };
+  appState.mysteries.unshift(mystery);
+  pendingPhoto = null;
+  await saveState();
+  setRoute('mysterySubmitted');
+}
+
+function renderMysterySubmitted() {
+  shell(`
+    <section class="unlock-card mystery-card">
+      <div class="sparkles">🔎 ✨ 🧭</div>
+      <p class="eyebrow">Mystery discovery</p>
+      <h1>This animal is not in the journal yet.</h1>
+      <p class="helper">A grown-up can study the discovery, link it to an existing animal, or create a handmade card.</p>
+      <div class="actions center"><button type="button" class="btn green" data-route="home">Back Home</button><button type="button" class="btn ghost" data-route="parent">Grown-up Review</button></div>
+    </section>
+  `);
+}
+
+function renderQuiz() {
+  const discovered = allAnimals().filter(a => isUnlocked(a.id));
+  if (discovered.length < 3) {
+    shell(`<section class="panel empty-state large"><p class="eyebrow">Quiz</p><h1>Discover 3 animals to unlock quiz play.</h1><p>Quizzes only use animals already found.</p><button type="button" class="btn green" data-route="discover">Discover Animal</button></section>`);
+    return;
+  }
+  quizDraft = quizDraft && quizDraft.options.every(id => discovered.some(a => a.id === id)) ? quizDraft : createQuiz(discovered);
+  const options = quizDraft.options.map(id => getAnimal(id)).filter(Boolean);
+  shell(`
+    <section class="panel quiz-panel">
+      <p class="eyebrow">Explorer quiz</p>
+      <h1>${escapeHtml(quizDraft.question)}</h1>
+      <p class="helper">Tap every card that matches. Questions use only animals already discovered.</p>
+      <div class="animal-grid quiz-grid">${options.map(animal => animalCard(animal, { action: 'quizSelect', compact: true })).join('')}</div>
+      <div class="actions center"><button type="button" class="btn green" data-action="checkQuiz">Check Answer</button><button type="button" class="btn ghost" data-action="newQuiz">New Quiz</button></div>
+      <div id="quizFeedback" class="quiz-feedback"></div>
+    </section>
+  `);
+  quizDraft.selected.forEach(id => document.querySelector(`[data-action="quizSelect"][data-id="${CSS.escape(id)}"]`)?.classList.add('selected'));
+}
+
+function createQuiz(discovered) {
+  const types = [];
+  const categories = [...new Set(discovered.map(a => a.category))].filter(cat => discovered.some(a => a.category === cat) && discovered.some(a => a.category !== cat));
+  categories.forEach(cat => types.push({ question: `Which animals are ${cat} animals?`, match: a => a.category === cat }));
+  const classes = [...new Set(discovered.map(a => a.animalClass).filter(Boolean))].filter(cls => discovered.some(a => a.animalClass === cls) && discovered.some(a => a.animalClass !== cls));
+  classes.forEach(cls => types.push({ question: `Which animals are ${cls}s?`, match: a => a.animalClass === cls }));
+  const eatsPlants = discovered.some(a => asList(a.eats).some(e => /plant|grass|leaf|leaves|nectar|seed|fruit|hay|grain/i.test(e))) && discovered.some(a => !asList(a.eats).some(e => /plant|grass|leaf|leaves|nectar|seed|fruit|hay|grain/i.test(e)));
+  if (eatsPlants) types.push({ question: 'Which animals eat plants, seeds, leaves, or nectar?', match: a => asList(a.eats).some(e => /plant|grass|leaf|leaves|nectar|seed|fruit|hay|grain/i.test(e)) });
+  const target = types[Math.floor(Math.random() * types.length)] || { question: 'Which animals have you discovered?', match: () => true };
+  const matches = discovered.filter(target.match);
+  const nonMatches = discovered.filter(a => !target.match(a));
+  const chosen = shuffle([...shuffle(matches).slice(0, 3), ...shuffle(nonMatches).slice(0, 3)]).slice(0, 6);
+  return { question: target.question, answers: chosen.filter(target.match).map(a => a.id), options: chosen.map(a => a.id), selected: [] };
+}
+
+function shuffle(array) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
+
+function renderParentGate() {
+  if (parentUnlocked) return renderParentArea(routeParams.tab || 'overview');
+  const a = Math.floor(Math.random() * 7) + 8;
+  const b = Math.floor(Math.random() * 7) + 6;
+  parentChallenge = { a, b, answer: a + b };
+  shell(`
+    <section class="panel gate-panel">
+      <p class="eyebrow">Grown-up area</p>
+      <h1>Grown-up check</h1>
+      <p class="helper">Solve this to manage animal data, handmade cards, reset options, and exports.</p>
+      <form class="form-card narrow" data-submit="parentGate">
+        <label>What is ${a} + ${b}?<input name="answer" inputmode="numeric" autocomplete="off" required></label>
+        <button type="submit" class="btn green">Enter Parent Area</button>
+      </form>
+    </section>
+  `);
+}
+
+function renderParentArea(tab = 'overview') {
+  const pending = appState.mysteries.filter(m => m.status === 'pending');
+  const c = completion();
+  shell(`
+    <section class="panel">
+      <div class="section-head"><div><p class="eyebrow">Parent area</p><h1>Manage the local animal journal</h1></div><span class="version-pill">${APP_VERSION}</span></div>
+      <div class="tabs">
+        ${['overview','mysteries','handmade','settings','data'].map(t => `<button type="button" class="tab ${tab === t ? 'active' : ''}" data-route="parentArea" data-tab="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join('')}
+      </div>
+      ${tab === 'overview' ? `<div class="dashboard-grid">
+        <div class="dash-card"><strong>${c.found}/${c.total}</strong><span>Journal progress</span></div>
+        <div class="dash-card"><strong>${pending.length}</strong><span>Pending mysteries</span></div>
+        <div class="dash-card"><strong>${appState.customAnimals.length}</strong><span>Handmade animals</span></div>
+        <div class="dash-card"><strong>${Object.keys(appState.discoveries).length}</strong><span>Discovered cards</span></div>
+      </div>
+      <div class="actions"><button type="button" class="btn yellow" data-route="parentArea" data-tab="mysteries">Review Mysteries</button><button type="button" class="btn purple" data-route="handmade">Create Handmade Animal</button><button type="button" class="btn ghost" data-action="manualUnlock">Manual Unlock</button></div>` : ''}
+      ${tab === 'mysteries' ? mysteryListMarkup() : ''}
+      ${tab === 'handmade' ? handmadeListMarkup() : ''}
+      ${tab === 'settings' ? settingsMarkup() : ''}
+      ${tab === 'data' ? dataCheckMarkup() : ''}
+    </section>
+  `);
+}
+
+function mysteryListMarkup() {
+  const mysteries = appState.mysteries;
+  if (!mysteries.length) return `<div class="empty-state"><strong>No mystery discoveries yet.</strong><p>When a child finds an animal not in the list, it appears here.</p></div>`;
+  return `<div class="list">${mysteries.map(m => `<article class="mystery-row"><img src="${m.photo}" alt="Mystery photo"><div><strong>Mystery discovery</strong><p class="helper">${formatDate(m.createdAt)} • ${m.status}</p><div class="actions"><button type="button" class="btn green" data-action="linkMystery" data-id="${m.id}">Link to Existing</button><button type="button" class="btn purple" data-route="handmade" data-mystery="${m.id}">Create Handmade</button><button type="button" class="btn danger" data-action="deleteMystery" data-id="${m.id}">Delete</button></div></div></article>`).join('')}</div>`;
+}
+
+function handmadeListMarkup() {
+  const custom = appState.customAnimals;
+  return `<div class="actions"><button type="button" class="btn purple" data-route="handmade">Create Handmade Animal</button></div>${custom.length ? `<div class="animal-grid small-grid">${custom.map(a => animalCard(a, { compact: true })).join('')}</div>` : `<div class="empty-state"><strong>No handmade animals yet.</strong><p>Parents can create a custom card when the official list does not include the animal.</p></div>`}`;
+}
+
+function settingsMarkup() {
+  return `<div class="settings-list">
+    <div class="setting-row"><div><strong>Install App</strong><p>Add this deployed PWA to a device.</p></div><button type="button" class="btn blue" data-action="install">${isStandalone() ? 'Installed' : 'Install / Instructions'}</button></div>
+    <div class="setting-row"><div><strong>Export metadata</strong><p>Exports profile, discoveries, handmade animal records, and settings as JSON. Photos are excluded from export.</p></div><button type="button" class="btn green" data-action="export">Export JSON</button></div>
+    <div class="setting-row"><div><strong>Delete saved app photos</strong><p>Removes low-resolution discovery and mystery photos stored by this app.</p></div><button type="button" class="btn danger" data-action="deletePhotos">Delete Photos</button></div>
+    <div class="setting-row"><div><strong>Reset discoveries</strong><p>Keeps animal data and handmade animals but locks all cards again.</p></div><button type="button" class="btn danger" data-action="resetDiscoveries">Reset</button></div>
+  </div>`;
+}
+
+function dataCheckMarkup() {
+  const cats = categoryCounts();
+  return `<div class="dashboard-grid">${cats.map(c => `<div class="dash-card"><strong>${c.total}</strong><span>${c.label} animals</span></div>`).join('')}</div>
+    <div class="table-wrap"><table><thead><tr><th>Animal</th><th>Category</th><th>Image</th><th>Status</th></tr></thead><tbody>${allAnimals().map(a => `<tr><td>${escapeHtml(a.name)}</td><td>${escapeHtml(a.category)}</td><td>${escapeHtml(a.image || 'custom image')}</td><td>${isUnlocked(a.id) ? 'Unlocked' : 'Locked'}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+function renderHandmade(params = {}) {
+  const sourceMystery = params.mystery ? appState.mysteries.find(m => m.id === params.mystery) : null;
+  shell(`
+    <section class="panel handmade-panel">
+      <div class="section-head"><div><p class="eyebrow">Handmade animal</p><h1>Create a new animal card</h1><p class="helper">The card is published only when required details and a cartoon image are ready.</p></div><button type="button" class="btn ghost" data-route="parentArea" data-tab="handmade">Cancel</button></div>
+      ${sourceMystery ? `<div class="mystery-preview"><img src="${sourceMystery.photo}" alt="Mystery photo"><div><strong>Creating from mystery</strong><p class="helper">The child will see a reveal when this card is ready.</p></div></div>` : ''}
+      <form class="form-card" data-submit="handmade" data-mystery="${params.mystery || ''}">
+        <label>Name<input name="name" required placeholder="Example: Blue Backyard Bird"></label>
+        <label>Category<select name="category" required>${CATEGORIES.filter(c => c.id !== 'Other').map(c => `<option value="${c.id}">${c.label}</option>`).join('')}<option value="Other">Special</option></select></label>
+        <label>Animal type<input name="animalClass" required placeholder="Bird, Mammal, Reptile..."></label>
+        <label>Family group<input name="familyGroup" placeholder="Feline, Canine, Rodent..."></label>
+        <label>Size<select name="size" required><option>Tiny</option><option>Small</option><option>Medium</option><option>Large</option><option>Huge</option></select></label>
+        <label>Explorer skill<input name="explorerSkill" required placeholder="Sky Explorer, Ground Explorer..."></label>
+        <label>Eats<input name="eats" required placeholder="Seeds, insects, berries"></label>
+        <label>Lives in<input name="livesIn" required placeholder="Trees, gardens, ponds"></label>
+        <label class="full">Fun fact<textarea name="funFact" placeholder="They love to sing in the morning!"></textarea></label>
+        <label class="full">Cartoon image<input id="handmadeImageInput" type="file" accept="image/*" required></label>
+        <div id="handmadePreview" class="handmade-preview">${handmadeImageDraft ? `<img src="${handmadeImageDraft}" alt="Handmade animal preview">` : '<span>Upload a cartoon image before publishing.</span>'}</div>
+        <button type="submit" class="btn green full">Publish Handmade Animal</button>
+      </form>
+    </section>
+  `);
+}
+
+function renderReveal(id) {
+  const reveal = appState.readyReveals.find(r => r.id === id) || appState.readyReveals[0];
+  if (!reveal) return setRoute('home');
+  const animal = getAnimal(reveal.animalId);
+  if (!animal) return setRoute('home');
+  shell(`
+    <section class="unlock-card reveal-card ${categoryClass(animal.category)}">
+      <div class="sparkles">✨ 🔎 ✨</div>
+      <p class="eyebrow">New animal discovery</p>
+      <h1>Your mystery animal has been studied!</h1>
+      <div class="unlock-art">${imgMarkup(animal)}</div>
+      <h2>${escapeHtml(animal.name)}</h2>
+      <p class="helper">With your help, this animal can join the Animal Journal.</p>
+      <div class="actions center"><button type="button" class="btn green" data-action="openReveal" data-id="${reveal.id}">Unlock Card</button><button type="button" class="btn ghost" data-route="home">Later</button></div>
+    </section>
+  `);
+}
+
+async function handleRoute(el) {
+  const route = el.dataset.route;
+  if (!route) return false;
+  const params = {};
+  if (el.dataset.id) params.id = el.dataset.id;
+  if (el.dataset.category) params.category = el.dataset.category;
+  if (el.dataset.tab) params.tab = el.dataset.tab;
+  if (el.dataset.mystery) params.mystery = el.dataset.mystery;
+  setRoute(route, params);
+  return true;
+}
+
+document.addEventListener('click', async event => {
+  const routeEl = event.target.closest('[data-route]');
+  if (routeEl) {
+    event.preventDefault();
+    if (await handleRoute(routeEl)) return;
+  }
+  const actionEl = event.target.closest('[data-action]');
+  if (!actionEl) return;
+  event.preventDefault();
+  const action = actionEl.dataset.action;
+  const id = actionEl.dataset.id;
+  if (action === 'install') return installApp();
+  if (action === 'chooseAnimal') return setRoute('picker', { mode: 'discover' });
+  if (action === 'clearPhoto') { pendingPhoto = null; return renderRoute(); }
+  if (action === 'mystery') return saveMystery();
+  if (action === 'detail') return setRoute('detail', { id });
+  if (action === 'selectAnimal') return selectAnimal(id);
+  if (action === 'quizSelect') return toggleQuizCard(actionEl, id);
+  if (action === 'checkQuiz') return checkQuiz();
+  if (action === 'newQuiz') { quizDraft = null; return renderQuiz(); }
+  if (action === 'manualUnlock') return setRoute('picker', { mode: 'manual' });
+  if (action === 'linkMystery') return setRoute('picker', { mode: 'linkMystery', mysteryId: id });
+  if (action === 'deleteMystery') return deleteMystery(id);
+  if (action === 'export') return exportData();
+  if (action === 'deletePhotos') return deletePhotos();
+  if (action === 'resetDiscoveries') return resetDiscoveries();
+  if (action === 'openReveal') return openReveal(id);
+});
+
+async function selectAnimal(id) {
+  if (routeParams.mode === 'linkMystery') {
+    const mystery = appState.mysteries.find(m => m.id === routeParams.mysteryId);
+    if (!mystery) return toast('Mystery not found.');
+    mystery.status = 'ready_to_reveal';
+    appState.readyReveals.unshift({ id: uid('reveal'), animalId: id, photo: mystery.photo, createdAt: new Date().toISOString(), source: 'mystery-link' });
+    await saveState();
+    toast('Reveal is ready for the child.');
+    setRoute('parentArea', { tab: 'mysteries' });
+    return;
+  }
+  await unlockAnimal(id, pendingPhoto, routeParams.mode === 'manual' ? 'manual' : 'photo');
+}
+
+function toggleQuizCard(card, id) {
+  if (!quizDraft) return;
+  const set = new Set(quizDraft.selected);
+  if (set.has(id)) set.delete(id); else set.add(id);
+  quizDraft.selected = [...set];
+  card.classList.toggle('selected');
+}
+
+function checkQuiz() {
+  if (!quizDraft) return;
+  const selected = [...quizDraft.selected].sort().join('|');
+  const answers = [...quizDraft.answers].sort().join('|');
+  const feedback = document.getElementById('quizFeedback');
+  if (!feedback) return;
+  if (selected === answers) {
+    feedback.className = 'quiz-feedback good';
+    feedback.textContent = 'Correct! Great exploring.';
+  } else {
+    const names = quizDraft.answers.map(id => getAnimal(id)?.name).filter(Boolean).join(', ');
+    feedback.className = 'quiz-feedback try';
+    feedback.textContent = `Try again. The matching animals are: ${names}.`;
   }
 }
 
-function captureVideoFrame(video, maxDimension = 640, quality = 0.68) {
-  const canvas = document.createElement('canvas');
-  const ratio = Math.min(maxDimension / video.videoWidth, maxDimension / video.videoHeight, 1);
-  canvas.width = Math.round(video.videoWidth * ratio) || maxDimension;
-  canvas.height = Math.round(video.videoHeight * ratio) || maxDimension;
-  const context = canvas.getContext('2d');
-  context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  return Promise.resolve(canvas.toDataURL('image/jpeg', quality));
+document.addEventListener('change', async event => {
+  if (event.target.id === 'discoverPhotoInput') {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    pendingPhoto = await compressImage(file, 640, 0.64);
+    renderRoute();
+  }
+  if (event.target.id === 'profileAvatarInput') {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const avatar = await compressImage(file, 480, 0.72);
+    appState.profile = { ...(appState.profile || {}), avatar };
+    await saveState();
+    renderRoute();
+  }
+  if (event.target.id === 'handmadeImageInput') {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    handmadeImageDraft = await compressImage(file, 900, 0.78);
+    document.getElementById('handmadePreview').innerHTML = `<img src="${handmadeImageDraft}" alt="Handmade animal preview">`;
+  }
+});
+
+document.addEventListener('submit', async event => {
+  const form = event.target;
+  const submitType = form.dataset.submit;
+  if (!submitType) return;
+  event.preventDefault();
+  const formData = new FormData(form);
+  if (submitType === 'profile') {
+    appState.profile = {
+      ...(appState.profile || {}),
+      name: String(formData.get('name') || '').trim(),
+      favoriteAnimal: String(formData.get('favoriteAnimal') || '').trim()
+    };
+    await saveState();
+    toast('Profile saved.');
+    setRoute('home');
+  }
+  if (submitType === 'parentGate') {
+    const answer = Number(formData.get('answer'));
+    if (answer === parentChallenge?.answer) {
+      parentUnlocked = true;
+      setRoute('parentArea');
+    } else {
+      toast('That answer did not work. Try again.');
+      renderParentGate();
+    }
+  }
+  if (submitType === 'handmade') {
+    await submitHandmade(form, formData);
+  }
+});
+
+async function submitHandmade(form, formData) {
+  if (!handmadeImageDraft) return toast('Upload a cartoon image before publishing.');
+  const mysteryId = form.dataset.mystery || '';
+  const mystery = mysteryId ? appState.mysteries.find(m => m.id === mysteryId) : null;
+  const name = String(formData.get('name') || '').trim();
+  const animal = {
+    id: `custom-${slugify(name)}-${Date.now().toString(36).slice(-4)}`,
+    name,
+    category: String(formData.get('category') || 'Other'),
+    image: handmadeImageDraft,
+    size: String(formData.get('size') || 'Small'),
+    animalClass: String(formData.get('animalClass') || 'Animal'),
+    familyGroup: String(formData.get('familyGroup') || ''),
+    explorerSkill: String(formData.get('explorerSkill') || 'Explorer'),
+    eats: asList(formData.get('eats')),
+    livesIn: asList(formData.get('livesIn')),
+    funFact: String(formData.get('funFact') || 'A special animal discovered by your family.'),
+    isBaseline: false,
+    isCustom: true,
+    published: true,
+    createdAt: new Date().toISOString()
+  };
+  appState.customAnimals.unshift(animal);
+  appState.readyReveals.unshift({ id: uid('reveal'), animalId: animal.id, photo: mystery?.photo || null, createdAt: new Date().toISOString(), source: 'custom' });
+  if (mystery) mystery.status = 'ready_to_reveal';
+  handmadeImageDraft = null;
+  await saveState();
+  toast('Handmade card is ready to reveal.');
+  setRoute('parentArea', { tab: 'handmade' });
 }
 
-function compressImage(file, maxDimension = 640, quality = 0.68) {
+async function openReveal(revealId) {
+  const index = appState.readyReveals.findIndex(r => r.id === revealId);
+  if (index < 0) return setRoute('home');
+  const [reveal] = appState.readyReveals.splice(index, 1);
+  await unlockAnimal(reveal.animalId, reveal.photo, reveal.source || 'reveal');
+}
+
+async function deleteMystery(id) {
+  if (!confirm('Delete this mystery discovery?')) return;
+  appState.mysteries = appState.mysteries.filter(m => m.id !== id);
+  await saveState();
+  renderRoute();
+}
+
+async function exportData() {
+  const c = completion();
+  const exportObject = {
+    app: 'Little Explorer: Animal Quest',
+    version: APP_VERSION,
+    exportedAt: new Date().toISOString(),
+    profile: appState.profile ? { ...appState.profile, avatar: appState.profile.avatar ? '[not exported]' : null } : null,
+    settings: appState.settings,
+    completion: c,
+    discoveries: Object.values(appState.discoveries).map(d => ({ ...d, latestPhoto: d.latestPhoto ? '[not exported]' : null })),
+    customAnimals: appState.customAnimals.map(a => ({ ...a, image: a.image ? '[not exported]' : null })),
+    mysteries: appState.mysteries.map(m => ({ ...m, photo: m.photo ? '[not exported]' : null }))
+  };
+  const blob = new Blob([JSON.stringify(exportObject, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `animal-quest-export-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function deletePhotos() {
+  if (!confirm('Delete saved app photos? Animal cards and counts will remain.')) return;
+  Object.values(appState.discoveries).forEach(d => { d.latestPhoto = null; });
+  appState.mysteries.forEach(m => { m.photo = null; });
+  appState.readyReveals.forEach(r => { r.photo = null; });
+  await saveState();
+  toast('Saved app photos deleted.');
+  renderRoute();
+}
+
+async function resetDiscoveries() {
+  if (!confirm('Reset all discovered animals? This locks the journal again.')) return;
+  appState.discoveries = {};
+  appState.readyReveals = [];
+  await saveState();
+  toast('Discoveries reset.');
+  setRoute('home');
+}
+
+async function installApp() {
+  if (isStandalone()) return toast('Already installed.');
+  if (deferredInstallPrompt) {
+    const promptEvent = deferredInstallPrompt;
+    deferredInstallPrompt = null;
+    promptEvent.prompt();
+    try { await promptEvent.userChoice; } catch (_) {}
+    renderRoute();
+    return;
+  }
+  alert('Install instructions:\n\nAndroid Chrome: open the browser menu and choose Install app or Add to Home screen.\n\niPhone/iPad Safari: tap Share, then Add to Home Screen.\n\nDesktop Chrome/Edge: use the install icon in the address bar.\n\nInstall works after deployment over HTTPS, or while testing on localhost.');
+}
+
+async function compressImage(file, maxSize = 640, quality = 0.7) {
   return new Promise((resolve, reject) => {
-    const img = new Image();
     const reader = new FileReader();
     reader.onload = () => {
+      const img = new Image();
       img.onload = () => {
-        const ratio = Math.min(maxDimension / img.width, maxDimension / img.height, 1);
+        const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+        const width = Math.max(1, Math.round(img.width * scale));
+        const height = Math.max(1, Math.round(img.height * scale));
         const canvas = document.createElement('canvas');
-        canvas.width = Math.max(1, Math.round(img.width * ratio));
-        canvas.height = Math.max(1, Math.round(img.height * ratio));
-        const context = canvas.getContext('2d');
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-        const mime = file.type === 'image/png' && maxDimension > 800 ? 'image/png' : 'image/jpeg';
-        resolve(canvas.toDataURL(mime, mime === 'image/jpeg' ? quality : undefined));
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        let dataUrl;
+        try { dataUrl = canvas.toDataURL('image/webp', quality); }
+        catch (_) { dataUrl = canvas.toDataURL('image/jpeg', quality); }
+        resolve(dataUrl);
       };
       img.onerror = reject;
       img.src = reader.result;
@@ -619,858 +980,28 @@ function compressImage(file, maxDimension = 640, quality = 0.68) {
   });
 }
 
-function renderAnimalPicker() {
-  const mode = state.pickerMode || 'discover';
-  const title = mode === 'parentLink' ? 'Link Mystery to Existing Animal' : mode === 'manualUnlock' ? 'Parent Manual Unlock' : 'What did you discover?';
-  const subtitle = mode === 'parentLink'
-    ? 'Choose the animal that matches the mystery photo. The child will see a reveal on the home screen.'
-    : mode === 'manualUnlock'
-      ? 'Choose an animal to unlock without a photo. This is inside the parent flow only.'
-      : 'Pick from the journal list. If it is not here, save it as a mystery for a grown-up.';
-
-  const animals = filteredPickerAnimals();
-  render(`
-    <section class="panel">
-      <h2>${title}</h2>
-      <p class="helper">${subtitle}</p>
-      ${state.pendingPhoto ? `<img class="preview-photo" src="${state.pendingPhoto}" alt="Discovery photo preview">` : '<div class="empty-state"><strong>No photo attached.</strong><p class="helper">This should only happen in parent manual unlock.</p></div>'}
-      <div class="grid two">
-        <div class="field">
-          <label for="animalSearch">Search</label>
-          <input id="animalSearch" class="input" value="${escapeHtml(state.pickerSearch)}" placeholder="Dog, frog, bee...">
-        </div>
-        <div class="field">
-          <label for="animalCategory">Filter</label>
-          <select id="animalCategory" class="select">
-            <option value="All" ${state.pickerCategory === 'All' ? 'selected' : ''}>All categories</option>
-            ${CATEGORIES.filter(cat => cat.id !== 'Other' || state.customAnimals.some(a => a.published)).map(cat => `<option value="${cat.id}" ${state.pickerCategory === cat.id ? 'selected' : ''}>${cat.label}</option>`).join('')}
-          </select>
-        </div>
-      </div>
-      <div class="animal-grid" id="pickerGrid">
-        ${animals.map(animal => animalCard(animal, { showFound: true })).join('')}
-      </div>
-      <div class="actions">
-        ${mode === 'discover' ? '<button class="btn yellow" id="mysteryButton">This is a mystery animal</button><button class="btn ghost" id="retakeButton">Retake photo</button>' : ''}
-        <button class="btn ghost" id="cancelPicker">Cancel</button>
-      </div>
-    </section>
-  `, mode === 'parentLink' || mode === 'manualUnlock' ? 'parent' : 'discover');
-
-  document.getElementById('animalSearch').addEventListener('input', event => {
-    state.pickerSearch = event.target.value;
-    renderAnimalPicker();
-  });
-  document.getElementById('animalCategory').addEventListener('change', event => {
-    state.pickerCategory = event.target.value;
-    renderAnimalPicker();
-  });
-  document.querySelectorAll('[data-animal-id]').forEach(button => {
-    button.addEventListener('click', () => handlePickerSelection(button.dataset.animalId));
-  });
-  document.getElementById('mysteryButton')?.addEventListener('click', saveMysteryDiscovery);
-  document.getElementById('retakeButton')?.addEventListener('click', () => go('discover'));
-  document.getElementById('cancelPicker').addEventListener('click', () => mode === 'parentLink' || mode === 'manualUnlock' ? go('parentArea', { tab: 'mysteries' }) : go('discover'));
+function toast(message) {
+  const old = document.querySelector('.toast');
+  if (old) old.remove();
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = message;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2600);
 }
-
-function filteredPickerAnimals() {
-  const query = state.pickerSearch.toLowerCase().trim();
-  return allAnimals()
-    .filter(animal => state.pickerCategory === 'All' || animal.category === state.pickerCategory)
-    .filter(animal => !query || `${animal.name} ${animal.category} ${animal.animalClass} ${animal.familyGroup}`.toLowerCase().includes(query));
-}
-
-async function handlePickerSelection(animalId) {
-  if (state.pickerMode === 'parentLink') {
-    const mystery = state.mysteries.find(item => item.id === state.sourceMysteryId);
-    await addReadyReveal({
-      type: 'existing',
-      animalId,
-      sourceMysteryId: mystery?.id,
-      photoData: mystery?.photoData || state.pendingPhoto || null
-    });
-    if (mystery) {
-      mystery.status = 'linked';
-      mystery.linkedAnimalId = animalId;
-      mystery.updatedAt = nowIso();
-      await putItem('mysteries', mystery);
-      state.mysteries = await getAll('mysteries');
-    }
-    state.pendingPhoto = null;
-    state.sourceMysteryId = null;
-    state.pickerMode = 'discover';
-    showToast('Reveal is ready for the child.');
-    return go('parentArea', { tab: 'mysteries' });
-  }
-  if (state.pickerMode === 'manualUnlock') {
-    const already = Boolean(discoveryFor(animalId));
-    await unlockAnimal(animalId, null);
-    return go('unlock', { animalId, wasAlreadyFound: already });
-  }
-  const already = Boolean(discoveryFor(animalId));
-  await unlockAnimal(animalId, state.pendingPhoto);
-  state.pendingPhoto = null;
-  return go('unlock', { animalId, wasAlreadyFound: already });
-}
-
-async function unlockAnimal(animalId, photoData = null) {
-  const existing = discoveryFor(animalId);
-  const discovery = existing || {
-    animalId,
-    timesFound: 0,
-    firstDiscoveredAt: nowIso()
-  };
-  discovery.timesFound = (discovery.timesFound || 0) + 1;
-  discovery.lastDiscoveredAt = nowIso();
-  if (photoData) discovery.latestPhoto = photoData;
-  await putItem('discoveries', discovery);
-  state.discoveries = await getAll('discoveries');
-
-  const custom = state.customAnimals.find(animal => animal.id === animalId);
-  if (custom && !custom.revealed) {
-    custom.revealed = true;
-    custom.updatedAt = nowIso();
-    await putItem('customAnimals', custom);
-    state.customAnimals = await getAll('customAnimals');
-  }
-}
-
-async function saveMysteryDiscovery() {
-  if (!state.pendingPhoto) {
-    showToast('Take a photo first.');
-    return;
-  }
-  const mystery = {
-    id: uid('mystery'),
-    photoData: state.pendingPhoto,
-    status: 'pending',
-    createdAt: nowIso(),
-    updatedAt: nowIso()
-  };
-  await putItem('mysteries', mystery);
-  state.mysteries = await getAll('mysteries');
-  state.pendingPhoto = null;
-  go('mysterySubmitted');
-}
-
-function renderMysterySubmitted() {
-  render(`
-    <section class="panel hero">
-      <div>
-        <h2>Mystery saved.</h2>
-        <p>Your animal is not in the journal yet. A grown-up can study the mystery and add the right card later.</p>
-        <div class="actions">
-          <button class="btn primary" id="homeButton">Back Home</button>
-          <button class="btn yellow" id="journalButton">Open Journal</button>
-        </div>
-      </div>
-      <div class="hero-art"><strong style="font-size:6rem">?</strong></div>
-    </section>
-  `, 'discover');
-  document.getElementById('homeButton').addEventListener('click', () => go('home'));
-  document.getElementById('journalButton').addEventListener('click', () => go('journal'));
-}
-
-function renderUnlock(animalId, wasAlreadyFound = false) {
-  const animal = getAnimal(animalId);
-  const discovery = discoveryFor(animalId);
-  render(`
-    <section class="panel hero">
-      <div>
-        <h2>${wasAlreadyFound ? 'Found again.' : 'Animal unlocked.'}</h2>
-        <p>${escapeHtml(animal.name)} is now in your animal journal. You have found this animal ${discovery?.timesFound || 1} time${(discovery?.timesFound || 1) === 1 ? '' : 's'}.</p>
-        <div class="badges">
-          <span class="badge filled">${escapeHtml(animal.category)}</span>
-          <span class="badge filled">${escapeHtml(animal.size)}</span>
-          <span class="badge filled">${escapeHtml(animal.explorerSkill)}</span>
-        </div>
-        <div class="actions">
-          <button class="btn primary" id="openCard">Open Card</button>
-          <button class="btn yellow" id="backHome">Back Home</button>
-        </div>
-      </div>
-      <div class="hero-art ${categoryClass(animal.category)}">${animalImage(animal)}</div>
-    </section>
-  `, 'discover');
-  document.getElementById('openCard').addEventListener('click', () => go('detail', { id: animalId }));
-  document.getElementById('backHome').addEventListener('click', () => go('home'));
-}
-
-function renderJournal(category = 'All') {
-  state.journalCategory = category;
-  const animals = allAnimals().filter(animal => category === 'All' || animal.category === category);
-  const c = completion();
-  const cats = categoryCounts();
-  render(`
-    <section class="panel">
-      <h2>Animal Journal</h2>
-      <p class="helper">Color cards are discovered. Grey cards are waiting to be found. Names stay visible so kids know what to look for next.</p>
-      ${progressMarkup(c)}
-      <div class="category-strip">
-        <button class="chip ${category === 'All' ? 'active' : ''}" data-category="All">All ${c.found}/${c.total}</button>
-        ${cats.map(cat => `<button class="chip ${category === cat.id ? 'active' : ''}" data-category="${cat.id}">${cat.label} ${cat.found}/${cat.total}</button>`).join('')}
-      </div>
-      <div class="animal-grid">
-        ${animals.map(animal => animalCard(animal)).join('')}
-      </div>
-    </section>
-  `, 'journal');
-
-  document.querySelectorAll('[data-category]').forEach(button => button.addEventListener('click', () => renderJournal(button.dataset.category)));
-  bindAnimalDetailLinks();
-}
-
-function bindAnimalDetailLinks() {
-  document.querySelectorAll('[data-animal-id]').forEach(button => {
-    button.addEventListener('click', () => go('detail', { id: button.dataset.animalId }));
-  });
-}
-
-function renderAnimalDetail(animalId) {
-  const animal = getAnimal(animalId);
-  if (!animal) return go('journal');
-  const discovery = discoveryFor(animalId);
-  const unlocked = Boolean(discovery);
-  render(`
-    <section class="panel">
-      <div class="actions">
-        <button class="btn ghost" id="backJournal">Back to Journal</button>
-        ${unlocked ? '<button class="btn primary" id="findAgain">Find Again</button>' : '<button class="btn primary" id="discoverThis">Discover This Animal</button>'}
-      </div>
-      <div class="detail-layout">
-        <div class="detail-portrait ${categoryClass(animal.category)} ${unlocked ? '' : 'locked'}">
-          ${animalImage(animal)}
-        </div>
-        <div class="grid">
-          <div>
-            <div class="badges"><span class="badge filled">${escapeHtml(animal.category)}</span>${animal.isCustom ? '<span class="badge custom">Handmade</span>' : ''}</div>
-            <h2>${escapeHtml(animal.name)}</h2>
-            <p class="helper">${unlocked ? escapeHtml(animal.funFact || 'A new animal friend for the journal.') : 'Discover this animal to unlock the full learning card.'}</p>
-          </div>
-          <div class="fact-grid">
-            <div class="fact"><span>Size</span><strong>${escapeHtml(animal.size || 'Unknown')}</strong></div>
-            <div class="fact"><span>Explorer skill</span><strong>${escapeHtml(animal.explorerSkill || 'Explorer')}</strong></div>
-            <div class="fact"><span>Eats</span><strong>${escapeHtml(asList(animal.eats).join(', ') || 'Unknown')}</strong></div>
-            <div class="fact"><span>Lives in</span><strong>${escapeHtml(asList(animal.livesIn).join(', ') || 'Unknown')}</strong></div>
-            <div class="fact"><span>Animal type</span><strong>${escapeHtml(animal.animalClass || 'Animal')}</strong></div>
-            <div class="fact"><span>Animal family</span><strong>${escapeHtml(animal.familyGroup || 'Animal')}</strong></div>
-          </div>
-          ${unlocked ? `
-            <div class="grid two">
-              <div class="progress-card"><strong>Found ${discovery.timesFound || 1} time${(discovery.timesFound || 1) === 1 ? '' : 's'}</strong><p class="helper small">First found: ${formatDate(discovery.firstDiscoveredAt)}<br>Last found: ${formatDate(discovery.lastDiscoveredAt)}</p></div>
-              <div class="progress-card">${discovery.latestPhoto ? `<img class="preview-photo" src="${discovery.latestPhoto}" alt="Latest discovery photo">` : '<p class="helper">No photo stored for this animal.</p>'}</div>
-            </div>` : ''}
-        </div>
-      </div>
-    </section>
-  `, 'journal');
-  document.getElementById('backJournal').addEventListener('click', () => go('journal'));
-  document.getElementById('findAgain')?.addEventListener('click', () => go('discover'));
-  document.getElementById('discoverThis')?.addEventListener('click', () => go('discover'));
-}
-
-function formatDate(value) {
-  if (!value) return 'Not yet';
-  try {
-    return new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(value));
-  } catch (_) {
-    return value;
-  }
-}
-
-function discoveredAnimals() {
-  return allAnimals().filter(animal => isUnlocked(animal.id));
-}
-
-function renderQuiz() {
-  const animals = discoveredAnimals();
-  if (animals.length < 3) {
-    render(`
-      <section class="panel">
-        <h2>Journal Quiz</h2>
-        <div class="empty-state">
-          <strong>Discover a few animals first.</strong>
-          <p class="helper">The quiz only uses animals already found, so kids review what they discovered.</p>
-          <button class="btn primary" id="goDiscover">Discover Animal</button>
-        </div>
-      </section>
-    `, 'quiz');
-    document.getElementById('goDiscover').addEventListener('click', () => go('discover'));
-    return;
-  }
-  state.quiz = state.quiz || makeQuiz(animals);
-  renderQuizQuestion();
-}
-
-function makeQuiz(animals) {
-  const quizTypes = [];
-  const uniqueCategories = [...new Set(animals.map(a => a.category))];
-  uniqueCategories.forEach(category => quizTypes.push({ type: 'category', label: `Which animals are in ${category}?`, match: a => a.category === category }));
-  const uniqueClasses = [...new Set(animals.map(a => a.animalClass).filter(Boolean))];
-  uniqueClasses.forEach(animalClass => quizTypes.push({ type: 'class', label: `Which animals are ${animalClass}s?`, match: a => a.animalClass === animalClass }));
-  const plantEaters = { type: 'eats', label: 'Which animals eat plants?', match: eatsPlants };
-  const meatEaters = { type: 'eats', label: 'Which animals eat meat, fish, or tiny animals?', match: eatsMeatOrTinyAnimals };
-  quizTypes.push(plantEaters, meatEaters);
-
-  const valid = quizTypes.filter(type => {
-    const positives = animals.filter(type.match).length;
-    const negatives = animals.length - positives;
-    return positives > 0 && negatives > 0;
-  });
-  const question = valid[Math.floor(Math.random() * valid.length)] || plantEaters;
-  const positives = shuffle(animals.filter(question.match));
-  const negatives = shuffle(animals.filter(a => !question.match(a)));
-  const options = shuffle([...positives.slice(0, 3), ...negatives.slice(0, 3)]).slice(0, Math.min(6, animals.length));
-  const answerIds = options.filter(question.match).map(a => a.id);
-  return { question, options, selected: [], checked: false, answerIds };
-}
-
-function eatsPlants(animal) {
-  const text = asList(animal.eats).join(' ').toLowerCase();
-  return /(plant|grass|hay|seed|fruit|nectar|bamboo|leaf|leaves|grain)/.test(text);
-}
-
-function eatsMeatOrTinyAnimals(animal) {
-  const text = asList(animal.eats).join(' ').toLowerCase();
-  return /(meat|fish|insect|tiny animal|tiny insects)/.test(text);
-}
-
-function shuffle(list) {
-  return [...list].sort(() => Math.random() - 0.5);
-}
-
-function renderQuizQuestion() {
-  const quiz = state.quiz;
-  const selected = new Set(quiz.selected);
-  render(`
-    <section class="panel">
-      <h2>Journal Quiz</h2>
-      <p class="helper">${escapeHtml(quiz.question.label)} Select every matching animal.</p>
-      <div class="animal-grid">
-        ${quiz.options.map(animal => {
-          const isSelected = selected.has(animal.id);
-          const isCorrect = quiz.answerIds.includes(animal.id);
-          const checkedClass = quiz.checked ? (isCorrect ? 'correct' : isSelected ? 'wrong' : '') : '';
-          return animalCard(animal, { extraClass: `quiz-option ${isSelected ? 'selected' : ''} ${checkedClass}`, showFound: false });
-        }).join('')}
-      </div>
-      ${quiz.checked ? `<div class="alert"><span>${quizResultText()}</span><button class="btn yellow" id="newQuiz">New Question</button></div>` : ''}
-      <div class="actions">
-        <button class="btn primary" id="checkQuiz">Check Answer</button>
-        <button class="btn ghost" id="resetQuiz">New Question</button>
-      </div>
-    </section>
-  `, 'quiz');
-
-  document.querySelectorAll('[data-animal-id]').forEach(button => button.addEventListener('click', () => {
-    if (state.quiz.checked) return;
-    const id = button.dataset.animalId;
-    if (state.quiz.selected.includes(id)) state.quiz.selected = state.quiz.selected.filter(item => item !== id);
-    else state.quiz.selected.push(id);
-    renderQuizQuestion();
-  }));
-  document.getElementById('checkQuiz').addEventListener('click', () => {
-    state.quiz.checked = true;
-    renderQuizQuestion();
-  });
-  document.getElementById('resetQuiz').addEventListener('click', () => {
-    state.quiz = makeQuiz(discoveredAnimals());
-    renderQuizQuestion();
-  });
-  document.getElementById('newQuiz')?.addEventListener('click', () => {
-    state.quiz = makeQuiz(discoveredAnimals());
-    renderQuizQuestion();
-  });
-}
-
-function quizResultText() {
-  const selected = new Set(state.quiz.selected);
-  const answers = new Set(state.quiz.answerIds);
-  const correct = state.quiz.options.every(animal => selected.has(animal.id) === answers.has(animal.id));
-  return correct ? 'Great exploring. You matched the journal facts.' : 'Good try. Review the green cards and try again.';
-}
-
-function renderParentGate() {
-  if (state.parentUnlocked) return renderParentArea('overview');
-  const a = Math.floor(Math.random() * 10) + 9;
-  const b = Math.floor(Math.random() * 8) + 5;
-  state.parentChallenge = { label: `${a} + ${b}`, answer: a + b };
-  render(`
-    <section class="panel">
-      <h2>Grown-up Check</h2>
-      <p class="helper">Parent tools can change data, create animals, and reset the local app.</p>
-      <form id="parentGateForm" class="form">
-        <div class="field">
-          <label for="gateAnswer">What is ${state.parentChallenge.label}?</label>
-          <input id="gateAnswer" class="input" inputmode="numeric" autocomplete="off" required>
-        </div>
-        <div class="actions"><button class="btn primary" type="submit">Open Parent Area</button></div>
-      </form>
-    </section>
-  `, 'parent');
-  document.getElementById('parentGateForm').addEventListener('submit', event => {
-    event.preventDefault();
-    const answer = Number(document.getElementById('gateAnswer').value);
-    if (answer === state.parentChallenge.answer) {
-      state.parentUnlocked = true;
-      go('parentArea');
-    } else {
-      showToast('Try again.');
-    }
-  });
-}
-
-function parentTabButton(tab, label, active) {
-  return `<button class="chip ${tab === active ? 'active' : ''}" data-parent-tab="${tab}">${label}</button>`;
-}
-
-function renderParentArea(tab = 'overview') {
-  if (!state.parentUnlocked) return renderParentGate();
-  const tabs = `
-    <div class="category-strip">
-      ${parentTabButton('overview', 'Overview', tab)}
-      ${parentTabButton('mysteries', 'Mysteries', tab)}
-      ${parentTabButton('handmade', 'Handmade', tab)}
-      ${parentTabButton('settings', 'Settings', tab)}
-      ${parentTabButton('data', 'Data Check', tab)}
-    </div>`;
-  render(`
-    <section class="panel">
-      <h2>Parent Area</h2>
-      <p class="helper">Manage local data, mystery discoveries, handmade animals, and debug information.</p>
-      ${tabs}
-      <div id="parentPanel">${parentPanelContent(tab)}</div>
-    </section>
-  `, 'parent');
-  document.querySelectorAll('[data-parent-tab]').forEach(button => button.addEventListener('click', () => go('parentArea', { tab: button.dataset.parentTab })));
-  bindParentActions(tab);
-}
-
-function parentPanelContent(tab) {
-  if (tab === 'mysteries') return parentMysteriesContent();
-  if (tab === 'handmade') return parentHandmadeContent();
-  if (tab === 'settings') return parentSettingsContent();
-  if (tab === 'data') return parentDataContent();
-  const c = completion();
-  const pending = state.mysteries.filter(m => m.status === 'pending').length;
-  return `
-    <div class="grid two">
-      ${progressMarkup(c)}
-      <div class="progress-card"><strong>Pending mysteries</strong><p class="helper">${pending} waiting for review.</p><button class="btn yellow" data-action="tabMysteries">Review Mysteries</button></div>
-      <div class="progress-card"><strong>Handmade animals</strong><p class="helper">${state.customAnimals.length} created locally.</p><button class="btn purple" data-action="newHandmade">Create Handmade Animal</button></div>
-      <div class="progress-card"><strong>Manual unlock</strong><p class="helper">Use only when a photo is not possible.</p><button class="btn ghost" data-action="manualUnlock">Open Manual Unlock</button></div>
-    </div>`;
-}
-
-function parentMysteriesContent() {
-  const items = [...state.mysteries].sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
-  if (!items.length) return '<div class="empty-state"><strong>No mystery discoveries yet.</strong><p class="helper">Mystery animals saved by the child appear here.</p></div>';
-  return `<div class="grid">${items.map(mystery => `
-    <div class="progress-card">
-      <div class="grid two">
-        <div>${mystery.photoData ? `<img class="preview-photo" src="${mystery.photoData}" alt="Mystery photo">` : '<div class="empty-state">No photo stored</div>'}</div>
-        <div>
-          <strong>Mystery from ${formatDate(mystery.createdAt)}</strong>
-          <p class="helper">Status: ${escapeHtml(mystery.status || 'pending')}</p>
-          <div class="actions">
-            ${mystery.status === 'pending' ? `<button class="btn primary" data-action="linkMystery" data-id="${mystery.id}">Link to Existing Animal</button><button class="btn purple" data-action="createFromMystery" data-id="${mystery.id}">Create Handmade Animal</button>` : ''}
-            <button class="btn danger" data-action="deleteMystery" data-id="${mystery.id}">Delete</button>
-          </div>
-        </div>
-      </div>
-    </div>`).join('')}</div>`;
-}
-
-function parentHandmadeContent() {
-  const items = [...state.customAnimals].sort(byName);
-  return `
-    <div class="actions"><button class="btn purple" data-action="newHandmade">Create Handmade Animal</button></div>
-    ${items.length ? `<div class="animal-grid">${items.map(animal => `
-      <div class="animal-card ${categoryClass(animal.category)} ${animal.published ? 'unlocked' : 'locked'}">
-        <div class="animal-img-wrap">${animalImage(animal)}</div>
-        <div class="card-title">
-          <strong>${escapeHtml(animal.name)}</strong>
-          <span>${escapeHtml(animal.category)} - ${animal.published ? 'Published' : 'Draft'}</span>
-          <div class="actions">
-            <button class="btn ghost" data-action="editHandmade" data-id="${animal.id}">Edit</button>
-            <button class="btn danger" data-action="deleteHandmade" data-id="${animal.id}">Delete</button>
-          </div>
-        </div>
-      </div>`).join('')}</div>` : '<div class="empty-state"><strong>No handmade animals yet.</strong><p class="helper">Create custom animals when the journal does not have the right card.</p></div>'}`;
-}
-
-function parentSettingsContent() {
-  return `
-    <div class="grid two">
-      <div class="progress-card">
-        <strong>Version</strong>
-        <p class="helper">Little Explorer: Animal Quest ${APP_VERSION}. Version naming will use v1.01, v1.02, v1.03, etc.</p>
-      </div>
-      <div class="progress-card">
-        <strong>Camera</strong>
-        <p class="helper">When disabled, the app uses photo upload/manual flow only.</p>
-        <button class="btn ${state.settings.cameraEnabled ? 'primary' : 'ghost'}" data-action="toggleCamera">Camera ${state.settings.cameraEnabled ? 'On' : 'Off'}</button>
-      </div>
-      <div class="progress-card">
-        <strong>Manual unlock</strong>
-        <p class="helper">Available only after the parent gate.</p>
-        <button class="btn ${state.settings.manualUnlockEnabled ? 'primary' : 'ghost'}" data-action="toggleManualUnlock">Manual Unlock ${state.settings.manualUnlockEnabled ? 'On' : 'Off'}</button>
-      </div>
-      <div class="progress-card">
-        <strong>Install on device</strong>
-        <p class="helper">Shows the browser install prompt when available, or install instructions for the deployed PWA.</p>
-        <button class="btn primary" data-action="installApp">Install / Help</button>
-      </div>
-      <div class="progress-card">
-        <strong>Export backup</strong>
-        <p class="helper">Exports metadata only. Photos and uploaded animal images are not included in this MVP backup.</p>
-        <button class="btn blue" data-action="exportData">Export JSON</button>
-      </div>
-      <div class="progress-card">
-        <strong>Delete app photos</strong>
-        <p class="helper">Removes latest discovery photos and mystery photos stored inside this app.</p>
-        <button class="btn danger" data-action="deletePhotos">Delete App Photos</button>
-      </div>
-      <div class="progress-card">
-        <strong>Reset discoveries</strong>
-        <p class="helper">Keeps profile and handmade animals, but clears found progress.</p>
-        <button class="btn danger" data-action="resetDiscoveries">Reset Discoveries</button>
-      </div>
-      <div class="progress-card">
-        <strong>Factory reset</strong>
-        <p class="helper">Clears all local app data on this device.</p>
-        <button class="btn danger" data-action="factoryReset">Factory Reset</button>
-      </div>
-    </div>`;
-}
-
-function parentDataContent() {
-  const cats = categoryCounts();
-  return `
-    <div class="grid">
-      <div class="table-wrap">
-        <table class="table">
-          <thead><tr><th>Category</th><th>Found</th><th>Total</th></tr></thead>
-          <tbody>${cats.map(cat => `<tr><td>${cat.label}</td><td>${cat.found}</td><td>${cat.total}</td></tr>`).join('')}</tbody>
-        </table>
-      </div>
-      <div class="table-wrap">
-        <table class="table">
-          <thead><tr><th>Animal</th><th>Category</th><th>Image path</th></tr></thead>
-          <tbody>${allAnimals().map(animal => `<tr><td>${escapeHtml(animal.name)}</td><td>${escapeHtml(animal.category)}</td><td>${escapeHtml(animal.image || 'local-upload')}</td></tr>`).join('')}</tbody>
-        </table>
-      </div>
-      <div class="progress-card"><strong>Local records</strong><p class="helper">App version: ${APP_VERSION}<br>Baseline animals: ${state.animals.length}<br>Published/custom animals: ${state.customAnimals.filter(a => a.published).length}/${state.customAnimals.length}<br>Discoveries: ${state.discoveries.length}<br>Mysteries: ${state.mysteries.length}<br>Ready reveals: ${state.readyReveals.length}</p></div>
-    </div>`;
-}
-
-function bindParentActions(tab) {
-  document.querySelectorAll('[data-action]').forEach(button => {
-    button.addEventListener('click', async () => {
-      const action = button.dataset.action;
-      const id = button.dataset.id;
-      if (action === 'tabMysteries') return go('parentArea', { tab: 'mysteries' });
-      if (action === 'newHandmade') return go('handmade');
-      if (action === 'manualUnlock') {
-        state.pickerMode = 'manualUnlock';
-        state.pendingPhoto = null;
-        return go('animalPicker');
-      }
-      if (action === 'linkMystery') return startLinkMystery(id);
-      if (action === 'createFromMystery') return go('handmade', { sourceMysteryId: id });
-      if (action === 'deleteMystery') return deleteMystery(id);
-      if (action === 'editHandmade') return go('handmade', { id });
-      if (action === 'deleteHandmade') return deleteHandmade(id);
-      if (action === 'toggleCamera') return updateSetting('cameraEnabled', !state.settings.cameraEnabled);
-      if (action === 'toggleManualUnlock') return updateSetting('manualUnlockEnabled', !state.settings.manualUnlockEnabled);
-      if (action === 'installApp') return installApp();
-      if (action === 'exportData') return exportMetadata();
-      if (action === 'deletePhotos') return deleteStoredPhotos();
-      if (action === 'resetDiscoveries') return resetDiscoveries();
-      if (action === 'factoryReset') return factoryReset();
-    });
-  });
-}
-
-async function updateSetting(key, value) {
-  state.settings[key] = value;
-  await kvSet('settings', state.settings);
-  showToast('Setting saved.');
-  go('parentArea', { tab: 'settings' });
-}
-
-function startLinkMystery(id) {
-  const mystery = state.mysteries.find(item => item.id === id);
-  if (!mystery) return;
-  state.pendingPhoto = mystery.photoData || null;
-  state.pickerMode = 'parentLink';
-  state.sourceMysteryId = id;
-  state.pickerSearch = '';
-  state.pickerCategory = 'All';
-  go('animalPicker');
-}
-
-async function deleteMystery(id) {
-  if (!confirm('Delete this mystery discovery?')) return;
-  await deleteItem('mysteries', id);
-  state.mysteries = await getAll('mysteries');
-  showToast('Mystery deleted.');
-  go('parentArea', { tab: 'mysteries' });
-}
-
-async function deleteHandmade(id) {
-  if (!confirm('Delete this handmade animal?')) return;
-  await deleteItem('customAnimals', id);
-  await deleteItem('discoveries', id);
-  state.customAnimals = await getAll('customAnimals');
-  state.discoveries = await getAll('discoveries');
-  state.readyReveals = state.readyReveals.filter(reveal => reveal.animalId !== id);
-  await kvSet('readyReveals', state.readyReveals);
-  showToast('Handmade animal deleted.');
-  go('parentArea', { tab: 'handmade' });
-}
-
-async function addReadyReveal(reveal) {
-  const record = {
-    id: uid('reveal'),
-    createdAt: nowIso(),
-    ...reveal
-  };
-  state.readyReveals.push(record);
-  await kvSet('readyReveals', state.readyReveals);
-  return record;
-}
-
-function renderReadyReveal(revealId) {
-  const reveal = state.readyReveals.find(item => item.id === revealId) || state.readyReveals[0];
-  if (!reveal) return go('home');
-  const animal = getAnimal(reveal.animalId);
-  render(`
-    <section class="panel hero">
-      <div>
-        <h2>New animal discovered.</h2>
-        <p>A grown-up studied your mystery animal. It is ready for your animal journal.</p>
-        <div class="actions">
-          <button class="btn primary" id="openReadyReveal">Reveal Card</button>
-          <button class="btn ghost" id="laterReveal">Later</button>
-        </div>
-      </div>
-      <div class="hero-art"><strong style="font-size:6rem">?</strong></div>
-    </section>
-  `, 'home');
-  document.getElementById('openReadyReveal').addEventListener('click', () => consumeReadyReveal(reveal.id));
-  document.getElementById('laterReveal').addEventListener('click', () => go('home'));
-}
-
-async function consumeReadyReveal(revealId) {
-  const reveal = state.readyReveals.find(item => item.id === revealId);
-  if (!reveal) return go('home');
-  await unlockAnimal(reveal.animalId, reveal.photoData || null);
-  state.readyReveals = state.readyReveals.filter(item => item.id !== revealId);
-  await kvSet('readyReveals', state.readyReveals);
-  return go('unlock', { animalId: reveal.animalId, wasAlreadyFound: false });
-}
-
-function renderHandmadeForm(params = {}) {
-  if (!state.parentUnlocked) return renderParentGate();
-  const sourceMystery = params.sourceMysteryId ? state.mysteries.find(item => item.id === params.sourceMysteryId) : null;
-  const editing = params.id ? state.customAnimals.find(animal => animal.id === params.id) : null;
-  const animal = editing || {
-    id: '',
-    name: '',
-    category: 'City',
-    size: 'Small',
-    animalClass: 'Mammal',
-    familyGroup: '',
-    explorerSkill: 'Ground Explorer',
-    eats: [],
-    livesIn: [],
-    funFact: '',
-    imageData: null,
-    published: false,
-    isCustom: true
-  };
-  state.handmadeImageData = animal.imageData || null;
-  render(`
-    <section class="panel">
-      <h2>${editing ? 'Edit Handmade Animal' : 'Create Handmade Animal'}</h2>
-      <p class="helper">A handmade animal is visible to the child only after it has required details and a cartoon image.</p>
-      ${sourceMystery?.photoData ? `<div class="progress-card"><strong>Source mystery photo</strong><img class="preview-photo" src="${sourceMystery.photoData}" alt="Mystery photo"></div>` : ''}
-      <form id="handmadeForm" class="form">
-        <div class="grid two">
-          <div class="field"><label for="haName">Animal name</label><input class="input" id="haName" value="${escapeHtml(animal.name)}" required></div>
-          <div class="field"><label for="haCategory">Category</label><select class="select" id="haCategory">${CATEGORIES.map(cat => `<option value="${cat.id}" ${animal.category === cat.id ? 'selected' : ''}>${cat.label}</option>`).join('')}</select></div>
-          <div class="field"><label for="haSize">Size</label><select class="select" id="haSize">${['Tiny','Small','Medium','Large','Huge'].map(size => `<option value="${size}" ${animal.size === size ? 'selected' : ''}>${size}</option>`).join('')}</select></div>
-          <div class="field"><label for="haClass">Animal type</label><select class="select" id="haClass">${['Mammal','Bird','Reptile','Fish','Amphibian','Insect','Arachnid','Invertebrate','Crustacean','Mollusk','Other'].map(type => `<option value="${type}" ${animal.animalClass === type ? 'selected' : ''}>${type}</option>`).join('')}</select></div>
-          <div class="field"><label for="haFamily">Animal family</label><input class="input" id="haFamily" value="${escapeHtml(animal.familyGroup || '')}" placeholder="Canine, Feline, Rodent..."></div>
-          <div class="field"><label for="haSkill">Explorer skill</label><input class="input" id="haSkill" value="${escapeHtml(animal.explorerSkill || '')}" placeholder="Ground Explorer"></div>
-          <div class="field"><label for="haEats">Eats</label><input class="input" id="haEats" value="${escapeHtml(asList(animal.eats).join(', '))}" placeholder="Plants, insects"></div>
-          <div class="field"><label for="haLives">Lives in</label><input class="input" id="haLives" value="${escapeHtml(asList(animal.livesIn).join(', '))}" placeholder="Gardens, ponds"></div>
-        </div>
-        <div class="field"><label for="haFact">Fun fact</label><textarea class="textarea" id="haFact" placeholder="One simple kid-friendly fact.">${escapeHtml(animal.funFact || '')}</textarea></div>
-        <div class="field"><label for="haImage">Cartoon image</label><input class="input" id="haImage" type="file" accept="image/*"><p class="helper small">Required before publishing. The real photo should not be used as the card image.</p></div>
-        <div id="haImagePreview">${state.handmadeImageData ? `<img class="preview-photo" style="max-width:220px" src="${state.handmadeImageData}" alt="Handmade image preview">` : ''}</div>
-        <div class="actions">
-          <button class="btn ghost" type="submit" data-save-mode="draft">Save Draft</button>
-          <button class="btn primary" type="submit" data-save-mode="publish">Publish for Child Reveal</button>
-          <button class="btn ghost" type="button" id="cancelHandmade">Cancel</button>
-        </div>
-      </form>
-    </section>
-  `, 'parent');
-
-  document.getElementById('haImage').addEventListener('change', async event => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    state.handmadeImageData = await compressImage(file, 1024, 0.82);
-    document.getElementById('haImagePreview').innerHTML = `<img class="preview-photo" style="max-width:220px" src="${state.handmadeImageData}" alt="Handmade image preview">`;
-  });
-
-  document.getElementById('handmadeForm').addEventListener('submit', async event => {
-    event.preventDefault();
-    const mode = event.submitter?.dataset.saveMode || 'draft';
-    await saveHandmadeAnimal({ editing, sourceMystery, publish: mode === 'publish' });
-  });
-  document.getElementById('cancelHandmade').addEventListener('click', () => go('parentArea', { tab: 'handmade' }));
-}
-
-async function saveHandmadeAnimal({ editing, sourceMystery, publish }) {
-  const name = document.getElementById('haName').value.trim();
-  const imageData = state.handmadeImageData;
-  if (!name) return showToast('Animal name is required.');
-  if (publish && !imageData) return showToast('Add a cartoon image before publishing.');
-  const wasPublished = Boolean(editing?.published);
-  const id = editing?.id || `custom-${slugify(name)}-${Date.now().toString(36)}`;
-  const animal = {
-    ...(editing || {}),
-    id,
-    name,
-    category: document.getElementById('haCategory').value,
-    size: document.getElementById('haSize').value,
-    animalClass: document.getElementById('haClass').value,
-    familyGroup: document.getElementById('haFamily').value.trim() || document.getElementById('haClass').value,
-    explorerSkill: document.getElementById('haSkill').value.trim() || 'Ground Explorer',
-    eats: asList(document.getElementById('haEats').value),
-    livesIn: asList(document.getElementById('haLives').value),
-    funFact: document.getElementById('haFact').value.trim() || `${name} is a special animal discovery.`,
-    imageData,
-    isBaseline: false,
-    isCustom: true,
-    published: publish || wasPublished,
-    sourceMysteryId: sourceMystery?.id || editing?.sourceMysteryId || null,
-    updatedAt: nowIso(),
-    createdAt: editing?.createdAt || nowIso()
-  };
-  await putItem('customAnimals', animal);
-  state.customAnimals = await getAll('customAnimals');
-  if (sourceMystery) {
-    sourceMystery.status = publish ? 'handmade-published' : 'handmade-draft';
-    sourceMystery.customAnimalId = id;
-    sourceMystery.updatedAt = nowIso();
-    await putItem('mysteries', sourceMystery);
-    state.mysteries = await getAll('mysteries');
-  }
-  if (publish && !wasPublished) {
-    await addReadyReveal({
-      type: 'custom',
-      animalId: id,
-      sourceMysteryId: sourceMystery?.id || null,
-      photoData: sourceMystery?.photoData || null
-    });
-    showToast('Handmade animal published. Child reveal is ready.');
-  } else {
-    showToast('Handmade animal saved.');
-  }
-  go('parentArea', { tab: 'handmade' });
-}
-
-async function exportMetadata() {
-  const cleanDiscoveries = state.discoveries.map(({ latestPhoto, ...rest }) => rest);
-  const cleanCustom = state.customAnimals.map(({ imageData, ...rest }) => rest);
-  const cleanMysteries = state.mysteries.map(({ photoData, ...rest }) => rest);
-  const cleanReveals = state.readyReveals.map(({ photoData, ...rest }) => rest);
-  const payload = {
-    app: 'Little Explorer: Animal Quest',
-    exportedAt: nowIso(),
-    profile: state.profile,
-    settings: state.settings,
-    discoveries: cleanDiscoveries,
-    customAnimals: cleanCustom,
-    mysteries: cleanMysteries,
-    readyReveals: cleanReveals
-  };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `animal-quest-backup-${new Date().toISOString().slice(0, 10)}.json`;
-  link.click();
-  URL.revokeObjectURL(url);
-}
-
-async function deleteStoredPhotos() {
-  if (!confirm('Delete all app-stored photos? This does not delete photos from the native photo app.')) return;
-  const discoveries = state.discoveries.map(({ latestPhoto, ...rest }) => rest);
-  await Promise.all(discoveries.map(item => putItem('discoveries', item)));
-  const mysteries = state.mysteries.map(item => ({ ...item, photoData: null }));
-  await Promise.all(mysteries.map(item => putItem('mysteries', item)));
-  state.readyReveals = state.readyReveals.map(({ photoData, ...rest }) => rest);
-  await kvSet('readyReveals', state.readyReveals);
-  state.discoveries = await getAll('discoveries');
-  state.mysteries = await getAll('mysteries');
-  showToast('App-stored photos deleted.');
-  go('parentArea', { tab: 'settings' });
-}
-
-async function resetDiscoveries() {
-  if (!confirm('Reset all discoveries and badges? Handmade animals and profile will stay.')) return;
-  await clearStore('discoveries');
-  state.readyReveals = [];
-  await kvSet('readyReveals', []);
-  state.discoveries = [];
-  showToast('Discoveries reset.');
-  go('home');
-}
-
-async function factoryReset() {
-  if (!confirm('Factory reset all local app data on this device?')) return;
-  await clearStore('discoveries');
-  await clearStore('customAnimals');
-  await clearStore('mysteries');
-  await clearStore('kv');
-  state.profile = null;
-  state.settings = { ...DEFAULT_SETTINGS };
-  state.readyReveals = [];
-  state.customAnimals = [];
-  state.mysteries = [];
-  state.discoveries = [];
-  showToast('Local app data cleared.');
-  go('home');
-}
-
-window.addEventListener('beforeinstallprompt', event => {
-  event.preventDefault();
-  state.deferredInstallPrompt = event;
-  if (state.screen === 'home') renderHome();
-});
-
-window.addEventListener('appinstalled', () => {
-  state.appInstalled = true;
-  state.deferredInstallPrompt = null;
-  showToast('Animal Quest was installed.');
-});
 
 async function init() {
   try {
+    app.innerHTML = '<div class="loading"><div class="loader"></div><h1>Loading Animal Quest...</h1></div>';
     db = await openDb();
-    await loadState();
-    if ('serviceWorker' in navigator) {
-      if (location.protocol !== 'file:') { navigator.serviceWorker.register('sw.js').catch(() => {}); }
+    animals = await loadAnimals();
+    appState = normalizeLoadedState(await dbGet(STATE_KEY));
+    if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
+      navigator.serviceWorker.register('./sw.js').catch(error => console.warn('Service worker registration failed', error));
     }
-    renderHome();
+    renderRoute();
   } catch (error) {
-    console.error(error);
-    app.innerHTML = `<div class="app-shell"><section class="panel"><h1>Little Explorer: Animal Quest</h1><p class="helper">The app could not start. Try serving the public folder from a local web server.</p><pre>${escapeHtml(error.message || error)}</pre></section></div>`;
+    app.innerHTML = `<div class="fatal"><h1>Animal Quest could not start.</h1><p>${escapeHtml(error.message)}</p><p>Try opening with START-HERE-MAC.command or serving the public folder with a local server.</p></div>`;
   }
 }
 
