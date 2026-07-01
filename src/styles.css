@@ -533,7 +533,7 @@ th { font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color:
   .grownup-home-section { display: grid; }
 }
 
-/* v1.08 visual card, compact album, and quiz refinements */
+/* v1.09 visual card, compact album, and quiz refinements */
 .compact-club-hero { display: grid; gap: .5rem; background: linear-gradient(135deg, rgba(255,246,196,.96), rgba(238,228,255,.92)); }
 .compact-club-hero h1 { margin-bottom: .25rem; }
 .club-switch { display: flex; gap: .55rem; flex-wrap: wrap; margin-top: .5rem; }
@@ -661,4 +661,81 @@ th { font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color:
 }
 @media (max-width: 380px) {
   .album-grid, .quiz-fit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* v1.09 fixes: reliable picker filtering, confirmation unlock, and cleaner mystery cards */
+.picker-grid .animal-card.is-hidden {
+  display: none !important;
+}
+.picker-tools {
+  align-items: stretch;
+}
+.search-input,
+#animalCategorySelect {
+  min-height: 54px;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: rgba(255,253,247,.92);
+  padding: .8rem 1rem;
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 8px 18px rgba(45,42,34,.06);
+}
+.search-input:focus,
+#animalCategorySelect:focus {
+  outline: 4px solid rgba(101,165,225,.28);
+  border-color: rgba(65,128,170,.42);
+}
+
+/* Journal locked cards now show only the greyed animal shape plus a question mark. */
+.animal-card.mystery-locked .mystery-symbol {
+  display: none !important;
+}
+.animal-card.locked:not(.picker-visible) .card-art::before {
+  display: none !important;
+}
+.animal-card.mystery-locked .card-art img,
+.animal-card.locked.mystery-locked .card-art img {
+  opacity: .28 !important;
+  filter: brightness(0) saturate(0) opacity(.55) blur(.15px) drop-shadow(0 10px 14px rgba(45,42,34,.12)) !important;
+  transform: scale(.88) !important;
+}
+.animal-card.mystery-locked .lock-mark,
+.animal-card.locked.mystery-locked .lock-mark {
+  display: grid !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 1.55rem;
+  background: rgba(255,253,247,.92);
+  color: #3f3a32;
+  z-index: 3;
+  box-shadow: 0 10px 22px rgba(45,42,34,.14);
+}
+.animal-card.mystery-locked .card-meta strong {
+  color: #3f3a32;
+}
+.animal-card.mystery-locked .card-meta em {
+  background: rgba(255,255,255,.62);
+  color: rgba(45,42,34,.70);
+}
+
+@media (max-width: 620px) {
+  .search-input,
+  #animalCategorySelect {
+    min-height: 50px;
+    border-radius: 18px;
+    font-size: .96rem;
+  }
+  .animal-card.mystery-locked .lock-mark,
+  .animal-card.locked.mystery-locked .lock-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 1.15rem;
+  }
 }

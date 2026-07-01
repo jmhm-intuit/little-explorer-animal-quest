@@ -1,4 +1,4 @@
-const APP_VERSION = 'v1.08';
+const APP_VERSION = 'v1.09';
 const APP_UPDATED_AT = '2026-07-01';
 const DB_NAME = 'little-explorer-animal-quest-db';
 const DATA_URL = './data/animals.json';
@@ -260,7 +260,6 @@ function renderRoute() {
     case 'picker': return renderPicker(routeParams);
     case 'confirmAnimal': return renderConfirmAnimal(routeParams);
     case 'unlock': return renderUnlock(routeParams);
-    case 'confirmAnimal': return renderConfirmAnimal(routeParams);
     case 'journal': return renderJournal(routeParams.category || 'All');
     case 'detail': return renderDetail(routeParams.id);
     case 'quiz': return renderExplorerClub();
@@ -424,20 +423,21 @@ function renderDiscover() {
 function renderPicker(params = {}) {
   const mode = params.mode || 'discover';
   const selectedCategory = params.category || 'All';
+  const initialSearch = params.search || '';
   const sourceMystery = mode === 'linkMystery' ? appState.mysteries.find(m => m.id === params.mysteryId) : null;
-  const list = allAnimals().filter(animal => selectedCategory === 'All' || animal.category === selectedCategory);
+  const list = allAnimals();
   shell(`
     <section class="panel">
       <div class="section-head"><div><p class="eyebrow">Animal picker</p><h1>${mode === 'linkMystery' ? 'Link mystery to an animal' : 'Choose what you found'}</h1></div><button type="button" class="btn ghost" data-route="${mode === 'linkMystery' ? 'parentArea' : 'discover'}" data-tab="mysteries">Back</button></div>
       ${sourceMystery ? `<div class="mystery-preview"><img src="${sourceMystery.photo}" alt="Mystery photo"><div><strong>Mystery photo</strong><p class="helper">Pick an existing animal to unlock later for the child.</p></div></div>` : ''}
       <div class="picker-tools">
-        <input id="animalSearch" class="search-input" autocomplete="off" placeholder="Start typing: dog, bird, feline, city...">
+        <input id="animalSearch" class="search-input" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Start typing: dog, bird, feline, city..." value="${escapeHtml(initialSearch)}">
         <select id="animalCategorySelect">
-          <option value="All">All categories</option>
+          <option value="All" ${selectedCategory === 'All' ? 'selected' : ''}>All categories</option>
           ${categoryCounts().map(c => `<option value="${c.id}" ${selectedCategory === c.id ? 'selected' : ''}>${c.label}</option>`).join('')}
         </select>
       </div>
-      <p id="pickerHint" class="picker-hint">Start typing to auto-suggest matching animals. Tap a card, then confirm before unlocking.</p>
+      <p id="pickerHint" class="picker-hint">Type freely to filter results. Tap an animal, then confirm before unlocking.</p>
       <div class="animal-grid picker-grid">${list.map(animal => animalCard(animal, { action: 'selectAnimal', compact: true })).join('')}</div>
       <div id="pickerNoResults" class="empty-state picker-empty" hidden><strong>No matching animals.</strong><p>Try another word or choose Mystery Animal.</p></div>
       ${mode === 'discover' ? '<div class="actions center"><button type="button" class="btn yellow" data-action="mystery">I can’t find it</button></div>' : ''}
@@ -457,14 +457,20 @@ function attachPickerFilters() {
     let visible = 0;
     cards.forEach(card => {
       const matchesCategory = cat === 'All' || card.dataset.category === cat;
-      const matchesSearch = !q || (card.dataset.search || '').includes(q);
+      const haystack = card.dataset.search || '';
+      const animalName = card.dataset.name || '';
+      const matchesSearch = !q || animalName.startsWith(q) || haystack.includes(q);
       const show = matchesCategory && matchesSearch;
       card.hidden = !show;
+      card.classList.toggle('is-hidden', !show);
       if (show) visible += 1;
     });
     if (noResults) noResults.hidden = visible > 0;
+    const hint = document.getElementById('pickerHint');
+    if (hint) hint.textContent = visible ? `${visible} animal${visible === 1 ? '' : 's'} match. Tap one to confirm.` : 'No animals match yet. Try another word or choose Mystery Animal.';
   };
   searchInput?.addEventListener('input', update);
+  searchInput?.addEventListener('keyup', update);
   categorySelect?.addEventListener('change', update);
   update();
 }
@@ -483,14 +489,15 @@ function animalCard(animal, options = {}) {
   const album = options.album ? 'album-card' : '';
   const revealLockedImage = Boolean(options.revealLockedImage) || action === 'selectAnimal' || action === 'quizSelect';
   const cardState = unlocked ? 'unlocked' : (revealLockedImage ? 'locked picker-visible' : 'locked mystery-locked');
-  const metaLine = (unlocked || revealLockedImage) ? `${escapeHtml(animal.category)} • ${escapeHtml(animal.size || 'Unknown')}` : 'Mystery card';
+  const metaLine = (unlocked || revealLockedImage) ? `${escapeHtml(animal.category)} • ${escapeHtml(animal.size || 'Unknown')}` : '';
   const stateLine = unlocked ? `Found ${discovery.timesFound || 1}x` : (revealLockedImage ? 'Tap to choose' : 'Find to reveal');
   const searchable = [animal.name, animal.category, animal.size, animal.animalClass, animal.familyGroup, animal.explorerSkill, ...asList(animal.eats), ...asList(animal.livesIn)].join(' ').toLowerCase();
-  return `<button type="button" class="animal-card ${categoryClass(animal.category)} ${cardState} ${compact} ${album}" data-action="${action}" data-id="${animal.id}" data-category="${escapeHtml(animal.category)}" data-search="${escapeHtml(searchable)}">
+  const nameSearch = String(animal.name || '').toLowerCase();
+  return `<button type="button" class="animal-card ${categoryClass(animal.category)} ${cardState} ${compact} ${album}" data-action="${action}" data-id="${animal.id}" data-category="${escapeHtml(animal.category)}" data-name="${escapeHtml(nameSearch)}" data-search="${escapeHtml(searchable)}">
     <div class="card-art">${imgMarkup(animal)}<span class="mystery-symbol">${categoryMysteryIcon(animal.category)}</span><span class="lock-mark">?</span></div>
     <div class="card-meta">
       <strong>${escapeHtml(animal.name)}</strong>
-      <span>${metaLine}</span>
+      ${metaLine ? `<span>${metaLine}</span>` : ''}
       <em>${stateLine}</em>
     </div>
   </button>`;
@@ -651,33 +658,6 @@ function learningRow(icon, label, value) {
 function formatDate(value) {
   if (!value) return 'Today';
   try { return new Date(value).toLocaleDateString(); } catch (_) { return String(value); }
-}
-
-function renderConfirmAnimal(params = {}) {
-  const animal = getAnimal(params.animalId);
-  if (!animal) return setRoute('picker', { mode: params.mode || 'discover', mysteryId: params.mysteryId });
-  const sourceMystery = params.mode === 'linkMystery' ? appState.mysteries.find(m => m.id === params.mysteryId) : null;
-  const previewPhoto = sourceMystery?.photo || pendingPhoto;
-  shell(`
-    <section class="panel confirm-panel">
-      <p class="eyebrow">Confirm discovery</p>
-      <h1>Is this the animal you found?</h1>
-      <p class="helper">Check before unlocking. You can go back and choose a different animal.</p>
-      <div class="confirm-layout">
-        <div class="confirm-photo">${previewPhoto ? `<img src="${previewPhoto}" alt="Discovery photo">` : '<span>📷</span><strong>No photo preview</strong>'}</div>
-        <div class="confirm-animal ${categoryClass(animal.category)}">
-          ${imgMarkup(animal, 'confirm-animal-img')}
-          <h2>${escapeHtml(animal.name)}</h2>
-          <p>${escapeHtml(animal.category)} • ${escapeHtml(animal.size || 'Unknown')}</p>
-          <div class="mini-attributes">
-            ${attributeBadge('Family', animal.familyGroup || animal.animalClass || 'Animal', 'class')}
-            ${attributeBadge('Eats', asList(animal.eats).join(', ') || 'Unknown', 'eats')}
-          </div>
-        </div>
-      </div>
-      <div class="actions center"><button type="button" class="btn ghost" data-route="picker" data-mode="${escapeHtml(params.mode || 'discover')}" data-mystery-id="${escapeHtml(params.mysteryId || '')}">← Go Back</button><button type="button" class="btn green" data-action="confirmAnimal" data-id="${animal.id}">Yes, unlock this animal</button></div>
-    </section>
-  `);
 }
 
 async function unlockAnimal(animalId, photo = pendingPhoto, source = 'photo') {
@@ -1023,11 +1003,22 @@ document.addEventListener('click', async event => {
   if (action === 'deletePhotos') return deletePhotos();
   if (action === 'resetDiscoveries') return resetDiscoveries();
   if (action === 'openReveal') return openReveal(id);
-  if (action === 'deleteDiscovery') return deleteDiscovery(id);
 });
 
 async function selectAnimal(id) {
-  setRoute('confirmAnimal', { animalId: id, mode: routeParams.mode || 'discover', mysteryId: routeParams.mysteryId || '' });
+  const searchInput = document.getElementById('animalSearch');
+  const categorySelect = document.getElementById('animalCategorySelect');
+  setRoute('confirmAnimal', {
+    animalId: id,
+    mode: routeParams.mode || 'discover',
+    mysteryId: routeParams.mysteryId || '',
+    category: categorySelect?.value || routeParams.category || 'All',
+    search: searchInput?.value || routeParams.search || ''
+  });
+}
+
+async function confirmSelectedAnimal(id) {
+  return confirmAnimalSelection(id);
 }
 
 async function confirmAnimalSelection(id) {
