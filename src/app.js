@@ -1,5 +1,5 @@
-const APP_VERSION = 'v1.09';
-const APP_UPDATED_AT = '2026-07-01';
+const APP_VERSION = 'v2.01';
+const APP_UPDATED_AT = '2026-07-02';
 const DB_NAME = 'little-explorer-animal-quest-db';
 const DATA_URL = './data/animals.json';
 const STORE_NAME = 'kv';
@@ -7,15 +7,25 @@ const STATE_KEY = 'animalQuestState';
 const DEFAULT_EXPLORER_IMAGE = './assets/default-explorer.webp';
 const DEFAULT_EXPLORER_AVATAR = './assets/default-explorer-avatar.webp';
 
+
 const CATEGORIES = [
-  { id: 'Pets', label: 'Pets', icon: '🏡', note: 'Animal friends near home.', color: 'pets' },
-  { id: 'Farm', label: 'Farm', icon: '🌿', note: 'Animals from farms and fields.', color: 'farm' },
-  { id: 'Bugs', label: 'Bugs', icon: '🔎', note: 'Tiny explorers and little creatures.', color: 'bugs' },
-  { id: 'City', label: 'City', icon: '🏙️', note: 'Animals in parks, yards, and neighborhoods.', color: 'city' },
-  { id: 'Wild', label: 'Wild', icon: '🌲', note: 'Animals from the wilder world.', color: 'wild' },
-  { id: 'Zoo', label: 'Zoo', icon: '🧭', note: 'Big world animals often seen at zoos.', color: 'zoo' },
-  { id: 'Other', label: 'Special', icon: '✨', note: 'Handmade discoveries.', color: 'other' }
+  { id: 'Pets', label: 'Pets', emoji: '🐾', note: 'Animal friends near home.', color: 'pets' },
+  { id: 'Farm', label: 'Farm', emoji: '🏡', note: 'Animals from farms and fields.', color: 'farm' },
+  { id: 'Bugs', label: 'Bugs', emoji: '🐞', note: 'Tiny explorers and little creatures.', color: 'bugs' },
+  { id: 'City', label: 'City', emoji: '🏙️', note: 'Animals in parks, yards, and neighborhoods.', color: 'city' },
+  { id: 'Wild', label: 'Wild', emoji: '🌲', note: 'Animals from the wilder world.', color: 'wild' },
+  { id: 'Zoo', label: 'Zoo', emoji: '🦁', note: 'Big world animals often seen at zoos.', color: 'zoo' },
+  { id: 'Other', label: 'Special', emoji: '✨', note: 'Handmade discoveries.', color: 'other' }
 ];
+
+const NAV_ASSETS = {
+  home: './assets/nav/nav-map.webp',
+  discover: './assets/nav/nav-camera.webp',
+  journal: './assets/nav/nav-journal.webp',
+  explorerClub: './assets/nav/nav-club.webp',
+  parent: './assets/nav/nav-parent-lock.webp'
+};
+
 
 const DEFAULT_SETTINGS = {
   cameraEnabled: true,
@@ -83,6 +93,43 @@ function categoryInfo(category) {
 
 function categoryClass(category) {
   return `theme-${categoryInfo(category).color}`;
+}
+
+function categorySlug(category) {
+  return categoryInfo(category).color || slugify(category || 'other');
+}
+
+function worldIconPath(category) {
+  const slug = categorySlug(category);
+  if (slug === 'other') return './assets/nav/nav-parent-lock.webp';
+  return `./assets/world-icons/icon-world-${slug}.webp`;
+}
+
+function worldBgPath(category) {
+  const slug = categorySlug(category);
+  if (slug === 'other') return './assets/worlds/bg-world-pets.webp';
+  return `./assets/worlds/bg-world-${slug}.webp`;
+}
+
+function cardBgPath(category) {
+  const slug = categorySlug(category);
+  if (slug === 'other') return './assets/card-backgrounds/card-bg-pets.webp';
+  return `./assets/card-backgrounds/card-bg-${slug}.webp`;
+}
+
+function lockedBgPath(category) {
+  const slug = categorySlug(category);
+  if (slug === 'other') return './assets/locked-backgrounds/locked-bg-pets.webp';
+  return `./assets/locked-backgrounds/locked-bg-${slug}.webp`;
+}
+
+function cssBg(url) {
+  return `background-image:url('${escapeHtml(url)}')`;
+}
+
+function firstValue(value, fallback = 'Unknown') {
+  const list = asList(value);
+  return list[0] || fallback;
 }
 
 function isStandalone() {
@@ -217,7 +264,10 @@ function activeNavRoute() {
 
 function navButton(route, label, icon) {
   const active = activeNavRoute() === route;
-  return `<button type="button" class="nav-btn ${active ? 'active' : ''}" data-route="${route}"><span>${icon}</span><strong>${label}</strong></button>`;
+  const asset = NAV_ASSETS[route];
+  return `<button type="button" class="nav-btn ${active ? 'active' : ''}" data-route="${route}" aria-label="${escapeHtml(label)}">
+    <span class="nav-img">${asset ? `<img src="${asset}" alt="">` : icon}</span><strong>${escapeHtml(label)}</strong>
+  </button>`;
 }
 
 function shell(content) {
@@ -297,43 +347,42 @@ function renderHome() {
   const readyAnimal = ready ? getAnimal(ready.animalId) : null;
   shell(`
     ${ready ? `<section class="reveal-banner"><div><strong>New animal discovery ready!</strong><span>A grown-up studied your mystery animal${readyAnimal ? `: ${escapeHtml(readyAnimal.name)}` : ''}.</span></div><button type="button" class="btn yellow" data-route="reveal" data-id="${ready.id}">Reveal Card</button></section>` : ''}
-    <section class="hero-card adventure-hero">
-      <div class="hero-copy">
-        <p class="eyebrow">Real-world animal adventure</p>
-        <h1>Explore. Discover. Unlock your animal journal.</h1>
-        <p>Take a photo, choose what you found, and turn each real-world discovery into a collectible learning card.</p>
-        ${progressBar(c)}
-        <div class="hero-actions">
-          <button type="button" class="quest-button primary" data-route="discover"><span>📷</span><strong>Discover Animal</strong><small>Take or choose a photo</small></button>
-          <button type="button" class="quest-button journal" data-route="journal"><span>📖</span><strong>Animal Journal</strong><small>Open your sticker album</small></button>
-          <button type="button" class="quest-button club" data-route="explorerClub"><span>⭐</span><strong>Explorer Club</strong><small>Badges and quiz play</small></button>
+    <section class="visual-home-hero">
+      <div class="hero-map-card">
+        <img src="${DEFAULT_EXPLORER_IMAGE}" alt="Little explorers discovering animals">
+        <div class="hero-map-overlay">
+          <p class="eyebrow">Explorer Base Camp</p>
+          <h1>Go outside. Find animals. Unlock your journal.</h1>
+          <div class="big-progress-orb"><strong>${c.found}</strong><span>of ${c.total}</span><small>found</small></div>
         </div>
       </div>
-      <div class="hero-scene">
-        <img src="${DEFAULT_EXPLORER_IMAGE}" alt="Little explorers discovering an animal temple">
-        <div class="hero-bubble">Explorer base camp</div>
+      <div class="kid-action-grid">
+        <button type="button" class="kid-action discover" data-route="discover"><img src="./assets/nav/nav-camera.webp" alt=""><strong>Discover</strong><span>Take a photo</span></button>
+        <button type="button" class="kid-action journal" data-route="journal"><img src="./assets/nav/nav-journal.webp" alt=""><strong>Journal</strong><span>Sticker album</span></button>
+        <button type="button" class="kid-action club" data-route="explorerClub"><img src="./assets/nav/nav-club.webp" alt=""><strong>Club</strong><span>Quiz + badges</span></button>
       </div>
     </section>
 
     ${installBlock()}
 
-    <section class="section-head"><h2>Explorer map</h2><span>${c.found}/${c.total} found</span></section>
-    <div class="category-grid">
+    <section class="section-head explorer-map-head"><h2>Explorer map</h2><span>${c.found}/${c.total} found</span></section>
+    <div class="category-grid visual-category-grid">
       ${categoryCounts().map(categoryTile).join('')}
     </div>
 
-    <section class="panel">
+    <section class="panel recent-panel">
       <div class="section-head compact"><h2>Recent discoveries</h2><button type="button" class="link-btn" data-route="journal">Open journal</button></div>
       ${latest.length ? `<div class="animal-grid small-grid">${latest.map(d => animalCard(getAnimal(d.animalId), { compact: true })).join('')}</div>` : `<div class="empty-state"><strong>No discoveries yet.</strong><p>Start with a pet, bug, bird, or animal nearby.</p><button type="button" class="btn green" data-route="discover">Start discovering</button></div>`}
     </section>
 
-    <section class="panel grownup-home-section">
+    <section class="panel grownup-home-section grownup-last">
+      <img src="./assets/nav/nav-parent-lock.webp" alt="" class="grownup-lock-img">
       <div>
         <p class="eyebrow">Grown-up tools</p>
         <h2>Parent access</h2>
         <p class="helper">Create handmade animals, review mysteries, manage data, and reset discoveries.</p>
       </div>
-      <button type="button" class="btn ghost" data-route="parent">🔒 Open Parent Area</button>
+      <button type="button" class="btn ghost" data-route="parent">Open Parent Area</button>
     </section>
 
     <footer class="home-release-footer" aria-label="App version">
@@ -347,12 +396,15 @@ function categoryTile(cat) {
   const pct = cat.total ? Math.round(cat.found / cat.total * 100) : 0;
   const halfTarget = Math.max(1, Math.ceil(cat.total / 2));
   const mapRevealed = cat.found >= halfTarget;
-  const thumbs = firstAnimalsFor(cat.id, 3);
-  return `<button type="button" class="category-tile ${categoryClass(cat.id)} ${mapRevealed ? 'map-revealed' : 'map-mystery'}" data-route="journal" data-category="${cat.id}">
-    <div class="tile-top"><span class="cat-icon">${cat.icon}</span><strong>${cat.label}</strong><em>${cat.found}/${cat.total}</em></div>
-    <div class="thumb-stack">${thumbs.map((a, i) => `<span style="--i:${i}">${imgMarkup(a)}</span>`).join('')}<b class="map-question">?</b></div>
+  const preview = allAnimals().filter(a => a.category === cat.id).slice(0, 4);
+  return `<button type="button" class="category-tile visual-world-card ${categoryClass(cat.id)} ${mapRevealed ? 'map-revealed' : 'map-mystery'}" data-route="journal" data-category="${cat.id}" style="${cssBg(worldBgPath(cat.id))}">
+    <div class="world-glass-top"><img src="${worldIconPath(cat.id)}" alt=""><div><strong>${cat.label}</strong><span>${cat.found}/${cat.total}</span></div></div>
+    <div class="map-animal-peek">
+      ${preview.map(a => `<span class="map-peek ${isUnlocked(a.id) && mapRevealed ? 'seen' : 'hidden'}">${imgMarkup(a)}</span>`).join('')}
+      ${!mapRevealed ? `<b class="map-lock-note">?</b>` : ''}
+    </div>
     <div class="mini-progress"><i style="width:${pct}%"></i></div>
-    <small>${mapRevealed ? escapeHtml(cat.note) : `Find ${halfTarget} ${cat.label.toLowerCase()} animals to reveal this map clue.`}</small>
+    <small>${mapRevealed ? 'Map clues revealed!' : `Find ${halfTarget} to reveal map clues.`}</small>
   </button>`;
 }
 
@@ -399,20 +451,23 @@ function renderProfile() {
 
 function renderDiscover() {
   shell(`
-    <section class="panel discover-panel">
-      <div class="discover-copy">
-        <p class="eyebrow">Discover animal</p>
-        <h1>What animal did you find?</h1>
-        <p class="helper">Take or choose a photo. Then pick the animal from the journal list. The app keeps one small local photo for the card.</p>
+    <section class="discover-stage">
+      <div class="discover-visual-card">
+        <div class="discover-icon-orb"><img src="./assets/nav/nav-camera.webp" alt="Camera"></div>
+        <div>
+          <p class="eyebrow">Discover animal</p>
+          <h1>Take a photo of what you found.</h1>
+          <p class="helper">One small local photo is saved for the card. Then choose the animal with big visual buttons.</p>
+        </div>
       </div>
-      <div class="camera-card">
-        <label class="photo-drop">
+      <div class="camera-card visual-camera-card">
+        <label class="photo-drop visual-photo-drop">
           <input id="discoverPhotoInput" type="file" accept="image/*" capture="environment">
-          ${pendingPhoto ? `<img src="${pendingPhoto}" alt="Selected discovery photo">` : `<span class="camera-icon">📷</span><strong>Take or choose photo</strong><small>Works best on a phone. Desktop can choose an image.</small>`}
+          ${pendingPhoto ? `<img src="${pendingPhoto}" alt="Selected discovery photo">` : `<span class="camera-icon"><img src="./assets/nav/nav-camera.webp" alt=""></span><strong>Tap to take or choose photo</strong><small>Phone camera or photo library</small>`}
         </label>
         <div class="actions center">
-          <button type="button" class="btn green" data-action="chooseAnimal" ${pendingPhoto ? '' : 'disabled'}>Choose Animal</button>
-          <button type="button" class="btn yellow" data-action="mystery" ${pendingPhoto ? '' : 'disabled'}>Mystery Animal</button>
+          <button type="button" class="btn green big-visual-btn" data-action="chooseAnimal" ${pendingPhoto ? '' : 'disabled'}>Choose Animal</button>
+          <button type="button" class="btn yellow big-visual-btn" data-action="mystery" ${pendingPhoto ? '' : 'disabled'}>Mystery Animal</button>
           ${pendingPhoto ? '<button type="button" class="btn ghost" data-action="clearPhoto">Retake / Choose Again</button>' : ''}
         </div>
       </div>
@@ -427,18 +482,16 @@ function renderPicker(params = {}) {
   const sourceMystery = mode === 'linkMystery' ? appState.mysteries.find(m => m.id === params.mysteryId) : null;
   const list = allAnimals();
   shell(`
-    <section class="panel">
-      <div class="section-head"><div><p class="eyebrow">Animal picker</p><h1>${mode === 'linkMystery' ? 'Link mystery to an animal' : 'Choose what you found'}</h1></div><button type="button" class="btn ghost" data-route="${mode === 'linkMystery' ? 'parentArea' : 'discover'}" data-tab="mysteries">Back</button></div>
+    <section class="panel visual-picker-panel">
+      <div class="section-head"><div><p class="eyebrow">Animal picker</p><h1>${mode === 'linkMystery' ? 'Link mystery to an animal' : 'What did you find?'}</h1></div><button type="button" class="btn ghost" data-route="${mode === 'linkMystery' ? 'parentArea' : 'discover'}" data-tab="mysteries">Back</button></div>
       ${sourceMystery ? `<div class="mystery-preview"><img src="${sourceMystery.photo}" alt="Mystery photo"><div><strong>Mystery photo</strong><p class="helper">Pick an existing animal to unlock later for the child.</p></div></div>` : ''}
-      <div class="picker-tools">
-        <input id="animalSearch" class="search-input" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Start typing: dog, bird, feline, city..." value="${escapeHtml(initialSearch)}">
-        <select id="animalCategorySelect">
-          <option value="All" ${selectedCategory === 'All' ? 'selected' : ''}>All categories</option>
-          ${categoryCounts().map(c => `<option value="${c.id}" ${selectedCategory === c.id ? 'selected' : ''}>${c.label}</option>`).join('')}
-        </select>
+      <div class="visual-search-bar"><span>🔎</span><input id="animalSearch" class="search-input" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search animal..." value="${escapeHtml(initialSearch)}"></div>
+      <div class="visual-filter-row" aria-label="Animal category filters">
+        <button type="button" class="picker-filter ${selectedCategory === 'All' ? 'active' : ''}" data-picker-category="All"><img src="./assets/nav/nav-map.webp" alt=""><strong>All</strong></button>
+        ${categoryCounts().map(c => `<button type="button" class="picker-filter ${selectedCategory === c.id ? 'active' : ''}" data-picker-category="${c.id}"><img src="${worldIconPath(c.id)}" alt=""><strong>${c.label}</strong></button>`).join('')}
       </div>
-      <p id="pickerHint" class="picker-hint">Type freely to filter results. Tap an animal, then confirm before unlocking.</p>
-      <div class="animal-grid picker-grid">${list.map(animal => animalCard(animal, { action: 'selectAnimal', compact: true })).join('')}</div>
+      <p id="pickerHint" class="picker-hint">Type freely or tap a picture filter. Tap an animal, then confirm before unlocking.</p>
+      <div class="animal-grid picker-grid visual-picker-grid">${list.map(animal => animalCard(animal, { action: 'selectAnimal', compact: true })).join('')}</div>
       <div id="pickerNoResults" class="empty-state picker-empty" hidden><strong>No matching animals.</strong><p>Try another word or choose Mystery Animal.</p></div>
       ${mode === 'discover' ? '<div class="actions center"><button type="button" class="btn yellow" data-action="mystery">I can’t find it</button></div>' : ''}
     </section>
@@ -448,12 +501,13 @@ function renderPicker(params = {}) {
 
 function attachPickerFilters() {
   const searchInput = document.getElementById('animalSearch');
-  const categorySelect = document.getElementById('animalCategorySelect');
+  const filterButtons = [...document.querySelectorAll('.picker-filter')];
   const noResults = document.getElementById('pickerNoResults');
   const cards = [...document.querySelectorAll('.picker-grid .animal-card')];
+  const activeCategory = () => document.querySelector('.picker-filter.active')?.dataset.pickerCategory || 'All';
   const update = () => {
     const q = (searchInput?.value || '').trim().toLowerCase();
-    const cat = categorySelect?.value || 'All';
+    const cat = activeCategory();
     let visible = 0;
     cards.forEach(card => {
       const matchesCategory = cat === 'All' || card.dataset.category === cat;
@@ -469,9 +523,13 @@ function attachPickerFilters() {
     const hint = document.getElementById('pickerHint');
     if (hint) hint.textContent = visible ? `${visible} animal${visible === 1 ? '' : 's'} match. Tap one to confirm.` : 'No animals match yet. Try another word or choose Mystery Animal.';
   };
+  filterButtons.forEach(btn => btn.addEventListener('click', () => {
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    update();
+  }));
   searchInput?.addEventListener('input', update);
   searchInput?.addEventListener('keyup', update);
-  categorySelect?.addEventListener('change', update);
   update();
 }
 
@@ -490,11 +548,12 @@ function animalCard(animal, options = {}) {
   const revealLockedImage = Boolean(options.revealLockedImage) || action === 'selectAnimal' || action === 'quizSelect';
   const cardState = unlocked ? 'unlocked' : (revealLockedImage ? 'locked picker-visible' : 'locked mystery-locked');
   const metaLine = (unlocked || revealLockedImage) ? `${escapeHtml(animal.category)} • ${escapeHtml(animal.size || 'Unknown')}` : '';
-  const stateLine = unlocked ? `Found ${discovery.timesFound || 1}x` : (revealLockedImage ? 'Tap to choose' : 'Find to reveal');
+  const stateLine = unlocked ? `Found ${discovery.timesFound || 1}x` : (revealLockedImage ? 'Tap to choose' : 'Find me');
   const searchable = [animal.name, animal.category, animal.size, animal.animalClass, animal.familyGroup, animal.explorerSkill, ...asList(animal.eats), ...asList(animal.livesIn)].join(' ').toLowerCase();
   const nameSearch = String(animal.name || '').toLowerCase();
+  const artBg = unlocked || revealLockedImage ? cardBgPath(animal.category) : lockedBgPath(animal.category);
   return `<button type="button" class="animal-card ${categoryClass(animal.category)} ${cardState} ${compact} ${album}" data-action="${action}" data-id="${animal.id}" data-category="${escapeHtml(animal.category)}" data-name="${escapeHtml(nameSearch)}" data-search="${escapeHtml(searchable)}">
-    <div class="card-art">${imgMarkup(animal)}<span class="mystery-symbol">${categoryMysteryIcon(animal.category)}</span><span class="lock-mark">?</span></div>
+    <div class="card-art" style="${cssBg(artBg)}">${imgMarkup(animal)}<span class="lock-mark">?</span></div>
     <div class="card-meta">
       <strong>${escapeHtml(animal.name)}</strong>
       ${metaLine ? `<span>${metaLine}</span>` : ''}
@@ -509,19 +568,19 @@ function renderJournal(category = 'All') {
   const filtered = allAnimals().filter(animal => category === 'All' || animal.category === category);
   const title = category === 'All' ? 'Animal Journal' : `${categoryInfo(category).label} Album`;
   shell(`
-    <section class="journal-hero panel sticker-hero">
-      <div><p class="eyebrow">Animal sticker album</p><h1>${escapeHtml(title)}</h1><p class="helper">Open a category to see all cards together. Color cards are discovered. Mystery cards are waiting to be found.</p></div>
+    <section class="journal-hero panel sticker-hero visual-journal-hero">
+      <div><p class="eyebrow">Sticker album</p><h1>${escapeHtml(title)}</h1><p class="helper">Open a world. Color stickers are found. Grey animal shapes are waiting to be revealed.</p></div>
       ${progressBar(c)}
     </section>
-    <div class="journal-categories album-tabs">
-      <button type="button" class="journal-cat ${category === 'All' ? 'active' : ''}" data-route="journal" data-category="All"><span>📖</span><strong>All</strong><em>${c.found}/${c.total}</em></button>
-      ${cats.map(cat => `<button type="button" class="journal-cat ${category === cat.id ? 'active' : ''} ${categoryClass(cat.id)}" data-route="journal" data-category="${cat.id}">
-        <span class="cat-imgs">${firstAnimalsFor(cat.id, 2).map(a => imgMarkup(a)).join('')}</span><strong>${cat.label}</strong><em>${cat.found}/${cat.total}</em>
+    <div class="journal-categories visual-world-tabs">
+      <button type="button" class="journal-cat visual-world-tab ${category === 'All' ? 'active' : ''}" data-route="journal" data-category="All"><img src="./assets/nav/nav-journal.webp" alt=""><strong>All</strong><em>${c.found}/${c.total}</em></button>
+      ${cats.map(cat => `<button type="button" class="journal-cat visual-world-tab ${category === cat.id ? 'active' : ''} ${categoryClass(cat.id)}" data-route="journal" data-category="${cat.id}">
+        <img src="${worldIconPath(cat.id)}" alt=""><strong>${cat.label}</strong><em>${cat.found}/${cat.total}</em>
       </button>`).join('')}
     </div>
-    <section class="panel album-panel">
+    <section class="panel album-panel panini-panel">
       <div class="section-head compact"><h2>${escapeHtml(title)}</h2><span>${filtered.filter(a => isUnlocked(a.id)).length}/${filtered.length}</span></div>
-      <div class="animal-grid album-grid">${filtered.map(animal => animalCard(animal, { album: true })).join('')}</div>
+      <div class="animal-grid album-grid panini-grid">${filtered.map(animal => animalCard(animal, { album: true })).join('')}</div>
     </section>
   `);
 }
@@ -581,6 +640,31 @@ function attributeBadge(label, value, kind) {
   return `<div class="attribute-badge ${kind}"><span class="attribute-icon">${iconForValue(kind, clean)}</span><small>${escapeHtml(label)}</small><strong>${escapeHtml(clean)}</strong></div>`;
 }
 
+function imageAttributeBadge(label, value, kind, imagePath = '') {
+  const clean = Array.isArray(value) ? value.join(', ') : String(value || 'Unknown');
+  const media = imagePath ? `<img src="${escapeHtml(imagePath)}" alt="">` : `<span>${iconForValue(kind, clean)}</span>`;
+  return `<div class="image-attribute-badge ${kind}">${media}<small>${escapeHtml(label)}</small><strong>${escapeHtml(clean)}</strong></div>`;
+}
+
+function visualBadgeWall(animal) {
+  const food = firstValue(animal.eats);
+  const home = firstValue(animal.livesIn);
+  return `<div class="visual-badge-wall">
+    ${imageAttributeBadge('World', animal.category || 'Animal', 'lives', worldIconPath(animal.category))}
+    ${imageAttributeBadge('Kind', animal.animalClass || 'Animal', 'class')}
+    ${imageAttributeBadge('Eats', food, 'eats')}
+    ${imageAttributeBadge('Home', home, 'lives')}
+    ${imageAttributeBadge('Skill', animal.explorerSkill || 'Explorer', 'skill')}
+    ${imageAttributeBadge('Size', animal.size || 'Unknown', 'size')}
+  </div>`;
+}
+
+function lockedBadgeWall() {
+  return `<div class="visual-badge-wall locked-badges">
+    ${['World','Kind','Eats','Home','Skill','Size'].map(label => `<div class="image-attribute-badge mystery"><span>?</span><small>${label}</small><strong>Unlock</strong></div>`).join('')}
+  </div>`;
+}
+
 function visualFactGrid(animal) {
   return `<div class="attribute-grid">
     ${attributeBadge('Size', animal.size || 'Unknown', 'size')}
@@ -604,25 +688,21 @@ function renderDetail(id) {
   const unlocked = isUnlocked(animal.id);
   const discovery = discoveryFor(animal.id);
   const latestPhoto = unlocked && discovery?.latestPhoto ? discovery.latestPhoto : null;
+  const sceneBg = unlocked ? cardBgPath(animal.category) : lockedBgPath(animal.category);
   shell(`
-    <section class="storybook-detail-wrap">
-      <article class="storybook-animal-card ${categoryClass(animal.category)} ${unlocked ? 'unlocked' : 'locked-detail'}">
-        <div class="storybook-topbar">
+    <section class="storybook-detail-wrap visual-detail-wrap">
+      <article class="storybook-animal-card visual-animal-card ${categoryClass(animal.category)} ${unlocked ? 'unlocked' : 'locked-detail'}">
+        <div class="storybook-topbar visual-card-topbar">
           <button type="button" class="round-back" data-route="journal" data-category="${animal.category}" aria-label="Back to journal">←</button>
           <h1>${escapeHtml(animal.name)}</h1>
-          <span class="heart-stamp">♡</span>
+          <span class="heart-stamp">${unlocked ? '★' : '?'}</span>
         </div>
-        <div class="storybook-scene ${unlocked ? '' : 'scene-mystery'}">
-          ${unlocked ? imgMarkup(animal, 'storybook-animal-img') : `<div class="journal-mystery-shape"><span>${categoryMysteryIcon(animal.category)}</span><b>?</b></div>`}
-          <span class="scene-label">${escapeHtml(animal.category)} discovery</span>
+        <div class="storybook-scene visual-card-scene ${unlocked ? '' : 'scene-mystery'}" style="${cssBg(sceneBg)}">
+          ${imgMarkup(animal, unlocked ? 'storybook-animal-img' : 'storybook-animal-img locked-detail-shape')}
+          ${unlocked ? '<span class="discovered-stamp">Discovered!</span>' : '<span class="locked-question">?</span>'}
         </div>
-        <div class="visual-chip-row">
-          ${attributeBadge('Type', animal.animalClass || 'Animal', 'class')}
-          ${attributeBadge('Family', animal.familyGroup || animal.animalClass || 'Animal', 'class')}
-          ${attributeBadge('Size', animal.size || 'Unknown', 'size')}
-        </div>
-        ${unlocked ? learningRows(animal) : lockedLearningRows()}
-        <div class="story-bottom-grid">
+        ${unlocked ? visualBadgeWall(animal) : lockedBadgeWall()}
+        <div class="story-bottom-grid visual-story-grid">
           <div class="fun-fact-card"><span>💡</span><div><strong>Fun Fact</strong><p>${unlocked ? escapeHtml(animal.funFact || 'A new animal friend for your journal.') : 'Discover this animal to unlock the fact.'}</p></div></div>
           <div class="my-photo-card"><strong>My Photo</strong>${latestPhoto ? `<img src="${latestPhoto}" alt="Latest discovery photo">` : '<div class="photo-placeholder">📷</div>'}</div>
         </div>
@@ -791,8 +871,8 @@ function renderExplorerClub() {
       </div>
     </section>
     <section class="panel quiz-panel quiz-fit-panel">
-      <div class="quiz-question-card">
-        <span class="quiz-icon">🔎</span>
+      <div class="quiz-question-card visual-quiz-question">
+        <span class="quiz-icon">${quizDraft.icon || '🔎'}</span>
         <div><p class="eyebrow">Explorer quiz</p><h2>${escapeHtml(quizDraft.question)}</h2></div>
       </div>
       <div class="quiz-instructions">Choose all that match. Everything should fit on the screen without hunting around.</div>
@@ -805,31 +885,31 @@ function renderExplorerClub() {
 }
 
 function badgeCard(badge) {
-  return `<div class="badge-card ${badge.earned ? 'earned' : 'locked'}"><div class="badge-medal">${badge.earned ? badge.icon : '?'}</div><strong>${escapeHtml(badge.name)}</strong><span>${badge.earned ? 'Earned!' : 'Keep exploring'}</span></div>`;
+  return `<div class="badge-card ${badge.earned ? 'earned' : 'locked'}"><div class="badge-medal"><span>${badge.earned ? badge.icon : '?'}</span></div><strong>${escapeHtml(badge.name)}</strong><span>${badge.earned ? 'Earned!' : 'Keep exploring'}</span></div>`;
 }
 
 function createQuiz(discovered) {
   const types = [];
   const categories = [...new Set(discovered.map(a => a.category))]
     .filter(cat => discovered.some(a => a.category === cat) && discovered.some(a => a.category !== cat));
-  categories.forEach(cat => types.push({ question: `Which animals are ${cat} animals?`, match: a => a.category === cat }));
+  categories.forEach(cat => types.push({ question: `Find the ${cat} animals`, icon: `<img src="${worldIconPath(cat)}" alt="">`, match: a => a.category === cat }));
 
   const classes = [...new Set(discovered.map(a => a.animalClass).filter(Boolean))]
     .filter(cls => discovered.some(a => a.animalClass === cls) && discovered.some(a => a.animalClass !== cls));
-  classes.forEach(cls => types.push({ question: `Which animals are ${cls}s?`, match: a => a.animalClass === cls }));
+  classes.forEach(cls => types.push({ question: `Find the ${cls}s`, icon: iconForValue('class', cls), match: a => a.animalClass === cls }));
 
   const familyGroups = [...new Set(discovered.map(a => a.familyGroup).filter(Boolean))]
     .filter(family => discovered.some(a => a.familyGroup === family) && discovered.some(a => a.familyGroup !== family));
-  familyGroups.slice(0, 5).forEach(family => types.push({ question: `Which animals belong to the ${family} family?`, match: a => a.familyGroup === family }));
+  familyGroups.slice(0, 5).forEach(family => types.push({ question: `Find the ${family} family`, icon: iconForValue('class', family), match: a => a.familyGroup === family }));
 
-  const plantRegex = /plant|grass|leaf|leaves|nectar|seed|fruit|hay|grain|vegetable/i;
+  const plantRegex = /plant|grass|leaf|leaves|nectar|seed|fruit|hay|grain|vegetable|bamboo/i;
   const eatsPlants = discovered.some(a => asList(a.eats).some(e => plantRegex.test(e))) && discovered.some(a => !asList(a.eats).some(e => plantRegex.test(e)));
-  if (eatsPlants) types.push({ question: 'Which animals eat plants, seeds, leaves, or nectar?', match: a => asList(a.eats).some(e => plantRegex.test(e)) });
+  if (eatsPlants) types.push({ question: 'Find animals that eat plants', icon: iconForValue('eats', 'plants'), match: a => asList(a.eats).some(e => plantRegex.test(e)) });
 
-  const waterAnimals = discovered.some(a => /water|pond|river|aquarium|ocean/i.test(asList(a.livesIn).join(' ') + ' ' + (a.explorerSkill || ''))) && discovered.some(a => !/water|pond|river|aquarium|ocean/i.test(asList(a.livesIn).join(' ') + ' ' + (a.explorerSkill || '')));
-  if (waterAnimals) types.push({ question: 'Which animals are water explorers?', match: a => /water|pond|river|aquarium|ocean/i.test(asList(a.livesIn).join(' ') + ' ' + (a.explorerSkill || '')) });
+  const waterAnimals = discovered.some(a => /water|pond|river|aquarium|ocean|fish bowl/i.test(asList(a.livesIn).join(' ') + ' ' + (a.explorerSkill || ''))) && discovered.some(a => !/water|pond|river|aquarium|ocean|fish bowl/i.test(asList(a.livesIn).join(' ') + ' ' + (a.explorerSkill || '')));
+  if (waterAnimals) types.push({ question: 'Find water explorers', icon: iconForValue('skill', 'water'), match: a => /water|pond|river|aquarium|ocean|fish bowl/i.test(asList(a.livesIn).join(' ') + ' ' + (a.explorerSkill || '')) });
 
-  const target = types[Math.floor(Math.random() * types.length)] || { question: 'Which animals have you discovered?', match: () => true };
+  const target = types[Math.floor(Math.random() * types.length)] || { question: 'Find discovered animals', icon: '🔎', match: () => true };
   const matches = shuffle(discovered.filter(target.match));
   const nonMatches = shuffle(discovered.filter(a => !target.match(a)));
   const answerCount = Math.min(3, Math.max(1, matches.length));
@@ -841,7 +921,7 @@ function createQuiz(discovered) {
     chosen = [...chosen, ...shuffle(discovered.filter(a => !used.has(a.id))).slice(0, Math.min(6, discovered.length) - chosen.length)];
   }
   chosen = chosen.slice(0, Math.min(6, discovered.length));
-  return { question: target.question, answers: chosen.filter(target.match).map(a => a.id), options: chosen.map(a => a.id), selected: [], checked: false };
+  return { question: target.question, icon: target.icon, answers: chosen.filter(target.match).map(a => a.id), options: chosen.map(a => a.id), selected: [], checked: false };
 }
 
 function shuffle(array) {
@@ -1007,12 +1087,12 @@ document.addEventListener('click', async event => {
 
 async function selectAnimal(id) {
   const searchInput = document.getElementById('animalSearch');
-  const categorySelect = document.getElementById('animalCategorySelect');
+  const activeFilter = document.querySelector('.picker-filter.active');
   setRoute('confirmAnimal', {
     animalId: id,
     mode: routeParams.mode || 'discover',
     mysteryId: routeParams.mysteryId || '',
-    category: categorySelect?.value || routeParams.category || 'All',
+    category: activeFilter?.dataset.pickerCategory || routeParams.category || 'All',
     search: searchInput?.value || routeParams.search || ''
   });
 }
