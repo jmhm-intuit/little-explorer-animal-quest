@@ -16,7 +16,11 @@
       "Homes"
     ],
     "funFact": "Dogs have amazing noses and can smell things people cannot.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Dogs have amazing noses and can smell things people cannot.",
+      "Dogs wag their tails to show feelings like excitement or friendliness."
+    ]
   },
   {
     "id": "cat",
@@ -34,7 +38,11 @@
       "Homes"
     ],
     "funFact": "Cats can jump many times higher than their own body.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Cats can jump many times higher than their own body.",
+      "Cats use their whiskers to feel spaces around them."
+    ]
   },
   {
     "id": "rabbit",
@@ -53,7 +61,11 @@
       "Gardens"
     ],
     "funFact": "Rabbits use their big ears to listen for tiny sounds.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Rabbits use their big ears to listen for tiny sounds.",
+      "Rabbits hop with strong back legs and can turn quickly."
+    ]
   },
   {
     "id": "hamster",
@@ -72,7 +84,11 @@
       "Homes"
     ],
     "funFact": "Hamsters can store food in cheek pouches.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Hamsters can store food in cheek pouches.",
+      "Hamsters are most active when it is quiet and dark."
+    ]
   },
   {
     "id": "guinea-pig",
@@ -91,7 +107,11 @@
       "Homes"
     ],
     "funFact": "Guinea pigs make happy squeaks when they are excited.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Guinea pigs make happy squeaks when they are excited.",
+      "Guinea pigs like to stay close to their group."
+    ]
   },
   {
     "id": "goldfish",
@@ -110,7 +130,11 @@
       "Water"
     ],
     "funFact": "Goldfish use fins to steer through the water.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Goldfish use fins to steer through the water.",
+      "Goldfish can see colors in the water around them."
+    ]
   },
   {
     "id": "turtle",
@@ -130,7 +154,11 @@
       "Land"
     ],
     "funFact": "A turtle carries its shell wherever it goes.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "A turtle carries its shell wherever it goes.",
+      "Some turtles can pull their head and legs into their shell."
+    ]
   },
   {
     "id": "parakeet",
@@ -150,7 +178,11 @@
       "Trees"
     ],
     "funFact": "Parakeets are small birds that can make cheerful chirps.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Parakeets are small birds that can make cheerful chirps.",
+      "Parakeets use their beaks to climb and nibble seeds."
+    ]
   },
   {
     "id": "cow",
@@ -169,7 +201,11 @@
       "Fields"
     ],
     "funFact": "Cows spend lots of time chewing grass.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Cows spend lots of time chewing grass.",
+      "Cows have a strong sense of smell and can recognize herd friends."
+    ]
   },
   {
     "id": "horse",
@@ -189,7 +225,11 @@
       "Fields"
     ],
     "funFact": "Horses can sleep standing up.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Horses can sleep standing up.",
+      "Horses use their ears to show where they are listening."
+    ]
   },
   {
     "id": "pig",
@@ -208,7 +248,11 @@
       "Farms"
     ],
     "funFact": "Pigs use their snouts to sniff and dig.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Pigs use their snouts to sniff and dig.",
+      "Pigs are smart animals that can learn routines."
+    ]
   },
   {
     "id": "sheep",
@@ -227,7 +271,11 @@
       "Fields"
     ],
     "funFact": "Sheep grow soft wool coats.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Sheep grow soft wool coats.",
+      "Sheep like to stay together in a group called a flock."
+    ]
   },
   {
     "id": "goat",
@@ -247,7 +295,11 @@
       "Hills"
     ],
     "funFact": "Goats are great climbers and like to explore.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Goats are great climbers and like to explore.",
+      "Goats use their lips to pick tasty leaves and grasses."
+    ]
   },
   {
     "id": "chicken",
@@ -266,7 +318,11 @@
       "Farms"
     ],
     "funFact": "Chickens scratch the ground to look for food.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Chickens scratch the ground to look for food.",
+      "Chickens talk to each other with many different clucks."
+    ]
   },
   {
     "id": "duck",
@@ -286,7 +342,11 @@
       "Ponds"
     ],
     "funFact": "Ducks have webbed feet that help them swim.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Ducks have webbed feet that help them swim.",
+      "Ducks use oily feathers to help water roll off their backs."
+    ]
   },
   {
     "id": "donkey",
@@ -305,7 +365,11 @@
       "Farms"
     ],
     "funFact": "Donkeys have long ears that help them hear far away sounds.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Donkeys have long ears that help them hear far away sounds.",
+      "Donkeys can carry loads and remember safe paths."
+    ]
   },
   {
     "id": "ant",
@@ -325,7 +389,11 @@
       "Sidewalks"
     ],
     "funFact": "Ants work together in big teams.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Ants work together in big teams.",
+      "Ants leave scent trails to help other ants find food."
+    ]
   },
   {
     "id": "bee",
@@ -344,7 +412,11 @@
       "Flowers"
     ],
     "funFact": "Bees help flowers grow by moving pollen.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Bees help flowers grow by moving pollen.",
+      "Bees live in groups and share jobs inside the hive."
+    ]
   },
   {
     "id": "butterfly",
@@ -363,7 +435,11 @@
       "Parks"
     ],
     "funFact": "Butterflies taste with their feet.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Butterflies taste with their feet.",
+      "A butterfly starts life as a tiny caterpillar."
+    ]
   },
   {
     "id": "ladybug",
@@ -382,7 +458,11 @@
       "Leaves"
     ],
     "funFact": "Ladybugs can help gardens by eating tiny pests.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Ladybugs can help gardens by eating tiny pests.",
+      "A ladybug can open hidden wings under its spotted shell."
+    ]
   },
   {
     "id": "worm",
@@ -401,7 +481,11 @@
       "Soil"
     ],
     "funFact": "Worms help make soil healthy for plants.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Worms help make soil healthy for plants.",
+      "Worms wiggle through soil and make tiny tunnels."
+    ]
   },
   {
     "id": "spider",
@@ -420,7 +504,11 @@
       "Corners"
     ],
     "funFact": "Spiders have eight legs.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Spiders have eight legs.",
+      "Many spiders spin silk to build webs or safe homes."
+    ]
   },
   {
     "id": "snail",
@@ -439,7 +527,11 @@
       "Damp places"
     ],
     "funFact": "Snails carry their homes on their backs.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Snails carry their homes on their backs.",
+      "Snails move on one soft foot and leave a shiny trail."
+    ]
   },
   {
     "id": "cricket",
@@ -459,7 +551,11 @@
       "Gardens"
     ],
     "funFact": "Crickets can make chirping sounds with their wings.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Crickets can make chirping sounds with their wings.",
+      "Crickets can hear sounds with tiny parts on their legs."
+    ]
   },
   {
     "id": "pill-bug",
@@ -479,7 +575,11 @@
       "Under rocks"
     ],
     "funFact": "Pill bugs can roll into a tiny ball.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Pill bugs can roll into a tiny ball.",
+      "Pill bugs like damp places under rocks, pots, or leaves."
+    ]
   },
   {
     "id": "squirrel",
@@ -499,7 +599,11 @@
       "Trees"
     ],
     "funFact": "Squirrels hide food to eat later.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Squirrels hide food to eat later.",
+      "Squirrels use their big tails for balance when they climb."
+    ]
   },
   {
     "id": "pigeon",
@@ -519,7 +623,11 @@
       "Parks"
     ],
     "funFact": "Pigeons can find their way home from far away.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Pigeons can find their way home from far away.",
+      "Pigeons bob their heads as they walk to help them see."
+    ]
   },
   {
     "id": "hummingbird",
@@ -538,7 +646,11 @@
       "Flowers"
     ],
     "funFact": "Hummingbirds flap their wings very fast.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Hummingbirds flap their wings very fast.",
+      "Hummingbirds can hover in one place while they drink nectar."
+    ]
   },
   {
     "id": "small-lizard",
@@ -558,7 +670,11 @@
       "Gardens"
     ],
     "funFact": "Many lizards use their tails for balance.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Many lizards use their tails for balance.",
+      "Some lizards can drop their tail to escape danger."
+    ]
   },
   {
     "id": "frog",
@@ -577,7 +693,11 @@
       "Wet places"
     ],
     "funFact": "Frogs can jump using their strong back legs.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Frogs can jump using their strong back legs.",
+      "Frogs start life in water as tadpoles."
+    ]
   },
   {
     "id": "wild-rabbit",
@@ -597,7 +717,11 @@
       "Fields"
     ],
     "funFact": "Wild rabbits stay alert and listen with their long ears.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Wild rabbits stay alert and listen with their long ears.",
+      "Wild rabbits hide in grass and use speed to stay safe."
+    ]
   },
   {
     "id": "crow",
@@ -618,7 +742,11 @@
       "Trees"
     ],
     "funFact": "Crows are clever birds that can remember faces.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Crows are clever birds that can remember faces.",
+      "Crows can use tools and solve simple problems."
+    ]
   },
   {
     "id": "deer",
@@ -638,7 +766,11 @@
       "Fields"
     ],
     "funFact": "Deer can run fast and move quietly.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Deer can run fast and move quietly.",
+      "Deer have big ears that turn to listen in many directions."
+    ]
   },
   {
     "id": "raccoon",
@@ -659,7 +791,11 @@
       "Neighborhoods"
     ],
     "funFact": "Raccoons use their paws to feel and explore objects.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Raccoons use their paws to feel and explore objects.",
+      "Raccoons often look for food at night."
+    ]
   },
   {
     "id": "capybara",
@@ -679,7 +815,11 @@
       "Rivers"
     ],
     "funFact": "Capybaras are the largest rodents in the world.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Capybaras are the largest rodents in the world.",
+      "Capybaras love water and can swim very well."
+    ]
   },
   {
     "id": "coyote",
@@ -699,7 +839,11 @@
       "Forests"
     ],
     "funFact": "Coyotes are canines, just like dogs and wolves.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Coyotes are canines, just like dogs and wolves.",
+      "Coyotes use howls and yips to talk with each other."
+    ]
   },
   {
     "id": "lion",
@@ -718,7 +862,11 @@
       "Zoos"
     ],
     "funFact": "Lions are big cats with powerful roars.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Lions are big cats with powerful roars.",
+      "Lions often live in family groups called prides."
+    ]
   },
   {
     "id": "elephant",
@@ -738,7 +886,11 @@
       "Zoos"
     ],
     "funFact": "Elephants use their trunks like a nose and a hand.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Elephants use their trunks like a nose and a hand.",
+      "Elephants can use their trunks to drink, smell, touch, and grab."
+    ]
   },
   {
     "id": "giraffe",
@@ -757,7 +909,11 @@
       "Zoos"
     ],
     "funFact": "Giraffes use long necks to reach tall leaves.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Giraffes use long necks to reach tall leaves.",
+      "A giraffe has a long tongue that helps grab leaves."
+    ]
   },
   {
     "id": "penguin",
@@ -776,7 +932,11 @@
       "Zoos"
     ],
     "funFact": "Penguins are birds that swim instead of fly.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Penguins are birds that swim instead of fly.",
+      "Penguins waddle on land but move quickly underwater."
+    ]
   },
   {
     "id": "monkey",
@@ -796,7 +956,11 @@
       "Zoos"
     ],
     "funFact": "Monkeys use their hands to climb and explore.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Monkeys use their hands to climb and explore.",
+      "Monkeys can use tails, hands, or feet to balance while climbing."
+    ]
   },
   {
     "id": "polar-bear",
@@ -816,7 +980,11 @@
       "Zoos"
     ],
     "funFact": "Polar bears have thick fur that helps keep them warm.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Polar bears have thick fur that helps keep them warm.",
+      "Polar bears have wide paws that help them walk on snow."
+    ]
   },
   {
     "id": "tiger",
@@ -835,7 +1003,11 @@
       "Zoos"
     ],
     "funFact": "Every tiger has a unique stripe pattern.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Every tiger has a unique stripe pattern.",
+      "Tigers are strong swimmers and can move quietly."
+    ]
   },
   {
     "id": "panda-bear",
@@ -855,7 +1027,11 @@
       "Zoos"
     ],
     "funFact": "Pandas eat lots and lots of bamboo.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Pandas eat lots and lots of bamboo.",
+      "Pandas have a special wrist bone that helps hold bamboo."
+    ]
   },
   {
     "id": "zebra",
@@ -874,7 +1050,11 @@
       "Zoos"
     ],
     "funFact": "Zebras have black and white stripes.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Zebras have black and white stripes.",
+      "Zebra stripes help zebras recognize each other."
+    ]
   },
   {
     "id": "crocodile",
@@ -895,6 +1075,10 @@
       "Zoos"
     ],
     "funFact": "Crocodiles are reptiles with strong tails for swimming.",
-    "isBaseline": true
+    "isBaseline": true,
+    "funFacts": [
+      "Crocodiles are reptiles with strong tails for swimming.",
+      "Crocodiles can float with only their eyes and nose above water."
+    ]
   }
 ]

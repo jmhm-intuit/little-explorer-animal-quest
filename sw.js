@@ -1,4 +1,4 @@
-const CACHE_NAME = 'animal-quest-v2-01';
+const CACHE_NAME = 'animal-quest-v2-03';
 const CORE_ASSETS = [
   './',
   './index.html',

@@ -1,4 +1,4 @@
-const APP_VERSION = 'v2.01';
+const APP_VERSION = 'v2.03';
 const APP_UPDATED_AT = '2026-07-02';
 const DB_NAME = 'little-explorer-animal-quest-db';
 const DATA_URL = './data/animals.json';
@@ -50,7 +50,8 @@ let appState = {
   customAnimals: [],
   mysteries: [],
   readyReveals: [],
-  settings: { ...DEFAULT_SETTINGS }
+  settings: { ...DEFAULT_SETTINGS },
+  quizWins: 0
 };
 
 window.addEventListener('beforeinstallprompt', event => {
@@ -193,7 +194,8 @@ function normalizeLoadedState(raw) {
     customAnimals: Array.isArray(clean.customAnimals) ? clean.customAnimals : [],
     mysteries: Array.isArray(clean.mysteries) ? clean.mysteries : [],
     readyReveals: Array.isArray(clean.readyReveals) ? clean.readyReveals : [],
-    settings: { ...DEFAULT_SETTINGS, ...(clean.settings || {}) }
+    settings: { ...DEFAULT_SETTINGS, ...(clean.settings || {}) },
+    quizWins: Number(clean.quizWins || 0)
   };
 }
 
@@ -326,9 +328,13 @@ function renderRoute() {
 }
 
 function progressBar(c = completion()) {
-  return `<div class="progress-block">
-    <div class="progress-label"><strong>${c.found} / ${c.total} animals discovered</strong><span>${c.pct}%</span></div>
-    <div class="progress-track"><i style="width:${c.pct}%"></i></div>
+  const totalSegments = 10;
+  const filledSegments = Math.round((c.pct / 100) * totalSegments);
+  const segments = Array.from({ length: totalSegments }, (_, i) => `<span class="${i < filledSegments ? 'filled' : ''}">🐾</span>`).join('');
+  return `<div class="progress-block visual-progress-block" aria-label="${c.found} of ${c.total} animals discovered">
+    <div class="progress-label"><strong>Animal Journal</strong><span>${c.found}/${c.total}</span></div>
+    <div class="progress-track visual-progress-track"><i style="width:${c.pct}%"></i></div>
+    <div class="paw-progress" aria-hidden="true">${segments}</div>
   </div>`;
 }
 
@@ -361,6 +367,10 @@ function renderHome() {
         <button type="button" class="kid-action journal" data-route="journal"><img src="./assets/nav/nav-journal.webp" alt=""><strong>Journal</strong><span>Sticker album</span></button>
         <button type="button" class="kid-action club" data-route="explorerClub"><img src="./assets/nav/nav-club.webp" alt=""><strong>Club</strong><span>Quiz + badges</span></button>
       </div>
+    </section>
+
+    <section class="home-progress-panel panel">
+      ${progressBar(c)}
     </section>
 
     ${installBlock()}
@@ -397,16 +407,18 @@ function categoryTile(cat) {
   const halfTarget = Math.max(1, Math.ceil(cat.total / 2));
   const mapRevealed = cat.found >= halfTarget;
   const preview = allAnimals().filter(a => a.category === cat.id).slice(0, 4);
-  return `<button type="button" class="category-tile visual-world-card ${categoryClass(cat.id)} ${mapRevealed ? 'map-revealed' : 'map-mystery'}" data-route="journal" data-category="${cat.id}" style="${cssBg(worldBgPath(cat.id))}">
-    <div class="world-glass-top"><img src="${worldIconPath(cat.id)}" alt=""><div><strong>${cat.label}</strong><span>${cat.found}/${cat.total}</span></div></div>
+  return `<button type="button" class="category-tile visual-world-card progress-only-world ${categoryClass(cat.id)} ${mapRevealed ? 'map-revealed' : 'map-mystery'}" data-route="journal" data-category="${cat.id}" style="${cssBg(worldBgPath(cat.id))}" aria-label="${escapeHtml(cat.label)} ${cat.found} of ${cat.total} discovered">
+    <div class="world-image-focus"><img src="${worldIconPath(cat.id)}" alt="${escapeHtml(cat.label)}"></div>
     <div class="map-animal-peek">
       ${preview.map(a => `<span class="map-peek ${isUnlocked(a.id) && mapRevealed ? 'seen' : 'hidden'}">${imgMarkup(a)}</span>`).join('')}
       ${!mapRevealed ? `<b class="map-lock-note">?</b>` : ''}
     </div>
-    <div class="mini-progress"><i style="width:${pct}%"></i></div>
-    <small>${mapRevealed ? 'Map clues revealed!' : `Find ${halfTarget} to reveal map clues.`}</small>
+    <div class="mini-progress category-bar-only" aria-hidden="true"><i style="width:${pct}%"></i></div>
+    <span class="sr-only">${cat.label}: ${cat.found} of ${cat.total} discovered.</span>
   </button>`;
 }
+
+
 
 function earnedBadges() {
   const counts = Object.fromEntries(categoryCounts().map(c => [c.id, c.found]));
@@ -414,19 +426,22 @@ function earnedBadges() {
   const repeat = Object.values(appState.discoveries).some(d => d.timesFound >= 3);
   const handmade = appState.customAnimals.some(a => a.published);
   return [
-    { name: 'First Discovery', icon: '🌟', earned: found >= 1, hint: 'Find your first animal.' },
-    { name: 'Three Finds', icon: '🧭', earned: found >= 3, hint: 'Discover 3 animals.' },
-    { name: 'Ten Finds', icon: '🏆', earned: found >= 10, hint: 'Discover 10 animals.' },
-    { name: 'Pet Pal', icon: '🏡', earned: (counts.Pets || 0) >= 3, hint: 'Find 3 pets.' },
-    { name: 'Farm Friend', icon: '🌿', earned: (counts.Farm || 0) >= 3, hint: 'Find 3 farm animals.' },
-    { name: 'Bug Buddy', icon: '🔎', earned: (counts.Bugs || 0) >= 3, hint: 'Find 3 bugs.' },
-    { name: 'City Explorer', icon: '🏙️', earned: (counts.City || 0) >= 3, hint: 'Find 3 city animals.' },
-    { name: 'Wild Tracker', icon: '🌲', earned: (counts.Wild || 0) >= 2, hint: 'Find 2 wild animals.' },
-    { name: 'Zoo Scout', icon: '🧭', earned: (counts.Zoo || 0) >= 3, hint: 'Find 3 zoo animals.' },
-    { name: 'Found Again', icon: '🔁', earned: repeat, hint: 'Find the same animal 3 times.' },
-    { name: 'Handmade Helper', icon: '🎨', earned: handmade, hint: 'Publish a handmade animal.' }
+    { name: 'First Discovery', icon: '🐾', earned: found >= 1, hint: 'Find your first animal.', tone: 'gold' },
+    { name: 'Three Finds', icon: '🧭', earned: found >= 3, hint: 'Discover 3 animals.', tone: 'map' },
+    { name: 'Ten Finds', icon: '🏆', earned: found >= 10, hint: 'Discover 10 animals.', tone: 'trophy' },
+    { name: 'Pet Pal', icon: '🏠', earned: (counts.Pets || 0) >= 3, hint: 'Find 3 pets.', tone: 'pets' },
+    { name: 'Farm Friend', icon: '🚜', earned: (counts.Farm || 0) >= 3, hint: 'Find 3 farm animals.', tone: 'farm' },
+    { name: 'Bug Buddy', icon: '🐞', earned: (counts.Bugs || 0) >= 3, hint: 'Find 3 bugs.', tone: 'bugs' },
+    { name: 'City Explorer', icon: '🌆', earned: (counts.City || 0) >= 3, hint: 'Find 3 city animals.', tone: 'city' },
+    { name: 'Wild Tracker', icon: '🐾', earned: (counts.Wild || 0) >= 2, hint: 'Find 2 wild animals.', tone: 'wild' },
+    { name: 'Zoo Scout', icon: '🦁', earned: (counts.Zoo || 0) >= 3, hint: 'Find 3 zoo animals.', tone: 'zoo' },
+    { name: 'Found Again', icon: '🔁', earned: repeat, hint: 'Find the same animal 3 times.', tone: 'loop' },
+    { name: 'Handmade Helper', icon: '🎨', earned: handmade, hint: 'Publish a handmade animal.', tone: 'paint' },
+    { name: 'Quiz Star', icon: '⭐', earned: found >= 3, hint: 'Unlock quiz play.', tone: 'star' }
   ];
 }
+
+
 
 function renderProfile() {
   const profile = appState.profile || {};
@@ -457,7 +472,7 @@ function renderDiscover() {
         <div>
           <p class="eyebrow">Discover animal</p>
           <h1>Take a photo of what you found.</h1>
-          <p class="helper">One small local photo is saved for the card. Then choose the animal with big visual buttons.</p>
+          <p class="helper">Then tap the big animal picture that matches. A grown-up can help only when the animal is not in the journal.</p>
         </div>
       </div>
       <div class="camera-card visual-camera-card">
@@ -465,10 +480,13 @@ function renderDiscover() {
           <input id="discoverPhotoInput" type="file" accept="image/*" capture="environment">
           ${pendingPhoto ? `<img src="${pendingPhoto}" alt="Selected discovery photo">` : `<span class="camera-icon"><img src="./assets/nav/nav-camera.webp" alt=""></span><strong>Tap to take or choose photo</strong><small>Phone camera or photo library</small>`}
         </label>
-        <div class="actions center">
-          <button type="button" class="btn green big-visual-btn" data-action="chooseAnimal" ${pendingPhoto ? '' : 'disabled'}>Choose Animal</button>
-          <button type="button" class="btn yellow big-visual-btn" data-action="mystery" ${pendingPhoto ? '' : 'disabled'}>Mystery Animal</button>
-          ${pendingPhoto ? '<button type="button" class="btn ghost" data-action="clearPhoto">Retake / Choose Again</button>' : ''}
+        <div class="actions center visual-discover-actions">
+          <button type="button" class="choose-animal-card" data-action="chooseAnimal" ${pendingPhoto ? '' : 'disabled'} aria-label="Choose animal">
+            <span class="choose-icon"><img src="./assets/nav/nav-journal.webp" alt=""></span>
+            <strong>Choose Animal</strong>
+            <small>Match your photo</small>
+          </button>
+          ${pendingPhoto ? '<button type="button" class="retake-card" data-action="clearPhoto" aria-label="Retake or choose another photo"><span>↺</span><strong>Retake</strong></button>' : ''}
         </div>
       </div>
     </section>
@@ -491,9 +509,8 @@ function renderPicker(params = {}) {
         ${categoryCounts().map(c => `<button type="button" class="picker-filter ${selectedCategory === c.id ? 'active' : ''}" data-picker-category="${c.id}"><img src="${worldIconPath(c.id)}" alt=""><strong>${c.label}</strong></button>`).join('')}
       </div>
       <p id="pickerHint" class="picker-hint">Type freely or tap a picture filter. Tap an animal, then confirm before unlocking.</p>
-      <div class="animal-grid picker-grid visual-picker-grid">${list.map(animal => animalCard(animal, { action: 'selectAnimal', compact: true })).join('')}</div>
-      <div id="pickerNoResults" class="empty-state picker-empty" hidden><strong>No matching animals.</strong><p>Try another word or choose Mystery Animal.</p></div>
-      ${mode === 'discover' ? '<div class="actions center"><button type="button" class="btn yellow" data-action="mystery">I can’t find it</button></div>' : ''}
+      <div class="animal-grid picker-grid visual-picker-grid">${list.map(animal => animalCard(animal, { action: 'selectAnimal', compact: true })).join('')}${mode === 'discover' ? unknownAnimalCard() : ''}</div>
+      <div id="pickerNoResults" class="empty-state picker-empty" hidden><strong>No matching animals.</strong><p>Tap the big question-mark card if the animal is not in the journal.</p></div>
     </section>
   `);
   attachPickerFilters();
@@ -510,6 +527,11 @@ function attachPickerFilters() {
     const cat = activeCategory();
     let visible = 0;
     cards.forEach(card => {
+      if (card.classList.contains('unknown-animal-card')) {
+        card.hidden = false;
+        card.classList.remove('is-hidden');
+        return;
+      }
       const matchesCategory = cat === 'All' || card.dataset.category === cat;
       const haystack = card.dataset.search || '';
       const animalName = card.dataset.name || '';
@@ -521,7 +543,7 @@ function attachPickerFilters() {
     });
     if (noResults) noResults.hidden = visible > 0;
     const hint = document.getElementById('pickerHint');
-    if (hint) hint.textContent = visible ? `${visible} animal${visible === 1 ? '' : 's'} match. Tap one to confirm.` : 'No animals match yet. Try another word or choose Mystery Animal.';
+    if (hint) hint.textContent = visible ? `${visible} animal${visible === 1 ? '' : 's'} match. Tap one to confirm.` : 'No animals match yet. Tap the question-mark card if it is not in the journal.';
   };
   filterButtons.forEach(btn => btn.addEventListener('click', () => {
     filterButtons.forEach(b => b.classList.remove('active'));
@@ -531,6 +553,14 @@ function attachPickerFilters() {
   searchInput?.addEventListener('input', update);
   searchInput?.addEventListener('keyup', update);
   update();
+}
+
+
+function unknownAnimalCard() {
+  return `<button type="button" class="animal-card unknown-animal-card compact picker-visible" data-action="mystery" data-category="All" data-name="" data-search="unknown mystery not found question animal">
+    <div class="card-art unknown-art"><span class="unknown-big-question">?</span><span class="unknown-paw">🐾</span></div>
+    <div class="card-meta"><strong>Not here?</strong><em>Ask grown-up</em></div>
+  </button>`;
 }
 
 function categoryMysteryIcon(category) {
@@ -569,14 +599,19 @@ function renderJournal(category = 'All') {
   const title = category === 'All' ? 'Animal Journal' : `${categoryInfo(category).label} Album`;
   shell(`
     <section class="journal-hero panel sticker-hero visual-journal-hero">
-      <div><p class="eyebrow">Sticker album</p><h1>${escapeHtml(title)}</h1><p class="helper">Open a world. Color stickers are found. Grey animal shapes are waiting to be revealed.</p></div>
+      <div><p class="eyebrow">Sticker album</p><h1>${escapeHtml(title)}</h1><p class="helper">Color stickers are found. Grey shapes are waiting to be revealed.</p></div>
       ${progressBar(c)}
     </section>
-    <div class="journal-categories visual-world-tabs">
-      <button type="button" class="journal-cat visual-world-tab ${category === 'All' ? 'active' : ''}" data-route="journal" data-category="All"><img src="./assets/nav/nav-journal.webp" alt=""><strong>All</strong><em>${c.found}/${c.total}</em></button>
-      ${cats.map(cat => `<button type="button" class="journal-cat visual-world-tab ${category === cat.id ? 'active' : ''} ${categoryClass(cat.id)}" data-route="journal" data-category="${cat.id}">
-        <img src="${worldIconPath(cat.id)}" alt=""><strong>${cat.label}</strong><em>${cat.found}/${cat.total}</em>
-      </button>`).join('')}
+    <div class="journal-categories visual-world-tabs visual-world-tabs-v203">
+      <button type="button" class="journal-cat visual-world-tab progress-only-tab ${category === 'All' ? 'active' : ''}" data-route="journal" data-category="All" aria-label="All animals ${c.found} of ${c.total}">
+        <img src="./assets/nav/nav-journal.webp" alt=""><div class="mini-progress"><i style="width:${c.pct}%"></i></div><span class="sr-only">All</span>
+      </button>
+      ${cats.map(cat => {
+        const pct = cat.total ? Math.round(cat.found / cat.total * 100) : 0;
+        return `<button type="button" class="journal-cat visual-world-tab progress-only-tab ${category === cat.id ? 'active' : ''} ${categoryClass(cat.id)}" data-route="journal" data-category="${cat.id}" aria-label="${escapeHtml(cat.label)} ${cat.found} of ${cat.total}">
+          <img src="${worldIconPath(cat.id)}" alt=""><div class="mini-progress"><i style="width:${pct}%"></i></div><span class="sr-only">${escapeHtml(cat.label)}</span>
+        </button>`;
+      }).join('')}
     </div>
     <section class="panel album-panel panini-panel">
       <div class="section-head compact"><h2>${escapeHtml(title)}</h2><span>${filtered.filter(a => isUnlocked(a.id)).length}/${filtered.length}</span></div>
@@ -584,6 +619,8 @@ function renderJournal(category = 'All') {
     </section>
   `);
 }
+
+
 
 function iconForValue(kind, value) {
   const v = String(value || '').toLowerCase();
@@ -646,22 +683,83 @@ function imageAttributeBadge(label, value, kind, imagePath = '') {
   return `<div class="image-attribute-badge ${kind}">${media}<small>${escapeHtml(label)}</small><strong>${escapeHtml(clean)}</strong></div>`;
 }
 
+
+function funFactsFor(animal) {
+  const facts = Array.isArray(animal.funFacts) ? animal.funFacts : asList(animal.funFacts);
+  const fallback = animal.funFact ? [animal.funFact] : [];
+  const list = [...facts, ...fallback].filter(Boolean);
+  const unique = [];
+  list.forEach(f => { if (!unique.includes(f)) unique.push(f); });
+  return unique.slice(0, 2);
+}
+
+function foodEmoji(food) {
+  const f = String(food || '').toLowerCase();
+  if (/bamboo/.test(f)) return '🎍';
+  if (/nectar|flower/.test(f)) return '🌸';
+  if (/seed|grain/.test(f)) return '🌾';
+  if (/nut|acorn/.test(f)) return '🌰';
+  if (/fruit|berry|berries/.test(f)) return '🍎';
+  if (/grass|hay/.test(f)) return '🌱';
+  if (/plant|leaf|leaves|veggie|vegetable/.test(f)) return '🌿';
+  if (/insect|bug|tiny animals/.test(f)) return '🐞';
+  if (/fish/.test(f)) return '🐟';
+  if (/meat|animal/.test(f)) return '🍖';
+  if (/soil/.test(f)) return '🍂';
+  return '🥣';
+}
+
+function sizePaws(size) {
+  const s = String(size || '').toLowerCase();
+  const count = s.includes('tiny') ? 1 : s.includes('small') ? 2 : s.includes('medium') ? 3 : s.includes('large') ? 4 : s.includes('huge') ? 5 : 3;
+  return Array.from({ length: 5 }, (_, i) => `<span class="${i < count ? 'on' : ''}">●</span>`).join('');
+}
+
+function familyIcon(value) {
+  const v = String(value || '').toLowerCase();
+  if (/feline|cat|lion|tiger/.test(v)) return '🐱';
+  if (/canine|dog|coyote/.test(v)) return '🐶';
+  if (/rodent|capybara/.test(v)) return '🐹';
+  if (/equine|horse|donkey|zebra/.test(v)) return '🐴';
+  if (/bird/.test(v)) return '🪶';
+  if (/bear/.test(v)) return '🐻';
+  if (/reptile|lizard|crocodilian|turtle/.test(v)) return '🦎';
+  if (/insect|bug/.test(v)) return '🐞';
+  if (/frog|amphibian/.test(v)) return '🐸';
+  if (/fish/.test(v)) return '🐟';
+  if (/mollusk|snail/.test(v)) return '🐚';
+  return '🐾';
+}
+
+function visualFactCards(animal, unlocked) {
+  if (!unlocked) return `<div class="fun-facts-stack locked"><div class="fun-fact-card"><span>?</span><div><strong>Fun Facts</strong><p>Discover this animal to reveal two facts.</p></div></div></div>`;
+  const facts = funFactsFor(animal);
+  return `<div class="fun-facts-stack">
+    ${facts.map((fact, index) => `<div class="fun-fact-card"><span>${index === 0 ? '💡' : '🔎'}</span><div><strong>Fun Fact ${index + 1}</strong><p>${escapeHtml(fact)}</p></div></div>`).join('')}
+  </div>`;
+}
+
 function visualBadgeWall(animal) {
-  const food = firstValue(animal.eats);
-  const home = firstValue(animal.livesIn);
-  return `<div class="visual-badge-wall">
-    ${imageAttributeBadge('World', animal.category || 'Animal', 'lives', worldIconPath(animal.category))}
-    ${imageAttributeBadge('Kind', animal.animalClass || 'Animal', 'class')}
-    ${imageAttributeBadge('Eats', food, 'eats')}
-    ${imageAttributeBadge('Home', home, 'lives')}
-    ${imageAttributeBadge('Skill', animal.explorerSkill || 'Explorer', 'skill')}
-    ${imageAttributeBadge('Size', animal.size || 'Unknown', 'size')}
+  const foods = asList(animal.eats);
+  const homes = asList(animal.livesIn);
+  const foodTokens = foods.length ? foods.map(food => `<span title="${escapeHtml(food)}">${foodEmoji(food)}</span>`).join('') : '<span>🥣</span>';
+  const homeIcon = iconForValue('lives', homes.join(' '));
+  const kindIcon = iconForValue('class', animal.animalClass || animal.familyGroup || 'Animal');
+  const skillIcon = iconForValue('skill', animal.explorerSkill || 'Explorer');
+  return `<div class="visual-badge-wall v202-badge-wall">
+    <div class="image-attribute-badge world"><img src="${worldIconPath(animal.category)}" alt=""><small>World</small><strong>${escapeHtml(animal.category || 'Animal')}</strong></div>
+    <div class="image-attribute-badge food-symbol-badge eats"><div class="food-symbol-row">${foodTokens}</div><small>Eats</small><strong>${escapeHtml(foods.join(' + ') || 'Food')}</strong></div>
+    <div class="image-attribute-badge kind"><span>${kindIcon}</span><small>Kind</small><strong>${escapeHtml(animal.animalClass || 'Animal')}</strong></div>
+    <div class="image-attribute-badge family"><span>${familyIcon(animal.familyGroup || animal.animalClass)}</span><small>Family</small><strong>${escapeHtml(animal.familyGroup || animal.animalClass || 'Animal')}</strong></div>
+    <div class="image-attribute-badge home"><span>${homeIcon}</span><small>Home</small><strong>${escapeHtml(homes[0] || 'Place')}</strong></div>
+    <div class="image-attribute-badge skill"><span>${skillIcon}</span><small>Skill</small><strong>${escapeHtml(animal.explorerSkill || 'Explorer')}</strong></div>
+    <div class="image-attribute-badge size"><div class="size-paw-scale">${sizePaws(animal.size)}</div><small>Size</small><strong>${escapeHtml(animal.size || 'Unknown')}</strong></div>
   </div>`;
 }
 
 function lockedBadgeWall() {
-  return `<div class="visual-badge-wall locked-badges">
-    ${['World','Kind','Eats','Home','Skill','Size'].map(label => `<div class="image-attribute-badge mystery"><span>?</span><small>${label}</small><strong>Unlock</strong></div>`).join('')}
+  return `<div class="visual-badge-wall locked-badges v202-badge-wall">
+    ${['World','Eats','Kind','Family','Home','Skill','Size'].map(label => `<div class="image-attribute-badge mystery"><span>?</span><small>${label}</small><strong>Unlock</strong></div>`).join('')}
   </div>`;
 }
 
@@ -702,12 +800,12 @@ function renderDetail(id) {
           ${unlocked ? '<span class="discovered-stamp">Discovered!</span>' : '<span class="locked-question">?</span>'}
         </div>
         ${unlocked ? visualBadgeWall(animal) : lockedBadgeWall()}
-        <div class="story-bottom-grid visual-story-grid">
-          <div class="fun-fact-card"><span>💡</span><div><strong>Fun Fact</strong><p>${unlocked ? escapeHtml(animal.funFact || 'A new animal friend for your journal.') : 'Discover this animal to unlock the fact.'}</p></div></div>
+        <div class="story-bottom-grid visual-story-grid v202-story-grid">
+          ${visualFactCards(animal, unlocked)}
           <div class="my-photo-card"><strong>My Photo</strong>${latestPhoto ? `<img src="${latestPhoto}" alt="Latest discovery photo">` : '<div class="photo-placeholder">📷</div>'}</div>
         </div>
         ${unlocked ? `<p class="found-note">Found ${discovery.timesFound || 1} time${(discovery.timesFound || 1) === 1 ? '' : 's'} • Last found ${formatDate(discovery.lastDiscoveredAt)}</p>` : '<p class="found-note">Find this animal in the real world to reveal the card.</p>'}
-        <div class="actions center"><button type="button" class="btn green" data-route="discover">${unlocked ? 'Find Again' : 'Discover This Animal'}</button>${unlocked ? `<button type="button" class="btn danger" data-action="deleteDiscovery" data-id="${animal.id}">Delete Discovery</button>` : ''}</div>
+        <div class="actions center"><button type="button" class="btn green icon-btn" data-route="discover"><span class="btn-icon">📷</span><strong>${unlocked ? 'Find Again' : 'Discover'}</strong></button>${unlocked ? `<button type="button" class="btn danger icon-btn trash-btn" data-action="deleteDiscovery" data-id="${animal.id}" aria-label="Delete discovery"><span class="btn-icon">🗑️</span><strong>Delete</strong></button>` : ''}</div>
       </article>
     </section>
   `);
@@ -775,9 +873,9 @@ function renderConfirmAnimal(params = {}) {
           <h1>Is this a ${escapeHtml(animal.name)}?</h1>
           <div class="confirm-art">${imgMarkup(animal)}</div>
           <p class="helper">Confirm before unlocking so accidental taps do not change the journal.</p>
-          <div class="actions center">
-            <button type="button" class="btn green" data-action="confirmSelectedAnimal" data-id="${animal.id}">${mode === 'linkMystery' ? 'Yes, link mystery' : 'Yes, unlock card'}</button>
-            <button type="button" class="btn ghost" data-route="picker" data-mode="${escapeHtml(mode)}" data-category="${escapeHtml(backParams.category)}" data-search="${escapeHtml(backParams.search)}" data-mystery-id="${escapeHtml(params.mysteryId || '')}">Choose another</button>
+          <div class="confirm-choice-actions" aria-label="Confirm animal selection">
+            <button type="button" class="choice-btn yes" data-action="confirmSelectedAnimal" data-id="${animal.id}" aria-label="Confirm and unlock"><span>✓</span><small>${mode === 'linkMystery' ? 'Link' : 'Unlock'}</small></button>
+            <button type="button" class="choice-btn no" data-route="picker" data-mode="${escapeHtml(mode)}" data-category="${escapeHtml(backParams.category)}" data-search="${escapeHtml(backParams.search)}" data-mystery-id="${escapeHtml(params.mysteryId || '')}" aria-label="Go back and choose another"><span>×</span><small>Back</small></button>
           </div>
         </div>
       </div>
@@ -833,11 +931,11 @@ function renderExplorerClub() {
         <h1>Badges and quiz</h1>
         <p class="helper">Discover 3 animals to unlock quiz play. Badges reveal as you explore.</p>
         <div class="club-switch">
-          <button type="button" class="tab active" data-route="explorerClub" data-tab="badges">🏅 Badges</button>
-          <button type="button" class="tab" data-route="discover">📷 Discover Animals</button>
+          <button type="button" class="tab active icon-tab" data-route="explorerClub" data-tab="badges"><span>🏅</span><strong>Badges</strong></button>
+          <button type="button" class="tab icon-tab" data-route="discover"><span>📷</span><strong>Discover</strong></button>
         </div>
       </section>
-      <section class="panel"><div class="badge-album">${badges.map(badgeCard).join('')}</div></section>
+      <section class="panel"><div class="badge-album badge-album-v203">${badges.map(badgeCard).join('')}</div></section>
     `);
     return;
   }
@@ -847,46 +945,60 @@ function renderExplorerClub() {
       <section class="panel club-hero compact-club-hero">
         <p class="eyebrow">Explorer Club</p>
         <h1>Explorer badges</h1>
-        <p class="helper">Earn medals by discovering animals, finding categories, and adding handmade discoveries.</p>
+        <p class="helper">Collect medals by discovering animals, completing worlds, and creating special animals.</p>
         <div class="club-switch">
-          <button type="button" class="tab" data-route="explorerClub" data-tab="quiz">🧠 Quiz</button>
-          <button type="button" class="tab active" data-route="explorerClub" data-tab="badges">🏅 Badges</button>
+          <button type="button" class="tab icon-tab" data-route="explorerClub" data-tab="quiz"><span>❓</span><strong>Quiz</strong></button>
+          <button type="button" class="tab active icon-tab" data-route="explorerClub" data-tab="badges"><span>🏅</span><strong>Badges</strong></button>
         </div>
       </section>
-      <section class="panel"><div class="badge-album">${badges.map(badgeCard).join('')}</div></section>
+      <section class="panel"><div class="badge-album badge-album-v203">${badges.map(badgeCard).join('')}</div></section>
     `);
     return;
   }
 
   quizDraft = quizDraft && quizDraft.options.every(id => discovered.some(a => a.id === id)) ? quizDraft : createQuiz(discovered);
   const options = quizDraft.options.map(id => getAnimal(id)).filter(Boolean);
+  const attempts = quizDraft.attempts || 0;
+  const answerTotal = quizDraft.answers.length;
   shell(`
     <section class="panel club-hero compact-club-hero">
       <p class="eyebrow">Explorer Club</p>
       <h1>Animal quiz</h1>
-      <p class="helper">Tap every card that matches. Questions use only animals already discovered.</p>
+      <p class="helper">Tap every card that matches. You get two tries before the answer is revealed.</p>
       <div class="club-switch">
-        <button type="button" class="tab active" data-route="explorerClub" data-tab="quiz">🧠 Quiz</button>
-        <button type="button" class="tab" data-route="explorerClub" data-tab="badges">🏅 Badges</button>
+        <button type="button" class="tab active icon-tab" data-route="explorerClub" data-tab="quiz"><span>❓</span><strong>Quiz</strong></button>
+        <button type="button" class="tab icon-tab" data-route="explorerClub" data-tab="badges"><span>🏅</span><strong>Badges</strong></button>
       </div>
     </section>
-    <section class="panel quiz-panel quiz-fit-panel">
+    <section class="panel quiz-panel quiz-fit-panel quiz-v203-panel">
       <div class="quiz-question-card visual-quiz-question">
         <span class="quiz-icon">${quizDraft.icon || '🔎'}</span>
         <div><p class="eyebrow">Explorer quiz</p><h2>${escapeHtml(quizDraft.question)}</h2></div>
       </div>
-      <div class="quiz-instructions">Choose all that match. Everything should fit on the screen without hunting around.</div>
+      <div class="quiz-paw-status" aria-label="Quiz answer progress">${quizPawMeter(0, answerTotal)}<span class="try-dots"><i class="${attempts >= 1 ? 'used' : ''}"></i><i class="${attempts >= 2 ? 'used' : ''}"></i></span></div>
       <div class="animal-grid quiz-grid quiz-fit-grid">${options.map(animal => animalCard(animal, { action: 'quizSelect', compact: true })).join('')}</div>
-      <div id="quizFeedback" class="quiz-feedback strong"></div>
-      <div class="actions center quiz-actions"><button type="button" class="btn green" data-action="checkQuiz">Check Answer</button><button type="button" class="btn ghost" data-action="newQuiz">New Quiz</button></div>
+      <div id="quizFeedback" class="quiz-feedback strong visual-quiz-feedback"></div>
+      <div class="actions center quiz-actions v203-quiz-actions">
+        <button type="button" class="btn green icon-btn quiz-check-btn" data-action="checkQuiz" aria-label="Check answer"><span class="btn-icon">✅</span><span>Check</span></button>
+        <button type="button" class="btn ghost icon-btn quiz-new-btn" data-action="newQuiz" aria-label="New quiz"><span class="btn-icon">🔄</span><span>New</span></button>
+      </div>
     </section>
   `);
   quizDraft.selected.forEach(id => document.querySelector(`[data-action="quizSelect"][data-id="${CSS.escape(id)}"]`)?.classList.add('selected'));
+  applyQuizVisualState();
 }
 
+
+
 function badgeCard(badge) {
-  return `<div class="badge-card ${badge.earned ? 'earned' : 'locked'}"><div class="badge-medal"><span>${badge.earned ? badge.icon : '?'}</span></div><strong>${escapeHtml(badge.name)}</strong><span>${badge.earned ? 'Earned!' : 'Keep exploring'}</span></div>`;
+  return `<div class="badge-card explorer-medal-card ${badge.earned ? 'earned' : 'locked'} badge-tone-${escapeHtml(badge.tone || 'gold')}">
+    <div class="badge-medal"><span>${badge.earned ? badge.icon : '?'}</span><i></i></div>
+    <strong>${escapeHtml(badge.name)}</strong>
+    <span>${badge.earned ? 'Earned!' : badge.hint || 'Keep exploring'}</span>
+  </div>`;
 }
+
+
 
 function createQuiz(discovered) {
   const types = [];
@@ -921,8 +1033,10 @@ function createQuiz(discovered) {
     chosen = [...chosen, ...shuffle(discovered.filter(a => !used.has(a.id))).slice(0, Math.min(6, discovered.length) - chosen.length)];
   }
   chosen = chosen.slice(0, Math.min(6, discovered.length));
-  return { question: target.question, icon: target.icon, answers: chosen.filter(target.match).map(a => a.id), options: chosen.map(a => a.id), selected: [], checked: false };
+  return { question: target.question, icon: target.icon, answers: chosen.filter(target.match).map(a => a.id), options: chosen.map(a => a.id), selected: [], checked: false, attempts: 0, revealed: false, complete: false };
 }
+
+
 
 function shuffle(array) {
   return [...array].sort(() => Math.random() - 0.5);
@@ -949,11 +1063,12 @@ function renderParentGate() {
 function renderParentArea(tab = 'overview') {
   const pending = appState.mysteries.filter(m => m.status === 'pending');
   const c = completion();
+  const tabs = ['overview','guide','mysteries','handmade','settings','data'];
   shell(`
-    <section class="panel">
+    <section class="panel parent-panel-v203">
       <div class="section-head"><div><p class="eyebrow">Parent area</p><h1>Manage the local animal journal</h1></div><span class="version-pill">${APP_VERSION}</span></div>
-      <div class="tabs">
-        ${['overview','mysteries','handmade','settings','data'].map(t => `<button type="button" class="tab ${tab === t ? 'active' : ''}" data-route="parentArea" data-tab="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join('')}
+      <div class="tabs parent-tabs-v203">
+        ${tabs.map(t => `<button type="button" class="tab ${tab === t ? 'active' : ''}" data-route="parentArea" data-tab="${t}">${t === 'guide' ? 'Guide' : t[0].toUpperCase() + t.slice(1)}</button>`).join('')}
       </div>
       ${tab === 'overview' ? `<div class="dashboard-grid">
         <div class="dash-card"><strong>${c.found}/${c.total}</strong><span>Journal progress</span></div>
@@ -961,7 +1076,8 @@ function renderParentArea(tab = 'overview') {
         <div class="dash-card"><strong>${appState.customAnimals.length}</strong><span>Handmade animals</span></div>
         <div class="dash-card"><strong>${Object.keys(appState.discoveries).length}</strong><span>Discovered cards</span></div>
       </div>
-      <div class="actions"><button type="button" class="btn yellow" data-route="parentArea" data-tab="mysteries">Review Mysteries</button><button type="button" class="btn purple" data-route="handmade">Create Handmade Animal</button><button type="button" class="btn ghost" data-action="manualUnlock">Manual Unlock</button></div>` : ''}
+      <div class="actions"><button type="button" class="btn yellow icon-btn" data-route="parentArea" data-tab="guide"><span class="btn-icon">📘</span><span>How it Works</span></button><button type="button" class="btn yellow icon-btn" data-route="parentArea" data-tab="mysteries"><span class="btn-icon">❓</span><span>Review Mysteries</span></button><button type="button" class="btn purple icon-btn" data-route="handmade"><span class="btn-icon">🎨</span><span>Create Animal</span></button><button type="button" class="btn ghost icon-btn" data-action="manualUnlock"><span class="btn-icon">🔓</span><span>Manual Unlock</span></button></div>` : ''}
+      ${tab === 'guide' ? parentGuideMarkup() : ''}
       ${tab === 'mysteries' ? mysteryListMarkup() : ''}
       ${tab === 'handmade' ? handmadeListMarkup() : ''}
       ${tab === 'settings' ? settingsMarkup() : ''}
@@ -970,25 +1086,47 @@ function renderParentArea(tab = 'overview') {
   `);
 }
 
+
+
+function parentGuideMarkup() {
+  const mailSubject = encodeURIComponent('[Little Explorer:Animal Quest App Feedback]');
+  const mailBody = encodeURIComponent(`Hi Jose Maria,\n\nChild experience:\n- What did the child enjoy?\n- What confused them?\n- Did they want to explore outside?\n\nParent experience:\n- Was the purpose clear?\n- Was the app easy to use?\n- Any bugs or ideas?\n\nDevice/browser:\nApp version: ${APP_VERSION}\n`);
+  return `<div class="parent-guide">
+    <section class="guide-card purpose-card">
+      <span class="guide-icon">🧭</span>
+      <div><h2>Purpose</h2><p>I created this adventure as a father to help kids stay curious in the real world. The goal is not more screen time. The screen is only a tool: children notice an animal, take a photo, unlock a journal card, and learn from something they actually discovered.</p></div>
+    </section>
+    <section class="guide-card"><span class="guide-icon">📷</span><div><h2>How to use it</h2><p>Start with Discover. Let the child take or choose a photo. Then help them match the picture to an animal. The animal becomes a colorful sticker in the journal, while missing animals stay grey until found.</p></div></section>
+    <section class="guide-card"><span class="guide-icon">❓</span><div><h2>When the animal is not listed</h2><p>Tap the big question-mark card. The photo becomes a mystery for a grown-up to review. You can link it to an existing animal or create a new handmade creature.</p></div></section>
+    <section class="guide-card"><span class="guide-icon">🎨</span><div><h2>Create new creatures</h2><p>In Handmade Animal, add the animal name, category, kind, food, habitat, and cartoon image. The card is not shown to the child until it is ready, so the reveal still feels special.</p></div></section>
+    <section class="guide-card"><span class="guide-icon">🔒</span><div><h2>Local and private</h2><p>The MVP works locally. Photos and progress stay on the device. There are no accounts, no social sharing, no online database, and no external API calls in this version.</p></div></section>
+    <a class="btn blue icon-btn feedback-mail" href="mailto:josemariaherranmarco@gmail.com?subject=${mailSubject}&body=${mailBody}"><span class="btn-icon">✉️</span><span>Send Feedback</span></a>
+  </div>`;
+}
+
 function mysteryListMarkup() {
   const mysteries = appState.mysteries;
   if (!mysteries.length) return `<div class="empty-state"><strong>No mystery discoveries yet.</strong><p>When a child finds an animal not in the list, it appears here.</p></div>`;
-  return `<div class="list">${mysteries.map(m => `<article class="mystery-row"><img src="${m.photo}" alt="Mystery photo"><div><strong>Mystery discovery</strong><p class="helper">${formatDate(m.createdAt)} • ${m.status}</p><div class="actions"><button type="button" class="btn green" data-action="linkMystery" data-id="${m.id}">Link to Existing</button><button type="button" class="btn purple" data-route="handmade" data-mystery="${m.id}">Create Handmade</button><button type="button" class="btn danger" data-action="deleteMystery" data-id="${m.id}">Delete</button></div></div></article>`).join('')}</div>`;
+  return `<div class="list">${mysteries.map(m => `<article class="mystery-row"><img src="${m.photo}" alt="Mystery photo"><div><strong>Mystery discovery</strong><p class="helper">${formatDate(m.createdAt)} • ${m.status}</p><div class="actions"><button type="button" class="btn green icon-btn" data-action="linkMystery" data-id="${m.id}"><span class="btn-icon">🔗</span><span>Link Existing</span></button><button type="button" class="btn purple icon-btn" data-route="handmade" data-mystery="${m.id}"><span class="btn-icon">🎨</span><span>Create</span></button><button type="button" class="btn danger icon-btn" data-action="deleteMystery" data-id="${m.id}"><span class="btn-icon">🗑️</span><span>Delete</span></button></div></div></article>`).join('')}</div>`;
 }
+
+
 
 function handmadeListMarkup() {
   const custom = appState.customAnimals;
-  return `<div class="actions"><button type="button" class="btn purple" data-route="handmade">Create Handmade Animal</button></div>${custom.length ? `<div class="animal-grid small-grid">${custom.map(a => animalCard(a, { compact: true })).join('')}</div>` : `<div class="empty-state"><strong>No handmade animals yet.</strong><p>Parents can create a custom card when the official list does not include the animal.</p></div>`}`;
+  return `<div class="actions"><button type="button" class="btn purple icon-btn" data-route="handmade"><span class="btn-icon">🎨</span><strong>Create Handmade</strong></button></div>${custom.length ? `<div class="animal-grid small-grid">${custom.map(a => animalCard(a, { compact: true })).join('')}</div>` : `<div class="empty-state"><strong>No handmade animals yet.</strong><p>Parents can create a custom card when the official list does not include the animal.</p></div>`}`;
 }
 
 function settingsMarkup() {
   return `<div class="settings-list">
-    <div class="setting-row"><div><strong>Install App</strong><p>Add this deployed PWA to a device.</p></div><button type="button" class="btn blue" data-action="install">${isStandalone() ? 'Installed' : 'Install / Instructions'}</button></div>
-    <div class="setting-row"><div><strong>Export metadata</strong><p>Exports profile, discoveries, handmade animal records, and settings as JSON. Photos are excluded from export.</p></div><button type="button" class="btn green" data-action="export">Export JSON</button></div>
-    <div class="setting-row"><div><strong>Delete saved app photos</strong><p>Removes low-resolution discovery and mystery photos stored by this app.</p></div><button type="button" class="btn danger" data-action="deletePhotos">Delete Photos</button></div>
-    <div class="setting-row"><div><strong>Reset discoveries</strong><p>Keeps animal data and handmade animals but locks all cards again.</p></div><button type="button" class="btn danger" data-action="resetDiscoveries">Reset</button></div>
+    <div class="setting-row"><div><strong>Install App</strong><p>Add this deployed PWA to a device.</p></div><button type="button" class="btn blue icon-btn" data-action="install"><span class="btn-icon">⬇️</span><span>${isStandalone() ? 'Installed' : 'Install'}</span></button></div>
+    <div class="setting-row"><div><strong>Export metadata</strong><p>Exports profile, discoveries, handmade animal records, and settings as JSON. Photos are excluded from export.</p></div><button type="button" class="btn green icon-btn" data-action="export"><span class="btn-icon">📦</span><span>Export</span></button></div>
+    <div class="setting-row"><div><strong>Delete saved app photos</strong><p>Removes low-resolution discovery and mystery photos stored by this app.</p></div><button type="button" class="btn danger icon-btn" data-action="deletePhotos"><span class="btn-icon">🗑️</span><span>Photos</span></button></div>
+    <div class="setting-row"><div><strong>Reset discoveries</strong><p>Keeps animal data and handmade animals but locks all cards again.</p></div><button type="button" class="btn danger icon-btn" data-action="resetDiscoveries"><span class="btn-icon">🔄</span><span>Reset</span></button></div>
   </div>`;
 }
+
+
 
 function dataCheckMarkup() {
   const cats = categoryCounts();
@@ -1000,7 +1138,7 @@ function renderHandmade(params = {}) {
   const sourceMystery = params.mystery ? appState.mysteries.find(m => m.id === params.mystery) : null;
   shell(`
     <section class="panel handmade-panel">
-      <div class="section-head"><div><p class="eyebrow">Handmade animal</p><h1>Create a new animal card</h1><p class="helper">The card is published only when required details and a cartoon image are ready.</p></div><button type="button" class="btn ghost" data-route="parentArea" data-tab="handmade">Cancel</button></div>
+      <div class="section-head"><div><p class="eyebrow">Handmade animal</p><h1>Create a new animal card</h1><p class="helper">The card is published only when required details and a cartoon image are ready.</p></div><button type="button" class="btn ghost icon-btn" data-route="parentArea" data-tab="handmade"><span class="btn-icon">×</span><span>Cancel</span></button></div>
       ${sourceMystery ? `<div class="mystery-preview"><img src="${sourceMystery.photo}" alt="Mystery photo"><div><strong>Creating from mystery</strong><p class="helper">The child will see a reveal when this card is ready.</p></div></div>` : ''}
       <form class="form-card" data-submit="handmade" data-mystery="${params.mystery || ''}">
         <label>Name<input name="name" required placeholder="Example: Blue Backyard Bird"></label>
@@ -1012,13 +1150,16 @@ function renderHandmade(params = {}) {
         <label>Eats<input name="eats" required placeholder="Seeds, insects, berries"></label>
         <label>Lives in<input name="livesIn" required placeholder="Trees, gardens, ponds"></label>
         <label class="full">Fun fact<textarea name="funFact" placeholder="They love to sing in the morning!"></textarea></label>
+        <div class="ai-prompt-helper full"><div><strong>Need a cartoon?</strong><p class="helper">Fill in the details, then copy a prompt for an external AI image tool.</p></div><button type="button" class="btn blue icon-btn" data-action="copyAiPrompt"><span class="btn-icon">📋</span><span>Copy AI Prompt</span></button></div>
         <label class="full">Cartoon image<input id="handmadeImageInput" type="file" accept="image/*" required></label>
         <div id="handmadePreview" class="handmade-preview">${handmadeImageDraft ? `<img src="${handmadeImageDraft}" alt="Handmade animal preview">` : '<span>Upload a cartoon image before publishing.</span>'}</div>
-        <button type="submit" class="btn green full">Publish Handmade Animal</button>
+        <button type="submit" class="btn green full icon-btn"><span class="btn-icon">✅</span><span>Publish Handmade Animal</span></button>
       </form>
     </section>
   `);
 }
+
+
 
 function renderReveal(id) {
   const reveal = appState.readyReveals.find(r => r.id === id) || appState.readyReveals[0];
@@ -1074,6 +1215,7 @@ document.addEventListener('click', async event => {
   if (action === 'confirmSelectedAnimal') return confirmSelectedAnimal(id);
   if (action === 'quizSelect') return toggleQuizCard(actionEl, id);
   if (action === 'checkQuiz') return checkQuiz();
+  if (action === 'copyAiPrompt') return copyAiPrompt(actionEl);
   if (action === 'newQuiz') { quizDraft = null; return renderExplorerClub(); }
   if (action === 'manualUnlock') return setRoute('picker', { mode: 'manual' });
   if (action === 'linkMystery') return setRoute('picker', { mode: 'linkMystery', mysteryId: id });
@@ -1083,6 +1225,7 @@ document.addEventListener('click', async event => {
   if (action === 'deletePhotos') return deletePhotos();
   if (action === 'resetDiscoveries') return resetDiscoveries();
   if (action === 'openReveal') return openReveal(id);
+  if (action === 'feedbackEmail') return openFeedbackEmail();
 });
 
 async function selectAnimal(id) {
@@ -1115,17 +1258,55 @@ async function confirmAnimalSelection(id) {
   await unlockAnimal(id, pendingPhoto, routeParams.mode === 'manual' ? 'manual' : 'photo');
 }
 
+
+function quizPawMeter(correct = 0, total = 1) {
+  const safeTotal = Math.max(1, total || 1);
+  return `<div class="quiz-paw-meter" aria-hidden="true">${Array.from({ length: safeTotal }, (_, i) => `<span class="${i < correct ? 'filled' : ''}">🐾</span>`).join('')}</div>`;
+}
+
+function updateQuizPawStatus(correctOverride = null, totalOverride = null) {
+  if (!quizDraft) return;
+  const answerSet = new Set(quizDraft.answers);
+  const selectedSet = new Set(quizDraft.selected);
+  const correct = correctOverride ?? [...selectedSet].filter(id => answerSet.has(id)).length;
+  const total = totalOverride ?? answerSet.size;
+  const holder = document.querySelector('.quiz-paw-status');
+  if (holder) {
+    const attempts = quizDraft.attempts || 0;
+    holder.innerHTML = `${quizPawMeter(correct, total)}<span class="try-dots"><i class="${attempts >= 1 ? 'used' : ''}"></i><i class="${attempts >= 2 ? 'used' : ''}"></i></span>`;
+  }
+}
+
+function applyQuizVisualState() {
+  if (!quizDraft) return;
+  const selectedSet = new Set(quizDraft.selected);
+  const answerSet = new Set(quizDraft.answers);
+  document.querySelectorAll('.quiz-grid .animal-card').forEach(card => {
+    const id = card.dataset.id;
+    card.classList.toggle('selected', selectedSet.has(id));
+    card.classList.remove('quiz-correct', 'quiz-wrong', 'quiz-missed');
+    if (quizDraft.checked || quizDraft.revealed || quizDraft.complete) {
+      if (answerSet.has(id) && selectedSet.has(id)) card.classList.add('quiz-correct');
+      else if (selectedSet.has(id)) card.classList.add('quiz-wrong');
+      else if (quizDraft.revealed && answerSet.has(id)) card.classList.add('quiz-missed');
+    }
+  });
+  updateQuizPawStatus();
+}
+
 function clearQuizResultStyles() {
   document.querySelectorAll('.quiz-grid .animal-card').forEach(card => card.classList.remove('quiz-correct', 'quiz-wrong', 'quiz-missed'));
   const feedback = document.getElementById('quizFeedback');
   if (feedback) {
-    feedback.className = 'quiz-feedback strong';
-    feedback.textContent = '';
+    feedback.className = 'quiz-feedback strong visual-quiz-feedback';
+    feedback.innerHTML = '';
   }
 }
 
+
+
 function toggleQuizCard(card, id) {
-  if (!quizDraft) return;
+  if (!quizDraft || quizDraft.revealed || quizDraft.complete) return;
   if (quizDraft.checked) {
     quizDraft.checked = false;
     clearQuizResultStyles();
@@ -1134,33 +1315,53 @@ function toggleQuizCard(card, id) {
   if (set.has(id)) set.delete(id); else set.add(id);
   quizDraft.selected = [...set];
   card.classList.toggle('selected');
+  updateQuizPawStatus();
 }
 
-function checkQuiz() {
-  if (!quizDraft) return;
+
+
+
+async function checkQuiz() {
+  if (!quizDraft || quizDraft.revealed || quizDraft.complete) return;
+  quizDraft.attempts = Math.min(2, (quizDraft.attempts || 0) + 1);
+  quizDraft.checked = true;
   const selectedSet = new Set(quizDraft.selected);
   const answerSet = new Set(quizDraft.answers);
-  const feedback = document.getElementById('quizFeedback');
-  if (!feedback) return;
-  quizDraft.checked = true;
+  const selected = [...selectedSet].sort().join('|');
+  const answers = [...answerSet].sort().join('|');
+  const correctSelected = [...selectedSet].filter(id => answerSet.has(id)).length;
+  const wrongSelected = [...selectedSet].filter(id => !answerSet.has(id)).length;
+  const isExact = selected === answers;
+  const reveal = !isExact && quizDraft.attempts >= 2;
+  quizDraft.revealed = reveal;
+  quizDraft.complete = isExact;
+
   document.querySelectorAll('.quiz-grid .animal-card').forEach(card => {
     const id = card.dataset.id;
     card.classList.remove('quiz-correct', 'quiz-wrong', 'quiz-missed');
     if (answerSet.has(id) && selectedSet.has(id)) card.classList.add('quiz-correct');
-    else if (answerSet.has(id)) card.classList.add('quiz-missed');
     else if (selectedSet.has(id)) card.classList.add('quiz-wrong');
+    else if (reveal && answerSet.has(id)) card.classList.add('quiz-missed');
   });
-  const selected = [...selectedSet].sort().join('|');
-  const answers = [...answerSet].sort().join('|');
-  if (selected === answers) {
-    feedback.className = 'quiz-feedback strong good';
-    feedback.textContent = 'Correct! Great exploring.';
+
+  const feedback = document.getElementById('quizFeedback');
+  if (!feedback) return;
+  if (isExact) {
+    feedback.className = 'quiz-feedback strong good visual-quiz-feedback';
+    feedback.innerHTML = `<div class="result-face">🎉</div><div class="quiz-paws-result">${quizPawMeter(answerSet.size, answerSet.size)}</div>`;
+  } else if (!reveal) {
+    feedback.className = 'quiz-feedback strong almost visual-quiz-feedback';
+    const wrongPart = wrongSelected ? '<span class="mini-wrong">✕</span>' : '';
+    feedback.innerHTML = `<div class="result-face">${wrongSelected ? '🔄' : '🐾'}</div><div class="quiz-paws-result">${quizPawMeter(correctSelected, answerSet.size)}</div>${wrongPart}<div class="try-visual"><span class="try-dot used"></span><span class="try-dot"></span></div>`;
   } else {
-    const names = quizDraft.answers.map(id => getAnimal(id)?.name).filter(Boolean).join(', ');
-    feedback.className = 'quiz-feedback strong try';
-    feedback.textContent = `Not yet. Green cards are correct. Red cards are not a match. Answer: ${names}.`;
+    feedback.className = 'quiz-feedback strong reveal visual-quiz-feedback';
+    feedback.innerHTML = `<div class="result-face">👀</div><div class="quiz-paws-result">${quizPawMeter(answerSet.size, answerSet.size)}</div><small>The answer is glowing.</small>`;
   }
+  updateQuizPawStatus(correctSelected, answerSet.size);
 }
+
+
+
 
 document.addEventListener('change', async event => {
   if (event.target.id === 'discoverPhotoInput') {
@@ -1216,6 +1417,105 @@ document.addEventListener('submit', async event => {
   }
 });
 
+function openFeedbackEmail() {
+  const subject = '[Little Explorer:Animal Quest App Feedback]';
+  const body = [
+    'Hi Jose,',
+    '',
+    'Here is feedback on Little Explorer: Animal Quest.',
+    '',
+    'Child experience:',
+    '- What did the child enjoy?',
+    '- What confused the child?',
+    '- Could the child navigate without reading?',
+    '',
+    'Parent experience:',
+    '- Was the purpose clear?',
+    '- Was the app easy to use?',
+    '- What would make it more useful for real-world exploration?',
+    '',
+    `App version: ${APP_VERSION}`,
+    `Device/browser: ${navigator.userAgent}`
+  ].join('\n');
+  window.location.href = `mailto:josemariaherranmarco@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function aiImagePromptFromForm(form) {
+  const data = new FormData(form);
+  const name = String(data.get('name') || '').trim() || '[ANIMAL NAME PLACEHOLDER]';
+  const category = String(data.get('category') || '').trim() || '[CATEGORY PLACEHOLDER]';
+  const kind = String(data.get('animalClass') || '').trim() || '[ANIMAL KIND PLACEHOLDER]';
+  const family = String(data.get('familyGroup') || '').trim() || '[FAMILY PLACEHOLDER]';
+  const size = String(data.get('size') || '').trim() || '[SIZE PLACEHOLDER]';
+  const skill = String(data.get('explorerSkill') || '').trim() || '[EXPLORER SKILL PLACEHOLDER]';
+  const eats = String(data.get('eats') || '').trim() || '[FOOD DETAILS PLACEHOLDER]';
+  const lives = String(data.get('livesIn') || '').trim() || '[HABITAT DETAILS PLACEHOLDER]';
+  const fact1 = String(data.get('funFact') || '').trim();
+  const fact2 = String(data.get('funFact2') || '').trim();
+  return `Create a cartoon animal image for a children's app called Little Explorer: Animal Quest.\n\nAnimal name: ${name}\nCategory/world: ${category}\nAnimal kind: ${kind}\nAnimal family: ${family}\nSize: ${size}\nExplorer skill: ${skill}\nWhat it eats: ${eats}\nWhere it lives: ${lives}\nFun fact 1: ${fact1 || '[FUN FACT PLACEHOLDER]'}\nFun fact 2: ${fact2 || '[SECOND FUN FACT PLACEHOLDER]'}\n\nIf I provide a reference photo, use it only to understand the animal's shape, colors, and identifying traits. Do not copy any background or text from the reference image.\n\nStyle requirements: kawaii chibi animal character, cozy exploration field-journal style, full body centered, transparent background, 1024 x 1024 square canvas, friendly expressive eyes, soft rounded shapes, simplified anatomy, warm watercolor-like shading, slightly imperfect hand-inked outline, soft desaturated colors, top-left light source, non-threatening expression, collectible animal card style for kids ages 4 to 9.\n\nComposition requirements: one animal only, no scenery, no text, no logo, no hard shadow, no scary expression, no neon colors, enough padding around the animal, recognizable at small size. Export as PNG or WebP with transparent background.`;
+}
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+  const area = document.createElement('textarea');
+  area.value = text;
+  area.setAttribute('readonly', '');
+  area.style.position = 'fixed';
+  area.style.left = '-9999px';
+  document.body.appendChild(area);
+  area.select();
+  document.execCommand('copy');
+  area.remove();
+}
+
+async function copyAiImagePrompt(button) {
+  const form = button.closest('form') || document.querySelector('form[data-submit="handmade"]');
+  if (!form) return toast('Open the handmade animal form first.');
+  const prompt = aiImagePromptFromForm(form);
+  try {
+    await copyTextToClipboard(prompt);
+    toast('AI image prompt copied.');
+  } catch (_) {
+    alert(prompt);
+  }
+}
+
+
+function buildAiImagePrompt(form) {
+  const fd = new FormData(form);
+  const name = String(fd.get('name') || '').trim() || '[ANIMAL NAME PLACEHOLDER]';
+  const category = String(fd.get('category') || '').trim() || '[CATEGORY PLACEHOLDER]';
+  const animalClass = String(fd.get('animalClass') || '').trim() || '[ANIMAL KIND PLACEHOLDER]';
+  const familyGroup = String(fd.get('familyGroup') || '').trim() || '[ANIMAL FAMILY PLACEHOLDER]';
+  const size = String(fd.get('size') || '').trim() || '[SIZE PLACEHOLDER]';
+  const skill = String(fd.get('explorerSkill') || '').trim() || '[EXPLORER SKILL PLACEHOLDER]';
+  const eats = String(fd.get('eats') || '').trim() || '[FOOD PLACEHOLDER]';
+  const livesIn = String(fd.get('livesIn') || '').trim() || '[HABITAT PLACEHOLDER]';
+  const fact = String(fd.get('funFact') || '').trim() || '[FUN FACT PLACEHOLDER]';
+  return `Create a kid-friendly animal card illustration and suggest missing card details for Little Explorer: Animal Quest.\n\nAnimal name: ${name}\nCategory/world: ${category}\nAnimal kind: ${animalClass}\nAnimal family: ${familyGroup}\nSize: ${size}\nExplorer skill: ${skill}\nEats: ${eats}\nLives in: ${livesIn}\nKnown fun fact: ${fact}\n\nImage request: create a full-body kawaii chibi animal character for a cozy children's real-world animal discovery app. Use soft rounded shapes, big friendly expressive eyes, simplified anatomy, gentle watercolor-style shading, slightly desaturated colors, subtle hand-inked linework, and a clear top-left light source. The animal should be warm, non-threatening, recognizable at small size, and feel like a collectible sticker/journal card. Use a transparent background, 1024 x 1024 square canvas, full body centered, 10-15% padding, no text, no scenery, no harsh shadows, no neon colors.\n\nAlso provide two short fun facts for ages 4-9 and suggest: animal kind, family group, foods, habitat, explorer skill, and size. If I provide a reference photo, use it only to identify the animal and key visual traits, not as a realistic photo style.`;
+}
+
+async function copyAiPrompt(button) {
+  const form = button.closest('form');
+  if (!form) return toast('Open the handmade form first.');
+  const prompt = buildAiImagePrompt(form);
+  try {
+    await navigator.clipboard.writeText(prompt);
+    toast('AI image prompt copied.');
+  } catch (_) {
+    const box = document.createElement('textarea');
+    box.value = prompt;
+    document.body.appendChild(box);
+    box.select();
+    try { document.execCommand('copy'); toast('AI image prompt copied.'); }
+    catch (error) { alert(prompt); }
+    box.remove();
+  }
+}
+
 async function submitHandmade(form, formData) {
   if (!handmadeImageDraft) return toast('Upload a cartoon image before publishing.');
   const mysteryId = form.dataset.mystery || '';
@@ -1233,6 +1533,8 @@ async function submitHandmade(form, formData) {
     eats: asList(formData.get('eats')),
     livesIn: asList(formData.get('livesIn')),
     funFact: String(formData.get('funFact') || 'A special animal discovered by your family.'),
+    funFacts: [String(formData.get('funFact') || 'A special animal discovered by your family.'), 'This animal became part of your family journal because you discovered it.'],
+    funFacts: [String(formData.get('funFact') || '').trim(), String(formData.get('funFact2') || '').trim()].filter(Boolean),
     isBaseline: false,
     isCustom: true,
     published: true,
@@ -1279,6 +1581,7 @@ async function exportData() {
     exportedAt: new Date().toISOString(),
     profile: appState.profile ? { ...appState.profile, avatar: appState.profile.avatar ? '[not exported]' : null } : null,
     settings: appState.settings,
+    quizWins: Number(appState.quizWins || 0),
     completion: c,
     discoveries: Object.values(appState.discoveries).map(d => ({ ...d, latestPhoto: d.latestPhoto ? '[not exported]' : null })),
     customAnimals: appState.customAnimals.map(a => ({ ...a, image: a.image ? '[not exported]' : null })),
